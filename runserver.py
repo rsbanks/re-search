@@ -9,15 +9,18 @@ app = Flask(__name__, template_folder='.')
 def getProfs(search_criteria, input_arguments):
     profsDB_ = profsDB()
     error_statement = profsDB_.connect()
-    listOfProfs = []
+    profs = []
     if error_statement == '':
         cursor = profsDB_.conn.cursor()
-        if len(input_arguments) != 0:
-            profs = profsDB_.displayProfessorsByFilter(cursor, search_criteria, input_arguments)
-        else:
-            profs = profsDB_.displayAllProfessors(cursor)
-        profs = profsDB_.return_profs_list(profs)
-        profsDB_.disconnect()
+        try:
+            if len(input_arguments) != 0:
+                profs = profsDB_.displayProfessorsByFilter(cursor, search_criteria, input_arguments)
+            else:
+                profs = profsDB_.displayAllProfessors(cursor)
+            profsDB_.disconnect()
+            profs = profsDB_.return_profs_list(profs)
+        except Exception as e:
+            error_statement = str(e)
     else:
         print(error_statement)
     return profs, error_statement

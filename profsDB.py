@@ -39,8 +39,6 @@ class profsDB:
                 ' FROM profs' + \
                 ' WHERE ' + search_criteria + \
                 ' ORDER BY profs.last ASC'
-        print(stmtStr)
-        print(input_arguments)
         cursor.execute(stmtStr, input_arguments)
         return self.return_profs(cursor)
 
