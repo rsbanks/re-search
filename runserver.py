@@ -2,7 +2,7 @@ from sys import argv, stderr
 from flask import Flask, request, redirect, make_response, url_for
 from flask import render_template
 from prof import Professor
-from search import profsDB
+from profsDB import profsDB
 
 app = Flask(__name__, template_folder='.')
 
