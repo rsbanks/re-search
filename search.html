@@ -1,14 +1,35 @@
 <!DOCTYPE html>
-<html>
+<html class="background">
     <head>
-        <nav>
-            <a href="{{url_for('index')}}">Re-search</a>
-            <a href="{{url_for('index')}}">Log Out</a>
-        </nav>
+        <link rel="stylesheet" href="{{url_for('static', filename='search.css')}}">
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100&display=swap" rel="stylesheet">
+        <div class="header">
+            <a href="{{url_for('index')}}" class="title" style="text-decoration:none">Re-search</a>
+            <a href="{{url_for('index')}}" class="logout" style="text-decoration:none">Log Out</a>
+        </div>
     </head>
     <body>
-        <h2>Search for an Advisor</h2>
-        <form action="profs" method="get">
+        <h2 class="heading">Search for an Advisor</h2>
+
+        <form class = "searchForm" action="profs" method="GET">
+            <div class="form-row">
+              <div class="form-input-div">
+                <input type="text" class="form-input" placeholder="Professor's Name" id="name" name="name">
+              </div>
+              <div class="form-input-div">
+                <input type="text" class="form-input" placeholder="netid" id="netid" name="netid">
+              </div>
+              <div class="form-input-div">
+                <input type="text" class="form-input" placeholder="Research Area" id="area" name="area">
+              </div>
+              <div class="form-input-div">
+                <input type="submit" class="form-input search-button" value="Search">
+              </div>
+            </div>
+          </form>
+
+        <!-- <form action="profs" method="get">
+
             <table style="text-align: left;">
                 <tr>
                     <td align="right"><label for="name"></title>Name:</label></td>
@@ -27,6 +48,6 @@
                     <td><input type="submit" value="Search"></td>
                 </tr>
             </table>
-        </form>
+        </form> -->
     </body>
 </html>
