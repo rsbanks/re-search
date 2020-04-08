@@ -2,16 +2,31 @@
 <html>
     <head>
         <nav>
-            <a href='index.html'>Re-search</a>
-            <a href='about.html'>About</a>
-            <a href='index.html'>Log Out</a>
+            <a href="{{url_for('index')}}">Re-search</a>
+            <a href="{{url_for('index')}}">Log Out</a>
         </nav>
     </head>
     <body>
         <h2>Search for an Advisor</h2>
-        <form action="professors.html">
-            <input type="text" id="advisorSearchInputForm">
-            <input type="submit" value="Search">
+        <form action="profs" method="get">
+            <table style="text-align: left;">
+                <tr>
+                    <td align="right"><label for="name"></title>Name:</label></td>
+                    <td><input type="text" id="name" name="name"></td>
+                </tr>
+                <tr>
+                    <td align="right"><label for="netid">netid:</label></td>
+                    <td><input type="text" id="netid" name="netid"></td>
+                </tr> 
+                <tr>
+                    <td align="right"><label for="area">Research Areas:</label></td>
+                    <td><input type="text" id="area" name="area"></td>
+                </tr>                                     
+                <tr>
+                    <td></td>
+                    <td><input type="submit" value="Search"></td>
+                </tr>
+            </table>
         </form>
     </body>
 </html>
