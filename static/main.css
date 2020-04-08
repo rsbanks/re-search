@@ -1,0 +1,78 @@
+.background{
+    background-color: #E2E2E2;
+}
+
+.button {
+    position: absolute;
+    width: 25vw;
+    height: 8vh;
+    margin-left: 37.5vw;
+    margin-right: 37.5vw;
+    margin-top: 65vh;
+
+    font-family: Montserrat;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 22px;
+    line-height: 27px;
+    text-align: center;
+    
+    color: #FFFFFF;
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+
+    background: #000000;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 6px;
+}
+
+.button:hover {
+    transform: scale(1.05);
+}
+
+.header .title {
+    position: absolute;
+    width: 311px;
+    height: 54px;
+    left: 44px;
+    top: 23px;
+
+    font-family: Montserrat;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 50px;
+    line-height: 61px;
+
+    color: #000000;
+}
+
+.header .about {
+    position: absolute;
+    width: 110px;
+    height: 38px;
+    left: 1160px;
+    top: 39px;
+    
+    font-family: Montserrat;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 25px;
+    line-height: 30px;
+    
+    color: #000000;
+}
+
+.header .login {
+    position: absolute;
+    width: 95px;
+    height: 38px;
+    left: 1317px;
+    top: 39px;
+    
+    font-family: Montserrat;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 25px;
+    line-height: 30px;
+    
+    color: #000000;  
+}

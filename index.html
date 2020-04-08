@@ -1,12 +1,17 @@
 <!DOCTYPE html>
-<html>
+<html class="background">
     <head>
-        <nav>
-            <a href="{{url_for('index')}}">Re-search</a>
-            <a href="{{url_for('search')}}">Login</a>
-        </nav>
+        <link rel="stylesheet" href="{{url_for('static', filename='main.css')}}">
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100&display=swap" rel="stylesheet">
+        <div class="header">
+            <a href="{{url_for('index')}}" class="title"  style="text-decoration:none">Re-search</a>
+            <a href="{{url_for('about')}}" class="about"  style="text-decoration:none">About</a>
+            <a href="{{url_for('login')}}" class="login"  style="text-decoration:none">Login</a>
+        </div>
     </head>
     <body>
-
+        <form action='button'>
+            <button type="submit" class="button">Login</button>
+        </form>
     </body>
 </html>
