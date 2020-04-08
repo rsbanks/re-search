@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <nav>
+            <a href="{{url_for('index')}}">Re-search</a>
+        </nav>
+    </head>
+    <body>
+        {% if error_statement|length: %}
+            {{ error_statement }}
+        {% else: %}
+            <h2>Advisors</h2>
+            <table style="text-align: left;">
+            <tr>
+                <th>Netid</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone Number</th>
+                <th>Website</th>
+                <th>Rooms</th>
+                <th>Department</th>
+                <th>Research Areas</th>
+                <th>Bio</th>
+            </tr>
+            {% for prof in profs: %}
+                <tr>
+                    <td>{{prof[0]}}</td>
+                    <td>{{prof[1]}}</td>
+                    <td>{{prof[2]}}</td>
+                    <td>{{prof[3]}}</td>
+                    <td><a href={{prof[4]}}>{{prof[4]}}</a></td>
+                    <td>{{prof[5]}}</td>
+                    <td>{{prof[6]}}</td>
+                    <td>{{prof[7]}}</td>
+                    <td>{{prof[8]}}</td>
+                </tr>
+            {% endfor %}
+            </table>
+            <a href="{{url_for('search')}}">do another search</a>
+        {% endif %}
+    </body>
+</html>
