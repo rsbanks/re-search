@@ -37,6 +37,24 @@ def search():
     response = make_response(html)
     return response
 
+@app.route('/login')
+def login():
+    html = render_template('login.html')
+    response = make_response(html)
+    return response
+
+@app.route('/button')
+def button():
+    html = render_template('search.html')
+    response = make_response(html)
+    return response
+
+@app.route('/about')
+def about():
+    html = render_template('about.html')
+    response = make_response(html)
+    return response
+
 @app.route('/profs')
 def profs():   
     search_criteria, input_arguments = getSearchCriteria()
