@@ -1,5 +1,5 @@
 .background{
-    background-color: #E2E2E2;
+    background-color: #C9C9C9;
 }
 
 .heading {
@@ -28,7 +28,7 @@
 
     font-family: Montserrat;
     font-style: normal;
-    font-weight: bold;
+    font-weight: normal;
     font-size: 50px;
     line-height: 61px;
 
@@ -58,6 +58,12 @@
     margin-left: 12.5vw;
     margin-right: 12.5vw;
     margin-top: 50vh;
+}
+
+::placeholder {
+    opacity: 0.6;
+    font-family: 'Open Sans', sans-serif;
+    font-style: oblique;
 }
 
 .form-input-div {

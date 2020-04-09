@@ -1,63 +1,66 @@
 <!DOCTYPE html>
 <html class="background">
     <head>
-        <!-- <div class="header">
+      <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100&display=swap" rel="stylesheet">
+      <link rel="stylesheet" href="{{url_for('static', filename='profs.css')}}">
+        <div class="header">
             <a href="{{url_for('index')}}" class="title" style="text-decoration:none">Re-search</a>
             <a href="{{url_for('index')}}" class="logout" style="text-decoration:none">Log Out</a>
-        </div> -->
-        <link rel="stylesheet" href="{{url_for('static', filename='profs.css')}}">
+        </div>
     </head>
     <body>
         {% if error_statement|length: %}
             {{ error_statement }}
         {% else: %}
-            <!-- <h2>Advisors</h2>
-            <table style="text-align: left;">
-            <tr>
-                <th>Netid</th>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Phone Number</th>
-                <th>Website</th>
-                <th>Rooms</th>
-                <th>Department</th>
-                <th>Research Areas</th>
-                <th>Bio</th>
-            </tr>
-            {% for prof in profs: %}
-                <tr>
-                    <td>{{prof[0]}}</td>
-                    <td>{{prof[1]}}</td>
-                    <td>{{prof[2]}}</td>
-                    <td>{{prof[3]}}</td>
-                    <td><a href={{prof[4]}}>{{prof[4]}}</a></td>
-                    <td>{{prof[5]}}</td>
-                    <td>{{prof[6]}}</td>
-                    <td>{{prof[7]}}</td>
-                    <td>{{prof[8]}}</td>
-                </tr>
-            {% endfor %}
-            </table> -->
-            {% for prof in profs: %}
-            <div class="row">
-                <div class="example-1 card">
-                  <div class="wrapper">
-                    <div class="data">
-                      <div class="content">
-                        <h1 class="title"><a href="#" class="cardTitle">{{prof[1]}}</a></h1>
-                        <p class="text">{{prof[2]}}</p>
-                        <p class="text">{{prof[3]}}</p>
-                        <p class="text">{{prof[4]}}</p>
-                        <p class="text">{{prof[5]}}</p>
-                        <p class="text">{{prof[6]}}</p>
-                      </div>
-                    </div>
-                    
-                  </div>
-                </div>
+
+          <form class = "searchForm" action="profs" method="GET">
+            <div class="form-row">
+              <div class="form-input-div">
+                <input type="text" class="form-input" placeholder="Professor's Name" id="name" name="name">
               </div>
-            {% endfor %}
-            <a href="{{url_for('search')}}">do another search</a>
+              <div class="form-input-div">
+                <input type="text" class="form-input" placeholder="netid" id="netid" name="netid">
+              </div>
+              <div class="form-input-div">
+                <input type="text" class="form-input" placeholder="Research Area" id="area" name="area">
+              </div>
+              <div class="form-input-div">
+                <input type="submit" class="form-input search-button" value="Search">
+              </div>
+            </div>
+          </form>
+
+          {% for prof in profs: %}
+          <div class="row">
+
+            <div class="prof-image">
+              <img src="static/profRamonaPic.jpg"/>
+            </div>
+
+            <div class="prof-info">
+              <p class="prof-name">{{prof[1]}}</p>
+              <p class="prof-more-info">{{prof[2]}}</p>
+              <a href={{"mailto:" + prof[3]}}>{{prof[3]}}</a>
+              <p class="prof-more-info">{{prof[4]}}</p>
+              <p class="prof-more-info">{{prof[6]}}</p>
+              <p class="prof-more-info">{{prof[7]}}</p>
+              <a href="{{prof[5]}}" style="text-decoration:none"><p class="prof-website">personal website</p></a>
+              <!-- <p class="prof-research-areas">{{prof[7]}}</p>
+              <p class="prof-bio">{{prof[8]}}</p> -->
+            </div>
+
+            <div class="expand-div">
+              <img src="static/plus.png">
+            </div>
+
+          </div>
+
+          <!-- <div class="expanded-info">
+            <p class="prof-research-areas">{{prof[7]}}</p>
+            <p class="prof-bio">{{prof[8]}}</p>
+          </div> -->
+
+          {% endfor %}
         {% endif %}
     </body>
 </html>
