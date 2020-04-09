@@ -1,164 +1,200 @@
-@import url(https://fonts.googleapis.com/css?family=Open+Sans:300,400,700);
-// Variables
-$regal-blue: #034378;
-$san-juan: #2d4e68;
-$bermuda: #77d7b9;
-$white: #fff;
-$black: #000;
-$open-sans: 'Open Sans',
-sans-serif;
-// clear-fix mixin
-@mixin cf {
-  &::before,
-  &::after {
-    content: '';
-    display: table;
-  }
-  &::after {
-    clear: both;
-  }
+.background{
+  background-color: #C9C9C9;
 }
 
-* {
-  box-sizing: border-box;
+.header {
+  width: 100%;
+  height: 10vh;
 }
 
-body {
-  background-image: linear-gradient(to right, $regal-blue, $san-juan);
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  height: 100vh;
-  font-family: $open-sans;
+.header .title {
+  font-family: Montserrat;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 50px;
+  line-height: 61px;
+
+  color: #000000;
 }
 
-.cardTitle {
-  text-decoration: none;
-}
+.header .logout {  
+  font-family: Montserrat;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 22px;
+  line-height: 30px;
 
-.title {
-  font-family: $open-sans;
-  font-weight: 300;
+  float: right;
+  margin: 1%;
+  
+  color: #000000;  
 }
 
 .row {
-  max-width: 900px;
-  margin: 50px auto 0;
+  width: 98%;
+  margin-left: 1%;
+  margin-right: 1%;
+  height: 25vh;
+  margin-bottom: 3vh;
+
+  background: #AEAEAE;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 6px;
 }
 
-// Base styles
-.card {
+
+.row:hover {
+  transform: scale(1.01);
+  background-color: #B5B5B5;
+}
+
+
+.prof-image{
+  width: 10%;
+  height: 80%;
   float: left;
-  padding: 0 1.7rem;
-  width: 80%;
-  .menu-content {
-    @include cf;
-    margin: 0;
-    padding: 0;
-    list-style-type: none;
-    li {
-      display: inline-block;
-    }
-    a {
-      color: $white;
-    }
-    span {
-      position: absolute;
-      left: 50%;
-      top: 0;
-      font-size: 10px;
-      font-weight: 700;
-      font-family: 'Open Sans';
-      transform: translate(-50%, 0);
-    }
-  }
-  .wrapper {
-    background-color: $white;
-    position: relative;
-    overflow: hidden;
-    box-shadow: 0 19px 38px rgba($black, 0.3), 0 15px 12px rgba($black, 0.2);
-  }
-  .data {
-	  float: right;
-    width: 60%;
-	 height: 100%;
-    .content {
-      padding: 1em;
-      position: relative;
-      z-index: 1;
-    }
-  }
-  .author {
-    font-size: 12px;
-  }
-  .title {
-    margin-top: 10px;
-  }
-  .text {
-    height: 70px;
-    margin: 0;
-  }
-  input[type='checkbox'] {
-    display: none;
-  }
-  input[type='checkbox']:checked + .menu-content {
-    transform: translateY(-60px);
-  }
+  margin-left: 1%;
+  margin-top: 1.5%;
 }
 
-// First example styles
-.example-1 {
-  .wrapper {
-
-	 
-  }
-  .date {
-    position: absolute;
-    top: 0;
-    left: 0;
-    background-color: $bermuda;
-    color: $white;
-    padding: 0.8em;
-    span {
-      display: block;
-      text-align: center;
-    }
-    .day {
-      font-weight: 700;
-      font-size: 24px;
-      text-shadow: 2px 3px 2px rgba($black, 0.18);
-    }
-    .month {
-      text-transform: uppercase;
-    }
-    .month,
-    .year {
-      font-size: 12px;
-    }
-  }
-  .content {
-    background-color: $white;
-    box-shadow: 0 5px 30px 10px rgba($black, 0.3);
-  }
-  .title {
-    a {
-      color: lighten($black, 50%);
-    }
-  }
+img{
+  max-width: 100%;
+  max-height: 100%;
+  display: block;
 }
 
-.image {
-	float: left;
-	width: 20%;
+.prof-info {
+  width: 85%;
+  height: 100%;
+  float: left;
 }
 
-.prof-image {
-	width: 50%;
-	display: block;
-	height: 40%;
-	margin-top: auto;
-	margin-bottom: auto;
+.prof-name {
+  font-family: Montserrat;
+  font-style: normal;
+  font-weight: bolder;
+  font-size: 25px;
+
+  margin-bottom: 0;
+
+  color: #000000;
 }
 
-.background{
-  background-color: #E2E2E2;
+.prof-title {  
+  font-family: Montserrat;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 20px;
+  line-height: 24px;
+  
+  color: #000000;
+}
+
+.prof-more-info {  
+  font-family: Montserrat;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 16px;
+  margin: 0.1%;
+  
+  color: #000000;
+}
+
+.prof-website {  
+  font-family: Montserrat;
+  font-style: oblique;
+  font-weight: bold;
+  font-size: 16px;
+  margin: 0.1%;
+  text-decoration: underline;
+  
+  color: #000000;
+}
+
+.searchForm {
+  height: 10vh;
+}
+
+
+.search-button {
+  background: #000000;
+  box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.25);
+  border-radius: 6px;
+  height: 100%;
+
+  font-family: Montserrat;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 15px;
+  line-height: 27px;
+  text-align: center;
+  outline: none;
+
+  
+  color: #FFFFFF;
+  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.search-button:hover {
+  transform: scale(1.02);
+}
+
+.form-input-div {
+  width: 24%;
+  margin-right: 1%;
+  height: 100%;
+
+  background: #FFFFFF;
+  box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.25);
+  outline: none;
+  border-radius: 6px;
+}
+
+.form-input {
+  width: 100%;
+  height: 100%;
+  outline: none;
+  border: none;
+  border-radius: 6px;
+  text-align: center;
+  font-size: 16px;
+  font-weight: lighter;
+}
+
+.form-row {
+  position: absolute;
+  width: 98%;
+  margin-left: 1%;
+  margin-right: 1%;
+  height: 6vh;
+  display: inline-flex;
+}
+
+::placeholder {
+  opacity: 0.6;
+  font-family: 'Open Sans', sans-serif;
+  font-style: oblique;
+}
+
+.expand-div {
+  float: right;
+  width: 3%;
+  margin-top: 0.5%;
+  margin-right: 0.5%;
+  height: 30%;
+
+  opacity: 0.7;
+}
+
+.expanded-info {
+  width: 98%;
+  margin-left: 1%;
+  margin-right: 1%;
+  height: 75vh;
+  margin-bottom: 3vh;
+
+  background: #FAFAFA;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 6px;
+
 }

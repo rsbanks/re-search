@@ -3,8 +3,10 @@ class Professor(object):
     def __init__(self, netId):
         self.netId = netId
 
-    def setName(self, title, first, last):
+    def setTitle(self, title):
         self.title = title
+
+    def setName(self, first, last):
         self.first = first
         self.last = last
 
@@ -34,8 +36,11 @@ class Professor(object):
     def getNetId(self):
         return self.netId
 
+    def getTitle(self):
+        return self.title
+
     def getName(self):
-         return self.title + ' ' + self.first + ' ' + self.last
+         return self.first + ' ' + self.last
 
     def getEmail(self):
         return self.email
