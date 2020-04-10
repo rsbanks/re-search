@@ -78,20 +78,21 @@ def getSearchCriteria():
     netid = request.args.get('netid')
 
     search_criteria = ''
-    if name != '':
+    if name != '' and name != None:
         search_criteria += '' + 'first' + ' LIKE ' + '?' + ' OR '
         search_criteria += '' + 'last' + ' LIKE ' + '?' + ' AND '
         input_arguments.append('%'+name+'%')
         input_arguments.append('%'+name+'%')
-
-    if area != '':
+    if area != '' and area != None:
         search_criteria += 'area' + ' LIKE ' + '?' + ' AND '
         input_arguments.append('%'+area+'%')
-    if netid != '':
+    if netid != '' and netid != None:
         search_criteria += 'netid' + ' LIKE ' + '?' + ' AND '
         input_arguments.append('%'+netid+'%')
 
-    search_criteria = search_criteria[:-5]
+    if search_criteria != '' and search_criteria != None:
+        search_criteria = search_criteria[:-5]
+    print(search_criteria)
     return search_criteria, input_arguments
 
 if __name__ == '__main__':

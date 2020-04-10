@@ -4,7 +4,7 @@
       <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100&display=swap" rel="stylesheet">
       <link rel="stylesheet" href="{{url_for('static', filename='profs.css')}}">
         <div class="header">
-            <a href="{{url_for('index')}}" class="title" style="text-decoration:none">Re-search</a>
+            <a href="{{url_for('index')}}" class="title" style="text-decoration:none">Re-Search</a>
             <a href="{{url_for('index')}}" class="logout" style="text-decoration:none">Log Out</a>
         </div>
     </head>
@@ -13,54 +13,65 @@
             {{ error_statement }}
         {% else: %}
 
-          <form class = "searchForm" action="profs" method="GET">
-            <div class="form-row">
-              <div class="form-input-div">
-                <input type="text" class="form-input" placeholder="Professor's Name" id="name" name="name">
-              </div>
-              <div class="form-input-div">
-                <input type="text" class="form-input" placeholder="netid" id="netid" name="netid">
-              </div>
-              <div class="form-input-div">
-                <input type="text" class="form-input" placeholder="Research Area" id="area" name="area">
-              </div>
-              <div class="form-input-div">
-                <input type="submit" class="form-input search-button" value="Search">
-              </div>
+        <div class="heading-div">
+          <h2 class="heading">Search for an Advisor</h2>
+        </div>
+
+        <form class = "searchForm" action="profs" method="GET">
+          <div class="form-row">
+            <div class="form-input-div">
+              <input type="text" class="form-input" placeholder="Professor's Name" id="name" name="name">
             </div>
-          </form>
-
-          {% for prof in profs: %}
-          <div class="row">
-
-            <div class="prof-image">
-              <img src="static/profRamonaPic.jpg"/>
+            <div class="form-input-div">
+              <input type="text" class="form-input" placeholder="netid" id="netid" name="netid">
             </div>
-
-            <div class="prof-info">
-              <p class="prof-name">{{prof[1]}}</p>
-              <p class="prof-more-info">{{prof[2]}}</p>
-              <a href={{"mailto:" + prof[3]}}>{{prof[3]}}</a>
-              <p class="prof-more-info">{{prof[4]}}</p>
-              <p class="prof-more-info">{{prof[6]}}</p>
-              <p class="prof-more-info">{{prof[7]}}</p>
-              <a href="{{prof[5]}}" style="text-decoration:none"><p class="prof-website">personal website</p></a>
-              <!-- <p class="prof-research-areas">{{prof[7]}}</p>
-              <p class="prof-bio">{{prof[8]}}</p> -->
+            <div class="form-input-div">
+              <input type="text" class="form-input" placeholder="Research Area" id="area" name="area">
             </div>
-
-            <div class="expand-div">
-              <img src="static/plus.png">
+            <div class="form-input-div">
+              <input type="submit" class="form-input search-button" value="Search">
             </div>
-
           </div>
+        </form>
 
+          {% if profs|length: %}
+
+            {% for prof in profs: %}
+            <div class="row">
+              <div class="prof-image">
+                <img src="static/profRamonaPic.jpg"/>
+              </div>
+
+              <div class="prof-info">
+                <p class="prof-name">{{prof[1]}}</p>
+                <p class="prof-more-info">{{prof[2]}}</p>
+                <p class="prof-more-info">{{prof[7]}}</p>
+                <p class="prof-more-info">{{prof[4]}}</p>
+                <p class="prof-more-info">{{prof[6]}}</p>
+                <a href={{"mailto:" + prof[3]}}><img class="icon" src="static/email-icon.png"></a>
+                <a href="{{prof[5]}}"><img class="icon" src="static/website-icon.png"></a>
+              </div>
+
+              <!-- <div class="expand-div">
+                <img src="static/plus.png">
+              </div> -->
+
+            </div>
           <!-- <div class="expanded-info">
             <p class="prof-research-areas">{{prof[7]}}</p>
             <p class="prof-bio">{{prof[8]}}</p>
           </div> -->
 
           {% endfor %}
+
+          {% else: %}
+
+          <div>
+            <h2 class="no-search-results">No search results. Please try different keywords. </h2>
+          </div>
+
+          {% endif %}
+
         {% endif %}
     </body>
 </html>
