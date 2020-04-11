@@ -1,7 +1,7 @@
 from os import path
 from sys import argv, stderr
-from sqlite3 import connect
 from prof import Professor
+from sqlalchemy import create_engine
 
 class profsDB:
 
@@ -9,43 +9,43 @@ class profsDB:
         self.conn = None
 
     def connect(self):
-        DATABASE_NAME = 'profs.sqlite'
         error_statement = ''
 
-        if not path.isfile(DATABASE_NAME):
-            error_statement = 'database profs.sqlite not found'
+        try:
+            engine = create_engine('postgres://hmqcdnegecbdgo:c51235a04a7593a9ec0c13821f495f259a68d2e1ab66a93df947ab2f31970009@ec2-52-200-119-0.compute-1.amazonaws.com:5432/d99tniu8rpcj0o')
+            self.conn = engine.connect()
+        except Exception as e:
+            error_statement = e
             print(error_statement, file=stderr)
-        else:
-            self.conn = connect(DATABASE_NAME)
 
         return error_statement
 
-    def disconnect(self):
-        self.conn.close()
+    #def disconnect(self):
+        # sqlite only
+        #self.conn.close()
 
-    def displayAllProfessors(self, cursor):
+    def displayAllProfessors(self, connection):
         stmtStr = 'SELECT profs.netid, profs.title, profs.first, profs.last, profs.email,' + \
                 ' profs.phone, profs.website, profs.rooms, profs.department, profs.area,' + \
                 ' profs.bio' + \
                 ' FROM profs ' + \
                 ' ORDER BY profs.last ASC'
-        cursor.execute(stmtStr)
-        return self.return_profs(cursor)
+        result = connection.execute(stmtStr)
+        return self.return_profs(result)
 
-    def displayProfessorsByFilter(self, cursor, search_criteria, input_arguments):
+    def displayProfessorsByFilter(self, connection, search_criteria, input_arguments):
         stmtStr = 'SELECT profs.netid, profs.title, profs.first, profs.last, profs.email,' \
                 ' profs.phone, profs.website, profs.rooms, profs.department, profs.area,' \
                 ' profs.bio' + \
                 ' FROM profs' + \
                 ' WHERE ' + search_criteria + \
                 ' ORDER BY profs.last ASC'
-        cursor.execute(stmtStr, input_arguments)
-        return self.return_profs(cursor)
+        result = connection.execute(stmtStr, input_arguments)
+        return self.return_profs(result)
 
-    def return_profs(self, cursor): 
+    def return_profs(self, result): 
         profs = []
-        row = cursor.fetchone()
-        while row is not None:
+        for row in result:
             prof = Professor(row[0])
             prof.setName(row[1], row[2], row[3])
             prof.setEmail(row[4])
@@ -56,7 +56,6 @@ class profsDB:
             prof.setResearchAreas(row[9])
             prof.setBio(row[10])
             profs.append(prof)
-            row = cursor.fetchone()
         return profs
 
     def return_profs_list(self, profs):
@@ -90,10 +89,10 @@ if __name__ == '__main__':
     profsDB = profsDB()
     error_statement = profsDB.connect()
     if error_statement == '':
-        cursor = profsDB.conn.cursor()
-        profs = profsDB.displayAllProfessors(cursor)
+        connection = profsDB.conn
+        profs = profsDB.displayAllProfessors(connection)
         profsDB.print_profs(profs)
-        profsDB.disconnect()
+        # profsDB.disconnect()
     else:
         print(error_statement)
         
