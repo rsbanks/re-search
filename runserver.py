@@ -11,13 +11,14 @@ def getProfs(search_criteria, input_arguments):
     error_statement = profsDB_.connect()
     profs = []
     if error_statement == '':
-        cursor = profsDB_.conn.cursor()
+        connection = profsDB_.conn
         try:
             if len(input_arguments) != 0:
-                profs = profsDB_.displayProfessorsByFilter(cursor, search_criteria, input_arguments)
+                profs = profsDB_.displayProfessorsByFilter(connection, search_criteria, input_arguments)
             else:
-                profs = profsDB_.displayAllProfessors(cursor)
-            profsDB_.disconnect()
+                profs = profsDB_.displayAllProfessors(connection)
+            #sqlite only
+            # profsDB_.disconnect()
             profs = profsDB_.return_profs_list(profs)
         except Exception as e:
             error_statement = str(e)
@@ -78,17 +79,32 @@ def getSearchCriteria():
     netid = request.args.get('netid')
 
     search_criteria = ''
-    if name != '' and name != None:
-        search_criteria += '' + 'first' + ' LIKE ' + '?' + ' OR '
-        search_criteria += '' + 'last' + ' LIKE ' + '?' + ' AND '
-        input_arguments.append('%'+name+'%')
-        input_arguments.append('%'+name+'%')
-    if area != '' and area != None:
-        search_criteria += 'area' + ' LIKE ' + '?' + ' AND '
-        input_arguments.append('%'+area+'%')
-    if netid != '' and netid != None:
-        search_criteria += 'netid' + ' LIKE ' + '?' + ' AND '
-        input_arguments.append('%'+netid+'%')
+
+    if name is None:
+        name = ''
+    name = name.strip()
+    name = name.replace('%', r'\%')
+
+    search_criteria += '' + 'first' + ' ILIKE ' + '%s' + ' OR '
+    search_criteria += '' + 'last' + ' ILIKE ' + '%s' + ' AND '
+    input_arguments.append('%'+name+'%')
+    input_arguments.append('%'+name+'%')
+
+    if area is None:
+        area = ''
+    area = area.strip()
+    area = area.replace('%', r'\%')
+
+    search_criteria += 'area' + ' ILIKE ' + '%s' + ' AND '
+    input_arguments.append('%'+area+'%')
+
+    if netid is None:
+        netid = ''
+    netid = netid.replace('%', r'\%')
+    netid = netid.strip()
+
+    search_criteria += 'netid' + ' ILIKE ' + '%s' + ' AND '
+    input_arguments.append('%'+netid+'%')
 
     if search_criteria != '' and search_criteria != None:
         search_criteria = search_criteria[:-5]
