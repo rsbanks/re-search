@@ -40,7 +40,8 @@ class profsDB:
                 ' FROM profs' + \
                 ' WHERE ' + search_criteria + \
                 ' ORDER BY profs.last ASC'
-        result = connection.execute(stmtStr, input_arguments)
+        args = input_arguments
+        result = connection.execute(stmtStr, (args[0], args[1], args[2], args[3]))
         return self.return_profs(result)
 
     def return_profs(self, result): 
