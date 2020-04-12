@@ -38,17 +38,17 @@
             {% for prof in profs: %}
             <div class="row">
               <div class="prof-image">
-                <img src={{prof[10]}}/>
+                <img src={{prof[11]}}/>
               </div>
 
               <div class="prof-info">
-                <p class="prof-name">{{prof[1]}}</p>
-                <p class="prof-more-info">{{prof[2]}}</p>
+                <p class="prof-name">{{prof[1]}} {{prof[2]}}</p>
+                <p class="prof-more-info">{{prof[3]}}</p>
+                <p class="prof-more-info">{{prof[8]}}</p>
+                <p class="prof-more-info">{{prof[5]}}</p>
                 <p class="prof-more-info">{{prof[7]}}</p>
-                <p class="prof-more-info">{{prof[4]}}</p>
-                <p class="prof-more-info">{{prof[6]}}</p>
-                <a href={{"mailto:" + prof[3]}}><img class="icon" src="static/email-icon.png"></a>
-                <a href="{{prof[5]}}"><img class="icon" src="static/website-icon.png"></a>
+                <a href={{"mailto:" + prof[4]}}><img class="icon" src="static/email-icon.png"></a>
+                <a href="{{prof[6]}}"><img class="icon" src="static/website-icon.png"></a>
               </div>
 
               <!-- <div class="expand-div">
