@@ -30,7 +30,7 @@ def getProfs(search_criteria, input_arguments):
 
 @app.route('/')
 def index():
-    
+
     html = render_template('index.html')
     response = make_response(html)
     return response
@@ -46,6 +46,9 @@ def search():
 
 @app.route('/login')
 def login():
+
+    username = CASClient().authenticate()
+    
     html = render_template('login.html')
     response = make_response(html)
     return response
@@ -68,8 +71,6 @@ def button():
 
 @app.route('/about')
 def about():
-
-    username = CASClient().authenticate()
 
     html = render_template('about.html')
     response = make_response(html)
