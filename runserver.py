@@ -30,12 +30,18 @@ def getProfs(search_criteria, input_arguments):
 
 @app.route('/')
 def index():
+
+    username = CASClient().authenticate()
+
     html = render_template('index.html')
     response = make_response(html)
     return response
 
 @app.route('/search')
 def search():
+
+    username = CASClient().authenticate()
+
     html = render_template('search.html')
     response = make_response(html)
     return response
@@ -55,18 +61,27 @@ def logout():
 
 @app.route('/button')
 def button():
+
+    username = CASClient().authenticate()
+
     html = render_template('search.html')
     response = make_response(html)
     return response
 
 @app.route('/about')
 def about():
+
+    username = CASClient().authenticate()
+
     html = render_template('about.html')
     response = make_response(html)
     return response
 
 @app.route('/profs')
 def profs():   
+
+    username = CASClient().authenticate()
+
     search_criteria, input_arguments = getSearchCriteria()
 
     profs, error_statement = getProfs(search_criteria, input_arguments)
