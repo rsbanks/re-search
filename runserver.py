@@ -17,8 +17,6 @@ def getProfs(search_criteria, input_arguments):
                 profs = profsDB_.displayProfessorsByFilter(connection, search_criteria, input_arguments)
             else:
                 profs = profsDB_.displayAllProfessors(connection)
-            #sqlite only
-            # profsDB_.disconnect()
             profs = profsDB_.return_profs_list(profs)
         except Exception as e:
             error_statement = str(e)
@@ -84,11 +82,23 @@ def getSearchCriteria():
         name = ''
     name = name.strip()
     name = name.replace('%', r'\%')
+    names = name.split()
 
-    search_criteria += '' + 'first' + ' ILIKE ' + '%s' + ' OR '
-    search_criteria += '' + 'last' + ' ILIKE ' + '%s' + ' AND '
-    input_arguments.append('%'+name+'%')
-    input_arguments.append('%'+name+'%')
+    if len(names)==1:
+        search_criteria += 'first' + ' ILIKE ' + '%s' + ' OR '
+        search_criteria += 'last' + ' ILIKE ' + '%s' + ' AND '
+        input_arguments.append('%'+names[0]+'%')
+        input_arguments.append('%'+names[0]+'%')
+    elif len(names) > 1:
+        search_criteria += '(first' + ' ILIKE ' + '%s' + ' OR '
+        search_criteria += 'last' + ' ILIKE ' + '%s' + ') AND '
+        search_criteria += '(first' + ' ILIKE ' + '%s' + ' OR '
+        search_criteria += 'last' + ' ILIKE ' + '%s' + ') AND '
+        input_arguments.append('%'+names[0]+'%')
+        input_arguments.append('%'+names[0]+'%')
+        input_arguments.append('%'+names[1]+'%')
+        input_arguments.append('%'+names[1]+'%')
+
 
     if area is None:
         area = ''

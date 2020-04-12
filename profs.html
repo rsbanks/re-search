@@ -9,9 +9,8 @@
         </div>
     </head>
     <body>
-        {% if error_statement|length: %}
-            {{ error_statement }}
-        {% else: %}
+        
+      {{ error_statement }}
 
         <div class="heading-div">
           <h2 class="heading">Search for an Advisor</h2>
@@ -39,7 +38,7 @@
             {% for prof in profs: %}
             <div class="row">
               <div class="prof-image">
-                <img src="static/profRamonaPic.jpg"/>
+                <img src={{prof[10]}}/>
               </div>
 
               <div class="prof-info">
@@ -71,7 +70,5 @@
           </div>
 
           {% endif %}
-
-        {% endif %}
     </body>
 </html>
