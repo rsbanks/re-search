@@ -33,6 +33,9 @@ class Professor(object):
     def setBio(self, bio):
         self.bio = bio
 
+    def setImagePath(self, imagePath):
+        self.imagePath = imagePath
+
     def getNetId(self):
         return self.netId
 
@@ -62,3 +65,6 @@ class Professor(object):
 
     def getBio(self):
         return self.bio
+
+    def getImagePath(self):
+        return self.imagePath

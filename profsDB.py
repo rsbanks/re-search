@@ -20,14 +20,10 @@ class profsDB:
 
         return error_statement
 
-    #def disconnect(self):
-        # sqlite only
-        #self.conn.close()
-
     def displayAllProfessors(self, connection):
         stmtStr = 'SELECT profs.netid, profs.title, profs.first, profs.last, profs.email,' + \
                 ' profs.phone, profs.website, profs.rooms, profs.department, profs.area,' + \
-                ' profs.bio' + \
+                ' profs.bio, profs.image' + \
                 ' FROM profs ' + \
                 ' ORDER BY profs.last ASC'
         result = connection.execute(stmtStr)
@@ -36,12 +32,11 @@ class profsDB:
     def displayProfessorsByFilter(self, connection, search_criteria, input_arguments):
         stmtStr = 'SELECT profs.netid, profs.title, profs.first, profs.last, profs.email,' \
                 ' profs.phone, profs.website, profs.rooms, profs.department, profs.area,' \
-                ' profs.bio' + \
+                ' profs.bio, profs.image' + \
                 ' FROM profs' + \
                 ' WHERE ' + search_criteria + \
                 ' ORDER BY profs.last ASC'
-        args = input_arguments
-        result = connection.execute(stmtStr, (args[0], args[1], args[2], args[3]))
+        result = connection.execute(stmtStr, input_arguments)
         return self.return_profs(result)
 
     def return_profs(self, result): 
@@ -57,6 +52,8 @@ class profsDB:
             prof.setDepartment(row[8])
             prof.setResearchAreas(row[9])
             prof.setBio(row[10])
+            print(row[11])
+            prof.setImagePath(row[11])
             profs.append(prof)
         return profs
 
@@ -76,6 +73,7 @@ class profsDB:
             researchAreas = " ".join(prof.getResearchAreas())
             prof_listing.append(researchAreas)
             prof_listing.append(prof.getBio())
+            prof_listing.append(prof.getImagePath())
             profs_list.append(prof_listing)
         return profs_list
 
@@ -95,7 +93,6 @@ if __name__ == '__main__':
         connection = profsDB.conn
         profs = profsDB.displayAllProfessors(connection)
         profsDB.print_profs(profs)
-        # profsDB.disconnect()
     else:
         print(error_statement)
         
