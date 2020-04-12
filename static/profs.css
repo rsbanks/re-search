@@ -18,7 +18,7 @@
   color: #000000;
 }
 
-.header .logout {  
+.header .about {  
   font-family: Montserrat;
   font-style: normal;
   font-weight: bold;
@@ -31,7 +31,7 @@
   color: #000000;  
 }
 
-.header .about {  
+.header .logout {  
   font-family: Montserrat;
   font-style: normal;
   font-weight: bold;
