@@ -30,9 +30,7 @@ def getProfs(search_criteria, input_arguments):
 
 @app.route('/')
 def index():
-
-    username = CASClient().authenticate()
-
+    
     html = render_template('index.html')
     response = make_response(html)
     return response
