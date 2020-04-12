@@ -44,7 +44,8 @@ class profsDB:
         for row in result:
             prof = Professor(row[0])
             prof.setTitle(row[1])
-            prof.setName(row[2], row[3])
+            prof.setFirstName(row[2])
+            prof.setLastName(row[3])
             prof.setEmail(row[4])
             prof.setPhoneNumber(row[5])
             prof.setWebsite(row[6])
@@ -62,7 +63,8 @@ class profsDB:
         for prof in profs:
             prof_listing = []
             prof_listing.append(prof.getNetId())
-            prof_listing.append(prof.getName())
+            prof_listing.append(prof.getFirstName())
+            prof_listing.append(prof.getLastName())
             prof_listing.append(prof.getTitle())
             prof_listing.append(prof.getEmail())
             prof_listing.append(prof.getPhoneNumber())

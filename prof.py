@@ -6,8 +6,10 @@ class Professor(object):
     def setTitle(self, title):
         self.title = title
 
-    def setName(self, first, last):
+    def setFirstName(self, first):
         self.first = first
+
+    def setLastName(self, last):
         self.last = last
 
     def setEmail(self, email):
@@ -42,8 +44,11 @@ class Professor(object):
     def getTitle(self):
         return self.title
 
-    def getName(self):
-         return self.first + ' ' + self.last
+    def getFirstName(self):
+         return self.first
+
+    def getLastName(self):
+         return self.last
 
     def getEmail(self):
         return self.email
