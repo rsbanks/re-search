@@ -29,9 +29,10 @@ def getProfs(search_criteria, input_arguments):
     return profs, error_statement
 
 @app.route('/')
+@app.route('/index')
 def index():
 
-    html = render_template('index.html')
+    html = render_template('templates/index.html')
     response = make_response(html)
     return response
 
@@ -40,7 +41,7 @@ def search():
 
     username = CASClient().authenticate()
 
-    html = render_template('search.html')
+    html = render_template('templates/profs.html')
     response = make_response(html)
     return response
 
@@ -49,7 +50,7 @@ def login():
 
     username = CASClient().authenticate()
     
-    html = render_template('login.html')
+    html = render_template('templates/login.html')
     response = make_response(html)
     return response
 
@@ -60,24 +61,28 @@ def logout():
     casClient.authenticate()
     casClient.logout()
 
+    html = render_template('templates/index.html')
+    response = make_response(html)
+    return response
+
 @app.route('/button')
 def button():
 
     username = CASClient().authenticate()
 
-    html = render_template('search.html')
+    html = render_template('templates/search.html')
     response = make_response(html)
     return response
 
 @app.route('/about')
 def about():
 
-    html = render_template('about.html')
+    html = render_template('templates/about.html')
     response = make_response(html)
     return response
 
-@app.route('/profs')
-def profs():   
+@app.route('/searchResults', methods=['GET'])
+def searchResults():   
 
     username = CASClient().authenticate()
 
@@ -85,11 +90,26 @@ def profs():
 
     profs, error_statement = getProfs(search_criteria, input_arguments)
 
+    html = ''
     if error_statement == '':
-        html = \
-            render_template('profs.html', profs=profs)
+
+        for prof in profs:
+            html += '<div class="row">' + \
+                        '<div class="prof-image">' + \
+                            '<img src="' + prof[11] + '"/>' + \
+                        '</div>' + \
+                        '<div class="prof-info">' + \
+                            '<p class="prof-name">' + prof[1] + ' ' + prof[2] + '</p>' + \
+                            '<p class="prof-more-info">' + prof[3] + '</p>' + \
+                            '<p class="prof-more-info">' + prof[8] + '</p>' + \
+                            '<p class="prof-more-info">' + prof[5] + '</p>' + \
+                            '<p class="prof-more-info">' + prof[7] + '</p>' + \
+                            '<a href="mailto:' + prof[4] + '"><img class="icon" src="static/email-icon.png"></a>' + \
+                            '<a href="' + prof[6] + '"><img class="icon" src="static/website-icon.png"></a>' + \
+                        '</div>' + \
+                    '</div>'
     else:
-        html = render_template('profs.html', error_statement=error_statement)
+        html = render_template('templates/profs.html', error_statement=error_statement)
         print(error_statement, file=stderr)
     response = make_response(html)
     return response
@@ -97,9 +117,8 @@ def profs():
 def getSearchCriteria():
     input_arguments = []
 
-    name = request.args.get('name')
+    name = request.args.get('nameNetid')
     area = request.args.get('area')
-    netid = request.args.get('netid')
 
     search_criteria = ''
 
@@ -111,7 +130,9 @@ def getSearchCriteria():
 
     if len(names)==1:
         search_criteria += 'first' + ' ILIKE ' + '%s' + ' OR '
-        search_criteria += 'last' + ' ILIKE ' + '%s' + ' AND '
+        search_criteria += 'last' + ' ILIKE ' + '%s' + ' OR '
+        search_criteria += 'netid' + ' ILIKE ' + '%s' + ' AND '
+        input_arguments.append('%'+names[0]+'%')
         input_arguments.append('%'+names[0]+'%')
         input_arguments.append('%'+names[0]+'%')
     elif len(names) > 1:
@@ -132,14 +153,6 @@ def getSearchCriteria():
 
     search_criteria += 'area' + ' ILIKE ' + '%s' + ' AND '
     input_arguments.append('%'+area+'%')
-
-    if netid is None:
-        netid = ''
-    netid = netid.replace('%', r'\%')
-    netid = netid.strip()
-
-    search_criteria += 'netid' + ' ILIKE ' + '%s' + ' AND '
-    input_arguments.append('%'+netid+'%')
 
     if search_criteria != '' and search_criteria != None:
         search_criteria = search_criteria[:-5]

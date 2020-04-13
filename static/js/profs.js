@@ -1,7 +1,9 @@
 function setup()
 {
-   $('#name').focus();
+   $('#nameNetid').focus();
    $('#searchInput').on('input', getResults);
+
+   let request = null
 
    // show all profs on load
    let url = '/searchResults'
