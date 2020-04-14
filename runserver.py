@@ -92,7 +92,27 @@ def searchResults():
 
     html = ''
     if error_statement == '':
-        html = render_template('templates/profs.html', profs = profs)
+        i = 0
+        for prof in profs:
+            html += '<div class="row">' + \
+                        '<div class="prof-image">' + \
+                            '<img src="' + prof[11] + '"/>' + \
+                        '</div>' + \
+                        '<div class="prof-info">' + \
+                            '<p class="prof-name">' + prof[1] + ' ' + prof[2] + '</p>' + \
+                            '<p class="prof-more-info">' + prof[3] + '</p>' + \
+                            '<p class="prof-more-info">' + prof[8] + '</p>' + \
+                            '<p class="prof-more-info">' + prof[5] + '</p>' + \
+                            '<p class="prof-more-info">' + prof[7] + '</p>' + \
+                            '<a href="mailto:' + prof[4] + '"><img class="icon" src="static/email-icon.png"></a>' + \
+                            '<a href="' + prof[6] + '"><img class="icon" src="static/website-icon.png"></a>' + \
+                            '<button type="button" onclick=' + '"collapse(' + str(i) + ')"><img class="icon" src="static/plus.png"></button>' + \
+                        '</div>' + \
+                    '</div>'+ \
+                    '<div class="panel" id =bio-' + str(i) + '>' + \
+                        '<p class = prof-more-info>' + prof[10] + '</p>' + \
+                    '</div>'
+            i+=1
     else:
         html = render_template('templates/profs.html', error_statement=error_statement)
         print(error_statement, file=stderr)
