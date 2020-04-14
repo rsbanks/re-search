@@ -128,7 +128,7 @@ img{
   color: #000000;
 }
 
-.prof-more-info {  
+.prof-more-info {
   font-family: Montserrat;
   font-style: normal;
   font-weight: bold;
@@ -136,6 +136,16 @@ img{
   margin: 0.1%;
   
   color: #000000;
+}
+
+.bio {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.2s ease-out;
+}
+
+.collapsible {
+  cursor: pointer;
 }
 
 .searchForm {
