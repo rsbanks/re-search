@@ -27,7 +27,6 @@ def getProfs(search_criteria, input_arguments):
     else:
         print(error_statement)
 
-    profsDB_.disconnect()
     return profs, error_statement
 
 @app.route('/')
@@ -119,6 +118,8 @@ def searchResults():
         html = render_template('templates/profs.html', error_statement=error_statement)
         print(error_statement, file=stderr)
     response = make_response(html)
+
+    profsDB_.disconnect()
     return response
 
 def getSearchCriteria():
