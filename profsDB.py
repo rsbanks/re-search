@@ -20,9 +20,6 @@ class profsDB:
 
         return error_statement
 
-    def disconnect(self):
-        self._conn.close()
-
     def displayAllProfessors(self, connection):
         stmtStr = 'SELECT profs.netid, profs.title, profs.first, profs.last, profs.email,' + \
                 ' profs.phone, profs.website, profs.rooms, profs.department, profs.area,' + \
@@ -59,6 +56,7 @@ class profsDB:
             print(row[11])
             prof.setImagePath(row[11])
             profs.append(prof)
+        result.close()
         return profs
 
     def return_profs_list(self, profs):
