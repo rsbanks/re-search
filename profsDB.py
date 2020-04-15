@@ -20,6 +20,9 @@ class profsDB:
 
         return error_statement
 
+    def disconnect(self):
+        self._conn.close()
+
     def displayAllProfessors(self, connection):
         stmtStr = 'SELECT profs.netid, profs.title, profs.first, profs.last, profs.email,' + \
                 ' profs.phone, profs.website, profs.rooms, profs.department, profs.area,' + \
