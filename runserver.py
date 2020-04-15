@@ -26,6 +26,8 @@ def getProfs(search_criteria, input_arguments):
             error_statement = str(e)
     else:
         print(error_statement)
+
+    profsDB_.disconnect()
     return profs, error_statement
 
 @app.route('/')
