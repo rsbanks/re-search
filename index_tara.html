@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <h1>Welcome Tara</h1>
+</head>
+
+<body>
+    {% if error_statement|length: %} {{error_statement}} {% else: %}
+    <h2>Enter the NetID of the professor's infomation you want to change:</h2>
+    <hr>
+    <form action="/profinfo" method="get">
+        <table style="text-align: left;">
+            <tr>
+                <td align="right"><label for="netid">NetID:</label></td>
+                <td><input type="text" id="netid" name="netid" value={{netid}}></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><input style="font-size:15pt" type="submit" value="Search"></td>
+            </tr>
+        </table>
+    </form>
+    <hr> {% endif %}
+</body>
+
+</html>
