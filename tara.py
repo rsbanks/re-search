@@ -73,17 +73,17 @@ def getSearchCriteria(netid):
     return search_criteria, input_arguments
 
 def getUpdateString(netid):
-    update_string = "UPDATE profs SET firstname = " + request.args.get('firstname') 
-    update_string += ", lastname = " + request.args.get('lastname')
-    update_string += ", phone = " + request.args.get('phone')
-    update_string += ", email = " + request.args.get('email')
-    update_string += ", title = " + request.args.get('title')
-    update_string += ", website = " + request.args.get('website')
-    update_string += ", rooms = " + request.args.get('rooms')
-    update_string += ", department = " + request.args.get('department')
-    update_string += ", area = " + request.args.get('area')
-    update_string += ", bio = " + request.args.get('bio')
-    update_string += " WHERE netid = " + netid
+    update_string = "UPDATE profs SET firstname = '" + request.args.get('firstname') 
+    update_string += "', lastname = '" + request.args.get('lastname')
+    update_string += "', phone = '" + request.args.get('phone')
+    update_string += "', email = '" + request.args.get('email')
+    update_string += "', title = '" + request.args.get('title')
+    update_string += "', website = '" + request.args.get('website')
+    update_string += "', rooms = '" + request.args.get('rooms')
+    update_string += "', department = '" + request.args.get('department')
+    update_string += "', area = '" + request.args.get('area')
+    update_string += "', bio = '" + request.args.get('bio')
+    update_string += "' WHERE netid = '" + netid + "'"
     return update_string
 
 
