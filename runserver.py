@@ -104,7 +104,7 @@ def searchResults():
                         '<div class="prof-image">' + \
                             '<img src="' + prof[11] + '"/>' + \
                         '</div>' + \
-                        '<div class="prof-info">' + \
+                        '<div class="prof-info" onclick=' + '"collapse(' + str(i) + ')">' + \
                             '<p class="prof-name">' + prof[1] + ' ' + prof[2] + '</p>' + \
                             '<p class="prof-more-info">' + prof[3] + '</p>' + \
                             '<p class="prof-more-info">' + prof[8] + '</p>' + \
@@ -112,11 +112,20 @@ def searchResults():
                             '<p class="prof-more-info">' + prof[7] + '</p>' + \
                             '<a href="mailto:' + prof[4] + '"><img class="icon" src="static/email-icon.png"></a>' + \
                             '<a href="' + prof[6] + '"><img class="icon" src="static/website-icon.png"></a>' + \
-                            '<button type="button" onclick=' + '"collapse(' + str(i) + ')"><img class="icon" src="static/plus.png"></button>' + \
+                        '</div>' + \
+                        '<div class="button-div">' +\
+                            '<button type="button" class="button" onclick=' + '"collapse(' + str(i) + ')"><img class="icon-button" id= img-' + str(i) + ' src="static/plus.png"></button>' + \
                         '</div>' + \
                     '</div>'+ \
                     '<div class="panel" id =bio-' + str(i) + '>' + \
-                        '<p class = prof-more-info>' + prof[10] + '</p>' + \
+                        '<div class="info-left">' + \
+                            '<p class="sub-title"> Bio: </p>' + \
+                            '<p class ="sub-info">' + prof[10] + '</p>' + \
+                        '</div>' + \
+                        '<div class="info-right">' + \
+                            '<p class="sub-title"> Academic Interests: </p>' + \
+                            '<p class ="sub-info">' + prof[9] + '</p>' + \
+                        '</div>' + \
                     '</div>'
             i+=1
     else:
