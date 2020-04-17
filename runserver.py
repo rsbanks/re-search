@@ -117,7 +117,7 @@ def searchResults():
                             '<button type="button" class="button" onclick=' + '"collapse(' + str(i) + ')"><img class="icon-button" id= img-' + str(i) + ' src="static/plus.png"></button>' + \
                         '</div>' + \
                     '</div>'+ \
-                    '<div class="panel" id =bio-' + str(i) + '>' + \
+                    '<div class="panel" id =panel-' + str(i) + '>' + \
                         '<div class="info-left">' + \
                             '<p class="sub-title"> Bio: </p>' + \
                             '<p class ="sub-info">' + prof[10] + '</p>' + \
