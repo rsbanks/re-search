@@ -59,18 +59,24 @@ if __name__ == '__main__':
     database = 'd99tniu8rpcj0o'
 
     conn = psycopg2.connect( host=hostname, user=username, password=password, dbname=database)
-    # replace netid with prof's netid
     prof = Professor("aaa")
-    prof.setTitle("sir")
-    prof.setFirstName("John")
-    prof.setLastName("Doe")
-    prof.setEmail("john@princeton.edu")
-    prof.setPhoneNumber("0012402139")
-    prof.setWebsite("www.google.com")
-    prof.setRooms("room1")
-    prof.setDepartment("dept1")
-    prof.setResearchAreas("math, optimization")
-    prof.setBio("bio")
-    prof.setImagePath("static\images\default.jpg")
+    prof.setTitle("Professor")
+    prof.setFirstName("Amir Ali")
+    prof.setLastName("Ahmadi")
+    prof.setEmail("aaa@princeton.edu")
+    prof.setPhoneNumber("(609) 258-6416")
+    prof.setWebsite("http://aaa.princeton.edu/")
+    prof.setRooms("Sherrerd Hall 329")
+    prof.setDepartment("Operations Research and Financial Engineering")
+    prof.setResearchAreas("Optimization, Operations Research")
+    prof.setBio("""Development of computational tools for optimization
+     of sociotechnical systems arising in operations research and 
+     engineering, algebraic methods in optimization, semidefinite 
+     programming, polynomial optimization, dynamical systems and control,
+     Lyapunov methods for stability and robustness verification, 
+     computational complexity in optimization, convex relaxations in
+     combinatorial optimization, and applications of these tools to
+     semialgebraic problems in statistics, economics, and systems theory.""")
+    prof.setImagePath("static/profImages/aaa.png")
     updateDB(conn, prof)
     conn.close()
