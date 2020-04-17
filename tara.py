@@ -4,6 +4,7 @@ from flask import Flask, request, make_response, redirect, url_for
 from flask import render_template
 from prof import Professor
 from profsDB import profsDB
+import csv
 
 app = Flask(__name__, template_folder='.')
 
@@ -27,9 +28,8 @@ def getProfs(search_criteria, input_arguments):
         print(error_statement)
     return profs, error_statement
 
-def getSearchCriteria():
+def getSearchCriteria(netid):
     input_arguments = []
-    netid = request.args.get('netid')
     name = ''
     area = ''
 
@@ -72,6 +72,34 @@ def getSearchCriteria():
         search_criteria = search_criteria[:-5]
     return search_criteria, input_arguments
 
+def getUpdateString(netid):
+    update_string = "UPDATE profs SET firstname = " + request.args.get('firstname') 
+    update_string += ", lastname = " + request.args.get('lastname')
+    update_string += ", phone = " + request.args.get('phone')
+    update_string += ", email = " + request.args.get('email')
+    update_string += ", title = " + request.args.get('title')
+    update_string += ", website = " + request.args.get('website')
+    update_string += ", rooms = " + request.args.get('rooms')
+    update_string += ", department = " + request.args.get('department')
+    update_string += ", area = " + request.args.get('area')
+    update_string += ", bio = " + request.args.get('bio')
+    update_string += " WHERE netid = " + netid
+    return update_string
+
+
+def overwriteProf(update_string):
+    profsDB_ = profsDB()
+    error_statement = profsDB_.connect()
+    if error_statement == '':
+        connection = profsDB_.conn
+        try:
+            result = connection.execute(update_string)
+        except Exception as e:
+            error_statement = str(e)
+    else:
+        print(error_statement)
+    return error_statement
+
 @app.route('/')
 @app.route('/index', methods=["GET"])
 def index():
@@ -81,15 +109,34 @@ def index():
 
 @app.route('/profinfo', methods=["GET"])
 def profinfo():
-    search_criteria, input_arguments = getSearchCriteria()
-    profs, error_statement = getProfs(search_criteria, input_arguments)
     netID = request.args.get('netid')
+    search_criteria, input_arguments = getSearchCriteria(netID)
+    profs, error_statement = getProfs(search_criteria, input_arguments)
 
     if error_statement == '':
         html = \
             render_template('profinfo_tara.html', profs=profs, netid=netID)
     else:
         html = render_template('profinfo_tara.html', error_statement=error_statement)
+        print(error_statement, file=stderr)
+    response = make_response(html)
+    response.set_cookie('netid', netID)
+    return response
+
+@app.route('/displayprof', methods=["GET"])
+def displayprof():
+    netID = request.cookies.get('netid')
+    update_string = getUpdateString(netID)
+    print(update_string)
+    error_statement = overwriteProf(update_string)
+    search_criteria, input_arguments = getSearchCriteria(netID)
+    profs, error_statement = getProfs(search_criteria, input_arguments)
+
+    if error_statement == '':
+        html = \
+            render_template('displayprof_tara.html', profs=profs, netid=netID)
+    else:
+        html = render_template('displayprof_tara.html', error_statement=error_statement)
         print(error_statement, file=stderr)
 
     response = make_response(html)

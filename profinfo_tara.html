@@ -10,7 +10,7 @@
     {% if error_statement|length: %} { {error_statement}} {% else: %}
     <h2>Enter the professors infomation below:</h2>
     <hr>
-    <form action="/" method="get">
+    <form action="/displayprof" method="get">
         {% if profs|length: %} {% for prof in profs: %}
         <table style="text-align: left;">
             <tr>
@@ -30,8 +30,8 @@
                 <td><input type="text" id="phone" name="phone" value="{{prof[5]}}"></td>
             </tr>
             <tr>
-                <td align="right"><label for="title">Email:</label></td>
-                <td><input type="text" id="title" name="title" size="40" value="{{prof[4]}}"></td>
+                <td align="right"><label for="email">Email:</label></td>
+                <td><input type="text" id="email" name="email" size="40" value="{{prof[4]}}"></td>
             </tr>
             <tr>
                 <td align="right"><label for="title">Title:</label></td>
@@ -67,7 +67,13 @@
             </tr>
             <tr>
                 <td></td>
-                <td><input style="font-size:15pt" type="submit" value="Overwrite Infomation" onclick=""></td>
+                <td><input style="font-size:15pt" type="submit" value="Overwrite Infomation" onclick="overwriteProf()"></td>
+                <script>
+                    function overwriteProf() {
+                        alert('You pressed the button!');
+                        document.getElementById("demo").innerHTML = "Hello World";
+                    }
+                </script>
             </tr>
         </table>
         {% endfor %} {% else: %}
@@ -91,6 +97,10 @@
             <tr>
                 <td align="right"><label for="phone">Phone:</label></td>
                 <td><input type="text" id="phone" name="phone"></td>
+            </tr>
+            <tr>
+                <td align="right"><label for="email">Email:</label></td>
+                <td><input type="text" id="email" name="email"></td>
             </tr>
             <tr>
                 <td align="right"><label for="title">Title:</label></td>
@@ -126,7 +136,18 @@
             </tr>
             <tr>
                 <td></td>
-                <td><input style="font-size:15pt" type="submit" value="Create new professor" onclick=""></td>
+                <td><input style="font-size:15pt" type="submit" value="Create new professor" onclick="createProf()"></td>
+                <script>
+                    function createProf() {
+                        var txt;
+                        if (confirm("Do you want to add this new professor to the database?")) {
+
+
+                        } else {
+                            txt = "You pressed Cancel!";
+                        }
+                    }
+                </script>
             </tr>
         </table>
         {% endif %} {% endif %}
