@@ -73,7 +73,7 @@ class profsDB:
             rooms = " ".join(prof.getRooms())
             prof_listing.append(rooms)
             prof_listing.append(prof.getDepartment())
-            researchAreas = " ".join(prof.getResearchAreas())
+            researchAreas = ", ".join(prof.getResearchAreas())
             prof_listing.append(researchAreas)
             prof_listing.append(prof.getBio())
             prof_listing.append(prof.getImagePath())
