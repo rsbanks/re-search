@@ -39,7 +39,7 @@ def index():
 @app.route('/search')
 def search():
 
-    username = CASClient().authenticate()
+    # username = CASClient().authenticate()
 
     html = render_template('templates/profs.html')
     response = make_response(html)
@@ -48,7 +48,7 @@ def search():
 @app.route('/login')
 def login():
 
-    username = CASClient().authenticate()
+    # username = CASClient().authenticate()
     
     html = render_template('templates/login.html')
     response = make_response(html)
@@ -57,9 +57,9 @@ def login():
 @app.route('/logout', methods=['GET'])
 def logout():
     
-    casClient = CASClient()
-    casClient.authenticate()
-    casClient.logout()
+    # casClient = CASClient()
+    # casClient.authenticate()
+    # casClient.logout()
 
     html = render_template('templates/index.html')
     response = make_response(html)
@@ -68,7 +68,7 @@ def logout():
 @app.route('/button')
 def button():
 
-    username = CASClient().authenticate()
+    # username = CASClient().authenticate()
 
     html = render_template('templates/search.html')
     response = make_response(html)
@@ -84,7 +84,7 @@ def about():
 @app.route('/searchResults', methods=['GET'])
 def searchResults():   
 
-    username = CASClient().authenticate()
+    # username = CASClient().authenticate()
 
     search_criteria, input_arguments = getSearchCriteria()
 
@@ -92,6 +92,12 @@ def searchResults():
 
     html = ''
     if error_statement == '':
+
+        if len(profs) == 0:
+            html += '<div class="no-search-results">' + \
+                        '<h2>No search results. Please try use different keywords.</h2>' + \
+                    '</div>'
+
         i = 0
         for prof in profs:
             html += '<div class="row">' + \
@@ -127,6 +133,7 @@ def getSearchCriteria():
 
     search_criteria = ''
 
+    # search name/netid
     if name is None:
         name = ''
     name = name.strip()
@@ -134,34 +141,43 @@ def getSearchCriteria():
     names = name.split()
 
     if len(names)==1:
-        search_criteria += 'first' + ' ILIKE ' + '%s' + ' OR '
+        search_criteria += '(first' + ' ILIKE ' + '%s' + ' OR '
         search_criteria += 'last' + ' ILIKE ' + '%s' + ' OR '
-        search_criteria += 'netid' + ' ILIKE ' + '%s' + ' AND '
+        search_criteria += 'netid' + ' ILIKE ' + '%s)' + ' AND '
         input_arguments.append('%'+names[0]+'%')
         input_arguments.append('%'+names[0]+'%')
         input_arguments.append('%'+names[0]+'%')
     elif len(names) > 1:
-        search_criteria += '(first' + ' ILIKE ' + '%s' + ' OR '
+        search_criteria += '((first' + ' ILIKE ' + '%s' + ' OR '
         search_criteria += 'last' + ' ILIKE ' + '%s' + ') AND '
         search_criteria += '(first' + ' ILIKE ' + '%s' + ' OR '
-        search_criteria += 'last' + ' ILIKE ' + '%s' + ') AND '
+        search_criteria += 'last' + ' ILIKE ' + '%s))' + ' AND '
         input_arguments.append('%'+names[0]+'%')
         input_arguments.append('%'+names[0]+'%')
         input_arguments.append('%'+names[1]+'%')
         input_arguments.append('%'+names[1]+'%')
 
-
+    # search research area/ bio
     if area is None:
         area = ''
     area = area.strip()
     area = area.replace('%', r'\%')
+    areas = area.split(",")
 
-    search_criteria += 'area' + ' ILIKE ' + '%s' + ' AND '
-    input_arguments.append('%'+area+'%')
+    if len(areas) == 1:
+        search_criteria += '(area' + ' ILIKE ' + '%s' + ' OR '
+        input_arguments.append('%'+areas[0]+'%')
+        search_criteria += 'bio' + ' ILIKE ' + '%s)' + ' AND '
+        input_arguments.append('%'+areas[0]+'%')
+    else:
+        for i in range(len(areas)):
+            search_criteria += '(area' + ' ILIKE ' + '%s' + ' OR '
+            input_arguments.append('%'+areas[i]+'%')
+            search_criteria += 'bio' + ' ILIKE ' + '%s)' + ' AND '
+            input_arguments.append('%'+areas[i]+'%')
 
     if search_criteria != '' and search_criteria != None:
         search_criteria = search_criteria[:-5]
-    print(search_criteria)
     return search_criteria, input_arguments
 
 if __name__ == '__main__':
