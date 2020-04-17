@@ -1,11 +1,11 @@
 function collapse(id) {
-    let bio = document.getElementById("bio-" + id)
+    let panel = document.getElementById("panel-" + id)
     let img = document.getElementById("img-" + id)
-    if (bio.style.maxHeight){
-        bio.style.maxHeight = null;
+    if (panel.style.maxHeight){
+        panel.style.maxHeight = null;
         img.src = "static/plus.png"
     } else {
-        bio.style.maxHeight = bio.scrollHeight + "px";
+        panel.style.maxHeight = panel.scrollHeight + "px";
         img.src = "static/minus.png"
     }
 }
