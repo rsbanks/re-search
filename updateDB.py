@@ -20,7 +20,7 @@ def updateDB(conn, prof):
         stmt += " bio=%s,"
         stmt += " image=%s"
         stmt += " WHERE netid=%s"
-
+        
         prof_listing = []
         prof_listing.append(prof.getEmail())
         prof_listing.append(prof.getLastName())
@@ -48,6 +48,40 @@ def updateDB(conn, prof):
             conn.close()
         return error_statement
 
+
+def createProf(conn, prof):
+    error_statement = ''
+    try:
+        cur = conn.cursor()
+        stmt = "INSERT INTO profs(netid, email, last, first, title, phone, website, rooms, department, area, bio) VALUES"
+        stmt += "(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
+        prof_listing = []
+        prof_listing.append(prof.getNetId())
+        prof_listing.append(prof.getEmail())
+        prof_listing.append(prof.getLastName())
+        prof_listing.append(prof.getFirstName())
+        prof_listing.append(prof.getTitle())
+        prof_listing.append(prof.getPhoneNumber())
+        prof_listing.append(prof.getWebsite())
+        rooms = " ".join(prof.getRooms())
+        prof_listing.append(rooms)
+        prof_listing.append(prof.getDepartment())
+        researchAreas = ", ".join(prof.getResearchAreas())
+        prof_listing.append(researchAreas)
+        prof_listing.append(prof.getBio())
+
+
+        cur.execute(stmt, prof_listing)
+        conn.commit()
+        cur.close()
+    except (Exception, psycopg2.DatabaseError) as error:
+        error_statement = str(error)
+        print(error_statement)
+    finally:
+        if conn is not None:
+            conn.close()
+        return error_statement
+      
 if __name__ == '__main__':
 
     ## testing 
@@ -59,6 +93,7 @@ if __name__ == '__main__':
     database = 'd99tniu8rpcj0o'
 
     conn = psycopg2.connect( host=hostname, user=username, password=password, dbname=database)
+
     prof = Professor("aaa")
     prof.setTitle("Professor")
     prof.setFirstName("Amir Ali")
@@ -80,3 +115,5 @@ if __name__ == '__main__':
     prof.setImagePath("static/profImages/aaa.png")
     updateDB(conn, prof)
     conn.close()
+    
+    

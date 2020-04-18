@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <h1>Welcome Tara</h1>
+</head>
+
+<body>
+    {% if error_statement|length: %} { {error_statement}} {% else: %}
+    <h2>This the updated infomation for {{netid}}:</h2>
+    <hr>
+    <form action="/" method="get">
+        {% if profs|length: %} {% for prof in profs: %}
+        <table style="text-align: left;">
+            <tr>
+                <td align="right"><label for="netid">NetID:</label></td>
+                <td><label for="netid">{{prof[0]}}</td>
+            </tr>
+            <tr>
+                <td align="right"><label for="firstname"></title>First Name:</label></td>
+                <td><label for="firstname">{{prof[1]}}</td>
+            </tr>
+            <tr>
+                <td align="right"><label for="lastname"></title>Last Name:</label></td>
+                <td><label for="lastname">{{prof[2]}}</td>
+            </tr>
+            <tr>
+                <td align="right"><label for="phone">Phone:</label></td>
+                <td><label for="phone">{{prof[5]}}</td>
+            </tr>
+            <tr>
+                <td align="right"><label for="email">Email:</label></td>
+                <td><label for="email">{{prof[4]}}</td>
+            </tr>
+            <tr>
+                <td align="right"><label for="title">Title:</label></td>
+                <td><label for="title">{{prof[3]}}</td>
+            </tr>
+            <tr>
+                <td align="right"><label for="website">Website:</label></td>
+                <td><label for="website">{{prof[6]}}</td>
+            </tr>
+            <tr>
+                <td align="right"><label for="rooms">Rooms:</label></td>
+                <td><label for="rooms">{{prof[7]}}</td>
+            </tr>
+            <tr>
+                <td align="right"><label for="department">Department:</label></td>
+                <td><label for="department">{{prof[8]}}</td>
+            </tr>
+            <tr>
+                <td align="right"><label for="area">Areas:</label></td>
+                <td><label for="area">{{prof[9]}}</td>
+            </tr>
+            <tr>
+                <td align="right"><label for="bio">Bio:</label></td>
+                <td><label for="bio">{{prof[10]}}</td>
+            </tr>
+            <tr>
+                <td><label for="image">Image file: </label></td>
+                <td><label for="image">{{prof[11]}}</td>
+            </tr>
+            <tr>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><input style="font-size:15pt" type="submit" value="Edit another professor"></td>
+            </tr>
+            
+        </table>
+        {% endfor %} {% endif %}{% endif %}
+</body>
+
+</html>
