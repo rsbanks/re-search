@@ -31,10 +31,12 @@ function setup()
       if(keycode == '13') {
          label = $('#newTagInput').val()
          if (label.length != 0) {
-            tags.push(label);
+            if (!tags.includes(label)) {
+               tags.push(label);
+               addTags();
+               getResults();
+            }
             $('#newTagInput').val("");
-            addTags();
-            getResults();
          }
       }
   });
