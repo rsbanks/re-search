@@ -4,7 +4,8 @@ from flask import Flask, request, make_response, redirect, url_for
 from flask import render_template
 from prof import Professor
 from profsDB import profsDB
-import csv
+from updateDB import updateDB, createProf
+import psycopg2
 
 app = Flask(__name__, template_folder='.')
 
@@ -19,8 +20,6 @@ def getProfs(search_criteria, input_arguments):
                 profs = profsDB_.displayProfessorsByFilter(connection, search_criteria, input_arguments)
             else:
                 profs = profsDB_.displayAllProfessors(connection)
-            #sqlite only
-            # profsDB_.disconnect()
             profs = profsDB_.return_profs_list(profs)
         except Exception as e:
             error_statement = str(e)
@@ -72,34 +71,6 @@ def getSearchCriteria(netid):
         search_criteria = search_criteria[:-5]
     return search_criteria, input_arguments
 
-def getUpdateString(netid):
-    update_string = "UPDATE profs SET firstname = '" + request.args.get('firstname') 
-    update_string += "', lastname = '" + request.args.get('lastname')
-    update_string += "', phone = '" + request.args.get('phone')
-    update_string += "', email = '" + request.args.get('email')
-    update_string += "', title = '" + request.args.get('title')
-    update_string += "', website = '" + request.args.get('website')
-    update_string += "', rooms = '" + request.args.get('rooms')
-    update_string += "', department = '" + request.args.get('department')
-    update_string += "', area = '" + request.args.get('area')
-    update_string += "', bio = '" + request.args.get('bio')
-    update_string += "' WHERE netid = '" + netid + "'"
-    return update_string
-
-
-def overwriteProf(update_string):
-    profsDB_ = profsDB()
-    error_statement = profsDB_.connect()
-    if error_statement == '':
-        connection = profsDB_.conn
-        try:
-            result = connection.execute(update_string)
-        except Exception as e:
-            error_statement = str(e)
-    else:
-        print(error_statement)
-    return error_statement
-
 @app.route('/')
 @app.route('/index', methods=["GET"])
 def index():
@@ -123,15 +94,44 @@ def profinfo():
     response.set_cookie('netid', netID)
     return response
 
+def newProf(netid):
+    prof = Professor(netid)
+    areas = request.args.get('areas')
+    print(areas)
+    prof.setTitle(request.args.get('title'))
+    prof.setFirstName(request.args.get('firstname'))
+    prof.setLastName(request.args.get('lastname'))
+    prof.setEmail(request.args.get('email'))
+    prof.setPhoneNumber(request.args.get('phone'))
+    prof.setWebsite(request.args.get('website'))
+    prof.setRooms(request.args.get('rooms'))
+    prof.setDepartment(request.args.get('department'))
+    prof.setResearchAreas(areas)
+    prof.setBio(request.args.get('bio'))
+    imagePath = "static\profImages\\" + netid + ".jpg"
+    prof.setImagePath(imagePath)
+    return prof
+
 @app.route('/displayprof', methods=["GET"])
 def displayprof():
     netID = request.cookies.get('netid')
-    update_string = getUpdateString(netID)
-    print(update_string)
-    error_statement = overwriteProf(update_string)
+    hostname = 'ec2-52-200-119-0.compute-1.amazonaws.com'
+    username = 'hmqcdnegecbdgo'
+    password = 'c51235a04a7593a9ec0c13821f495f259a68d2e1ab66a93df947ab2f31970009'
+    database = 'd99tniu8rpcj0o'
+
+    conn = psycopg2.connect( host=hostname, user=username, password=password, dbname=database)
+    prof = newProf(netID)
+    if request.args.get('button') == "Overwrite Infomation":
+        error_statement = updateDB(conn, prof)
+    else: 
+        error_statement = createProf(conn, prof)
+    conn.close()
+    if error_statement != '':
+        print(error_statement)
+
     search_criteria, input_arguments = getSearchCriteria(netID)
     profs, error_statement = getProfs(search_criteria, input_arguments)
-
     if error_statement == '':
         html = \
             render_template('displayprof_tara.html', profs=profs, netid=netID)
