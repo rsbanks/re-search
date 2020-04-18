@@ -2,7 +2,7 @@
 <html class="background">
     <head>
         <div class="header">
-            <a href="{{url_for('index')}}" class="title" style="text-decoration:none">Re-Search</a>
+            <span class="title" style="text-decoration:none">Re-Search</span>
             <a href="logout" class="logout" style="text-decoration:none">Log Out</a>
           </div>
     </head>
@@ -19,17 +19,17 @@
           </div>
         </form>
 
-        <form class = "tagForm" id="tagInput">
-          <div class="tag-input-div">
-            <input type="text" class="form-input" placeholder="Research Area" id="area" name="area">
-          </div>
+        <form class = "tagForm" id="tagInput" onsubmit="return false">
+            <input type="text" class="form-input" placeholder="Add Research Area and press Enter" id="newTagInput">
         </form>
+        <div class="tag-input-div" id="tag-input-div"></div>
 
         <div id="results"></div>
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 
         <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons"rel="stylesheet">
         <link rel="stylesheet" href="{{url_for('static', filename='css/profs.css')}}">
 
         <script src="static/js/collapse.js"></script>
