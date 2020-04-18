@@ -2,6 +2,7 @@ from os import path
 from sys import argv, stderr
 from prof import Professor
 from sqlalchemy import create_engine
+from sqlalchemy.pool import NullPool
 
 class profsDB:
 
@@ -12,13 +13,16 @@ class profsDB:
         error_statement = ''
 
         try:
-            engine = create_engine('postgresql://hmqcdnegecbdgo:c51235a04a7593a9ec0c13821f495f259a68d2e1ab66a93df947ab2f31970009@ec2-52-200-119-0.compute-1.amazonaws.com:5432/d99tniu8rpcj0o')
+            engine = create_engine('postgresql://hmqcdnegecbdgo:c51235a04a7593a9ec0c13821f495f259a68d2e1ab66a93df947ab2f31970009@ec2-52-200-119-0.compute-1.amazonaws.com:5432/d99tniu8rpcj0o', poolclass=NullPool)
             self.conn = engine.connect()
         except Exception as e:
             error_statement = e
             print(error_statement, file=stderr)
 
         return error_statement
+
+    def disconnect(self):
+        self.conn.close()
 
     def displayAllProfessors(self, connection):
         stmtStr = 'SELECT profs.netid, profs.title, profs.first, profs.last, profs.email,' + \
@@ -98,5 +102,6 @@ if __name__ == '__main__':
         profsDB.print_profs(profs)
     else:
         print(error_statement)
+    profsDB.disconnect()
         
 
