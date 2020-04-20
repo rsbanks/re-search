@@ -211,9 +211,9 @@ def getProfs(search_criteria, input_arguments):
     return profs, error_statement
 
 
-#------------------------------------------------------------------------------------------------#
-## Admin
-#------------------------------------------------------------------------------------------------#
+#----------------------------------------------------------------------------------------------------#
+# Admin
+#----------------------------------------------------------------------------------------------------#
 
 
 @app.route('/admin', methods=["GET"])
@@ -275,7 +275,7 @@ def displayprof():
 
     profs, error_statement = getProfs('netid ILIKE %s', ['%'+netID+'%'])
     if error_statement == '':
-        name = prof.getTitle() + prof.getFirstName() + " " + prof.getLastName()
+        name = prof.getFirstName() + " " + prof.getLastName()
         html = \
             render_template('displayprof_tara.html', profs=profs, name=name)
     else:

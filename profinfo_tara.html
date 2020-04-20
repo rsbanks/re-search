@@ -1,18 +1,16 @@
 <!DOCTYPE html>
-<html>
+<html class="background">
 
 <head>
-    <h1>Welcome Tara</h1>
-
 </head>
 
 <body>
     {% if error_statement|length: %} { {error_statement}} {% else: %}
-    <h2>Enter the professors infomation below:</h2>
+    <h2 class="heading">Enter the professor's infomation below:</h2>
     <hr>
     <form action="/displayprof" method="get">
         {% if profs|length: %} {% for prof in profs: %}
-        <table style="text-align: left;">
+        <table style="text-align: left;" class="table">
             <tr>
                 <td align="right"><label for="netid">NetID:</label></td>
                 <td><label for="netid">{{prof[0]}}</td>
@@ -70,16 +68,18 @@
                     }
                 </script>
             </tr>
-            <tr>
-                <td></td>
-                <td><input style="font-size:15pt" type="submit" id="button" name="button" value="Overwrite Infomation" onclick="overwriteProf()"></td>
-                <script>
-                    function overwriteProf() {
-                        alert("Professor's infomation updated");
-                    }
-                </script>
-            </tr>
         </table>
+        <input class="searchButton overwriteButton" type="submit" id="button" name="button" value="Save" onclick="overwriteProf()">
+    </form>
+    <form action="/admin"><input class="searchButton cancelOverwriteButton" type="submit" id="button" name="button" value="Cancel"></form>
+
+    <script>
+        function overwriteProf() {
+            alert("Professor's infomation updated");
+        }
+    </script>
+
+    <form>
         {% endfor %} {% else: %}
         <table style="text-align: left;">
             <tr>
@@ -137,21 +137,19 @@
             <tr>
                 <td></td>
                 <td><input type="file" id="myfile" name="myfile"><br><br></td>
-            </tr>
-            <tr>
-                <td></td>
-                <td><input style="font-size:15pt" type="submit" id="button" name="button" value="Create new professor" onclick="createProf()"></td>
-                <script>
-                    function createProf() {
-                        alert("Professor created");
-                    }
-                </script>
-            </tr>
         </table>
+
+        <input type="submit" id="button" name="button" value="Create new professor" onclick="createProf()">
+        <script>
+            function createProf() {
+                alert("Professor created");
+            }
+        </script>
         {% endif %} {% endif %}
     </form>
     <hr>
 
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{url_for('static', filename='css/admin.css')}}">
 </body>
 

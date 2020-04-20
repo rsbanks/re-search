@@ -71,8 +71,7 @@ def getSearchCriteria(netid):
         search_criteria = search_criteria[:-5]
     return search_criteria, input_arguments
 
-@app.route('/')
-@app.route('/index', methods=["GET"])
+@app.route('/admin', methods=["GET"])
 def index():
     html = render_template('index_tara.html')
     response = make_response(html)

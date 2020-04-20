@@ -1,27 +1,30 @@
 <!DOCTYPE html>
-<html>
+<html class="background">
 
 <head>
-    <h1>Welcome Tara</h1>
+    <div class="header">
+        <span class="title" style="text-decoration:none">Re-Search</span>
+        <a href="logout" class="logout" style="text-decoration:none">Log Out</a>
+    </div>
+    <div class="heading-div">
+        <h2 class="heading">Welcome Tara</h2>
+    </div>
 </head>
 
 <body>
     {% if error_statement|length: %} {{error_statement}} {% else: %}
-    <h2>Enter the NetID of the professor's infomation you want to change:</h2>
-    <hr>
-    <form action="/profinfo" method="get">
-        <table style="text-align: left;">
-            <tr>
-                <td align="right"><label for="netid">NetID:</label></td>
-                <td><input type="text" id="netid" name="netid" value={{netid}}></td>
-            </tr>
-            <tr>
-                <td></td>
-                <td><input style="font-size:15pt" type="submit" value="Search"></td>
-            </tr>
-        </table>
+    <h2 class="heading">Enter the NetID of the professor's infomation you want to change:</h2>
+
+    <form action="/profinfo" method="get" class="searchInputForm">
+        <input type="text" id="netid" name="netid" placeHolder="NetID" class="netidInput">
+        <input type="submit" value="Search" class="searchButton">
     </form>
-    <hr> {% endif %}
+
+    {% endif %}
+
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/admin.css')}}">
+
 </body>
 
 </html>
