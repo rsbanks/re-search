@@ -265,7 +265,7 @@ def displayprof():
 
     conn = psycopg2.connect( host=hostname, user=username, password=password, dbname=database)
     prof = newProf(netID)
-    if request.args.get('button') == "Overwrite Infomation":
+    if request.args.get('button') == "Save":
         error_statement = updateDB(conn, prof)
     else: 
         error_statement = createProf(conn, prof)

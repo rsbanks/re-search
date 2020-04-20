@@ -8,8 +8,8 @@
     {% if error_statement|length: %} { {error_statement}} {% else: %}
     <h2 class="heading">Enter the professor's infomation below:</h2>
     <hr>
+    {% if profs|length: %} {% for prof in profs: %}
     <form action="/displayprof" method="get">
-        {% if profs|length: %} {% for prof in profs: %}
         <table style="text-align: left;" class="table">
             <tr>
                 <td align="right"><label for="netid">NetID:</label></td>
@@ -69,7 +69,7 @@
                 </script>
             </tr>
         </table>
-        <input class="searchButton overwriteButton" type="submit" id="button" name="button" value="Save" onclick="overwriteProf()">
+        <input class="searchButton overwriteButton" type="submit" id="button" name="button" id="overwriteProf" value="Save" onclick="overwriteProf()">
     </form>
     <form action="/admin"><input class="searchButton cancelOverwriteButton" type="submit" id="button" name="button" value="Cancel"></form>
 
@@ -80,9 +80,9 @@
     </script>
 
     <form>
-        {% endfor %} {% else: %}
+    {% endfor %} {% else: %}
         <table style="text-align: left;">
-            <tr>
+            <tr>s
                 <td align="right"><label for="noProf" style="color:red;">No professor </label></td>
                 <td><label for="createNew" style="color:red;">found. Fill in the infomation for a new professor</td>
             </tr>
