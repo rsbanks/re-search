@@ -7,7 +7,7 @@
 
 <body>
     {% if error_statement|length: %} { {error_statement}} {% else: %}
-    <h2>This the updated infomation for {{netid}}:</h2>
+    <h2>This the updated infomation for {{name}}:</h2>
     <hr>
     <form action="/" method="get">
         {% if profs|length: %} {% for prof in profs: %}

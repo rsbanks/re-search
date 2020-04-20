@@ -63,7 +63,12 @@
             </tr>
             <tr>
                 <td></td>
-                <td><input type="file" id="myfile" name="myfile"><br><br></td>
+                <td><input type="file" id="myfile" name="myfile" onClick="saveImage"><br><br></td>
+                <script>
+                    function saveImage() {
+                        alert("hello");
+                    }
+                </script>
             </tr>
             <tr>
                 <td></td>
@@ -146,6 +151,8 @@
         {% endif %} {% endif %}
     </form>
     <hr>
+
+    <link rel="stylesheet" href="{{url_for('static', filename='css/admin.css')}}">
 </body>
 
 </html>

@@ -4,6 +4,8 @@ from flask import render_template
 from prof import Professor
 from profsDB import profsDB
 from CASClient import CASClient
+from updateDB import updateDB, createProf
+import psycopg2
 
 app = Flask(__name__, template_folder='.')
 
@@ -188,6 +190,100 @@ def getSearchCriteria():
     if search_criteria != '' and search_criteria != None:
         search_criteria = search_criteria[:-5]
     return search_criteria, input_arguments
+
+
+def getProfs(search_criteria, input_arguments):
+    profsDB_ = profsDB()
+    error_statement = profsDB_.connect()
+    profs = []
+    if error_statement == '':
+        connection = profsDB_.conn
+        try:
+            if len(input_arguments) != 0:
+                profs = profsDB_.displayProfessorsByFilter(connection, search_criteria, input_arguments)
+            else:
+                profs = profsDB_.displayAllProfessors(connection)
+            profs = profsDB_.return_profs_list(profs)
+        except Exception as e:
+            error_statement = str(e)
+    else:
+        print(error_statement)
+    return profs, error_statement
+
+
+#------------------------------------------------------------------------------------------------#
+## Admin
+#------------------------------------------------------------------------------------------------#
+
+
+@app.route('/admin', methods=["GET"])
+def admin():
+    html = render_template('index_tara.html')
+    response = make_response(html)
+    return response
+
+@app.route('/profinfo', methods=["GET"])
+def profinfo():
+    netID = request.args.get('netid')
+    profs, error_statement = getProfs('netid ILIKE %s', ['%'+netID+'%'])
+
+    if error_statement == '':
+        html = \
+            render_template('profinfo_tara.html', profs=profs, netid=netID)
+    else:
+        html = render_template('profinfo_tara.html', error_statement=error_statement)
+        print(error_statement, file=stderr)
+    response = make_response(html)
+    response.set_cookie('netid', netID)
+    return response
+
+def newProf(netid):
+    prof = Professor(netid)
+    areas = request.args.get('areas')
+    print(areas)
+    prof.setTitle(request.args.get('title'))
+    prof.setFirstName(request.args.get('firstname'))
+    prof.setLastName(request.args.get('lastname'))
+    prof.setEmail(request.args.get('email'))
+    prof.setPhoneNumber(request.args.get('phone'))
+    prof.setWebsite(request.args.get('website'))
+    prof.setRooms(request.args.get('rooms'))
+    prof.setDepartment(request.args.get('department'))
+    prof.setResearchAreas(areas)
+    prof.setBio(request.args.get('bio'))
+    imagePath = "static\profImages\\" + netid + ".jpg"
+    prof.setImagePath(imagePath)
+    return prof
+
+@app.route('/displayprof', methods=["GET"])
+def displayprof():
+    netID = request.cookies.get('netid')
+    hostname = 'ec2-52-200-119-0.compute-1.amazonaws.com'
+    username = 'hmqcdnegecbdgo'
+    password = 'c51235a04a7593a9ec0c13821f495f259a68d2e1ab66a93df947ab2f31970009'
+    database = 'd99tniu8rpcj0o'
+
+    conn = psycopg2.connect( host=hostname, user=username, password=password, dbname=database)
+    prof = newProf(netID)
+    if request.args.get('button') == "Overwrite Infomation":
+        error_statement = updateDB(conn, prof)
+    else: 
+        error_statement = createProf(conn, prof)
+    conn.close()
+    if error_statement != '':
+        print(error_statement)
+
+    profs, error_statement = getProfs('netid ILIKE %s', ['%'+netID+'%'])
+    if error_statement == '':
+        name = prof.getTitle() + prof.getFirstName() + " " + prof.getLastName()
+        html = \
+            render_template('displayprof_tara.html', profs=profs, name=name)
+    else:
+        html = render_template('displayprof_tara.html', error_statement=error_statement)
+        print(error_statement, file=stderr)
+
+    response = make_response(html)
+    return response
 
 if __name__ == '__main__':
     
