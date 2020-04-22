@@ -4,8 +4,13 @@ function setup() {
         return false;
     });
 
-    $("#closeAlert").on("click", function() {
-        $('#netidAlert').hide('fade');
+    $("#closeFailureAlert").on("click", function() {
+        $('#netidAlertFailure').hide('fade');
+        return false;
+    });
+
+    $("#closeSuccessAlert").on("click", function() {
+        $('#netidAlertSuccess').hide('fade');
         return false;
     });
 
@@ -14,12 +19,13 @@ function setup() {
 function handleResponse(response)
 { 
     if (response == '') {
-        $('#netidAlert').show('fade');
+        $('#netidAlertFailure').show('fade');
         document.getElementById('profResult').innerHTML = null;
     }
     else {
+        $('#netidAlertFailure').hide();
+
         document.getElementById('profResult').innerHTML = response;
-        $('#netidAlert').hide();
         $("#saveForm").on("submit", function() {
              displayProf();
              return false;
@@ -29,6 +35,7 @@ function handleResponse(response)
 
 function handleResponseDisplay(response)
 { 
+    $('#netidAlertSuccess').show('fade');
     document.getElementById('profResult').innerHTML = response;
 
     $("#editAnotherBtn").on("submit", function() {

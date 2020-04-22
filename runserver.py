@@ -237,7 +237,7 @@ def profinfo():
                             "<div class='form-group row'>" + \
                                 "<label for='colFormLabel' class='col-sm-2 col-form-label'>NetID</label>" + \
                                 "<div class='col-sm-10'>" + \
-                                "<input type='text' class='form-control' id='netid' name='netid' value='" + prof[0] + "'>" + \
+                                "<input type='text' class='form-control' id='netid' name='netid' value='" + prof[0] + "' readonly>" + \
                                 "</div>" + \
                             "</div>" + \
                             "<div class='form-group row'>" + \

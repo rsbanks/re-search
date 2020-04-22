@@ -23,14 +23,15 @@
     </form>
     {% endif %}
 
-    <div id="netidAlert" class="alert alert-danger alert-dismissible collapse" role="alert">
+    <div id="netidAlertFailure" class="alert alert-danger alert-dismissible collapse" role="alert">
         No professor with the given NetID found. Please check your spelling and try again.
-        <button id="closeAlert" class="close" type="button" data-dismiss="alert">×</button>
+        <button id="closeFailureAlert" class="close" type="button" data-dismiss="alert">×</button>
     </div>
-    <script>
-        var netid = $("#netid").val();
-        $("#profName").text(netid);
-    </script>
+
+    <div id="netidAlertSuccess" class="alert alert-success alert-dismissible collapse" role="alert">
+        Professor's information successfully updated!
+        <button id="closeSuccessAlert" class="close" type="button" data-dismiss="alert">×</button>
+    </div>
 
     <div id="profResult" class="profResult"></div>
 
