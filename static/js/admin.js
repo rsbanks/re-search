@@ -15,10 +15,11 @@ function handleResponse(response)
 { 
     if (response == '') {
         $('#netidAlert').show('fade');
+        document.getElementById('profResult').innerHTML = null;
     }
     else {
         document.getElementById('profResult').innerHTML = response;
-
+        $('#netidAlert').hide();
         $("#saveForm").on("submit", function() {
              displayProf();
              return false;
