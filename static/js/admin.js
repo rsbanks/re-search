@@ -27,7 +27,12 @@ function handleResponse(response)
 
         document.getElementById('profResult').innerHTML = response;
         $("#saveForm").on("submit", function() {
-             displayProf();
+            if (document.activeElement.id == 'Save') {
+                displayProf();
+            } else if(document.activeElement.id == 'Cancel') {
+                $('#netid').focus();
+                document.getElementById('profResult').innerHTML = null;
+            }
              return false;
          });
     }
@@ -38,8 +43,12 @@ function handleResponseDisplay(response)
     $('#netidAlertSuccess').show('fade');
     document.getElementById('profResult').innerHTML = response;
 
-    $("#editAnotherBtn").on("submit", function() {
-        window.location.href("index_tara.html");
+    $("#editOtherForm").on("submit", function() {
+        document.getElementById('profResult').innerHTML = null;
+        $('#netidAlertFailure').hide('fade');
+        $('#netidAlertSuccess').hide('fade');
+        $('#netid').focus();
+        return false;
     });
 }
 

@@ -315,9 +315,9 @@ def profinfo():
                        "</form>" + \
                     "</div>" + \
                     """<form method="get" id="saveForm">
-                            <input class="searchButton overwriteButton" type="submit" name="button" id="overwriteProf" value="Save">
-                        </form>
-                        <form action="/admin"><input class="searchButton cancelOverwriteButton" type="submit" value="Cancel"></form>"""
+                            <input class="searchButton overwriteButton" type="submit" id="Save" value="Save">
+                            <input class="searchButton cancelOverwriteButton" type="submit" id ="Cancel" value="Cancel">
+                        </form>"""
     else:
         html = render_template('profinfo_tara.html', error_statement=error_statement)
         print(error_statement, file=stderr)
@@ -415,7 +415,7 @@ def displayprof():
                         "<td></td>" + \
                     "</tr>"  + \
             "</table>" + \
-            """<form action="/admin"><input class="searchButton cancelOverwriteButton" type="submit" value="Edit Another Professor"></form>"""
+            """<form method="get" id="editOtherForm"><input class="searchButton cancelOverwriteButton" type="submit" value="Edit Another Professor"></form>"""
     else:
         html = render_template('displayprof_tara.html', error_statement=error_statement)
         print(error_statement, file=stderr)
