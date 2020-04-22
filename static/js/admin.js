@@ -17,8 +17,8 @@ function handleResponse(response)
    document.getElementById('profResult').innerHTML = response;
 
    $("#saveForm").on("submit", function() {
-    displayProf();
-    return false;
+        displayProf();
+        return false;
     });
 }
 
