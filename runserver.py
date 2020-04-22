@@ -240,73 +240,73 @@ def profinfo():
                             "<div class='form-group row'>" + \
                                 "<label for='colFormLabel' class='col-sm-2 col-form-label'>NetID</label>" + \
                                 "<div class='col-sm-10'>" + \
-                                "<input type='text' class='form-control' id='colFormLabel' value='" + prof[0] + "'>" + \
+                                "<input type='text' class='form-control' id='netid' name='netid' value='" + prof[0] + "'>" + \
                                 "</div>" + \
                             "</div>" + \
                             "<div class='form-group row'>" + \
                                 "<label for='colFormLabel' class='col-sm-2 col-form-label'>First Name</label>" + \
                                 "<div class='col-sm-10'>" + \
-                                "<input type='text' class='form-control' id='colFormLabel' value='" + prof[1] + "'>" + \
+                                "<input type='text' class='form-control' id='firstname' name='firstname' value='" + prof[1] + "'>" + \
                                 "</div>" + \
                             "</div>" + \
                             "<div class='form-group row'>" + \
                                 "<label for='colFormLabel' class='col-sm-2 col-form-label'>Lat Name</label>" + \
                                 "<div class='col-sm-10'>" + \
-                                "<input type='text' class='form-control' id='colFormLabel' value='" + prof[2] + "'>" + \
+                                "<input type='text' class='form-control' id='lastname' name='lastname' value='" + prof[2] + "'>" + \
                                 "</div>" + \
                             "</div>" + \
                             "<div class='form-group row'>" + \
                                 "<label for='colFormLabel' class='col-sm-2 col-form-label'>Title</label>" + \
                                 "<div class='col-sm-10'>" + \
-                                "<input type='text' class='form-control' id='colFormLabel' value='" + prof[3] + "'>" + \
+                                "<input type='text' class='form-control' id='phone' name='phone' value='" + prof[3] + "'>" + \
                                 "</div>" + \
                             "</div>" + \
                             "<div class='form-group row'>" + \
                                 "<label for='colFormLabel' class='col-sm-2 col-form-label'>Email</label>" + \
                                 "<div class='col-sm-10'>" + \
-                                "<input type='text' class='form-control' id='colFormLabel' value='" + prof[4] + "'>" + \
+                                "<input type='text' class='form-control' id='email' value='" + prof[4] + "'>" + \
                                 "</div>" + \
                             "</div>" + \
                             "<div class='form-group row'>" + \
                                 "<label for='colFormLabel' class='col-sm-2 col-form-label'>Phone Number</label>" + \
                                 "<div class='col-sm-10'>" + \
-                                "<input type='text' class='form-control' id='colFormLabel' value='" + prof[5] + "'>" + \
+                                "<input type='text' class='form-control' id='title' name='title' value='" + prof[5] + "'>" + \
                                 "</div>" + \
                             "</div>" + \
                             "<div class='form-group row'>" + \
                                 "<label for='colFormLabel' class='col-sm-2 col-form-label'>Website</label>" + \
                                 "<div class='col-sm-10'>" + \
-                                "<input type='text' class='form-control' id='colFormLabel' value='" + prof[6] + "'>" + \
+                                "<input type='text' class='form-control' id='website' name='website' value='" + prof[6] + "'>" + \
                                 "</div>" + \
                             "</div>" + \
                             "<div class='form-group row'>" + \
                                 "<label for='colFormLabel' class='col-sm-2 col-form-label'>Office</label>" + \
                                 "<div class='col-sm-10'>" + \
-                                "<input type='text' class='form-control' id='colFormLabel' value='" + prof[7] + "'>" + \
+                                "<input type='text' class='form-control' id='rooms' name='rooms' value='" + prof[7] + "'>" + \
                                 "</div>" + \
                             "</div>" + \
                             "<div class='form-group row'>" + \
                                 "<label for='colFormLabel' class='col-sm-2 col-form-label'>Department</label>" + \
                                 "<div class='col-sm-10'>" + \
-                                "<input type='text' class='form-control' id='colFormLabel' value='" + prof[8] + "'>" + \
+                                "<input type='text' class='form-control' id='department' name='department' value='" + prof[8] + "'>" + \
                                 "</div>" + \
                             "</div>" + \
                             "<div class='form-group row'>" + \
                                 "<label for='colFormLabel' class='col-sm-2 col-form-label'>Research Interests</label>" + \
                                 "<div class='col-sm-10'>" + \
-                                "<input type='text' class='form-control' id='colFormLabel' value='" + prof[9] + "'>" + \
+                                "<input type='text' class='form-control' id='areas' name='areas' value='" + prof[9] + "'>" + \
                                 "</div>" + \
                             "</div>" + \
                             "<div class='form-group row'>" + \
                                 "<label for='colFormLabel' class='col-sm-2 col-form-label'>Bio</label>" + \
                                 "<div class='col-sm-10'>" + \
-                                "<textarea class='form-control' id='exampleFormControlTextarea1' rows='10'>" + prof[10] + "</textarea>" + \
+                                "<textarea class='form-control' id='bio' name='bio' rows='10'>" + prof[10] + "</textarea>" + \
                                 "</div>" + \
                             "</div>" + \
                             "<div class='input-group mb-3'>" + \
                                 "<label for='colFormLabel' class='col-sm-2 col-form-label'>Image</label>" + \
                                 "<div class='custom-file'>" + \
-                                    "<input type='file' class='custom-file-input' id='inputGroupFile02'>" + \
+                                    "<input type='file' class='custom-file-input' id='myfile' name='myfile'>" + \
                                     "<label class='custom-file-label' for='inputGroupFile02' aria-describedby='inputGroupFileAddon02'>" + \
                                     prof[11] +\
                                     "</label>" + \
@@ -317,8 +317,8 @@ def profinfo():
                             "</div>" + \
                        "</form>" + \
                     "</div>" + \
-                    """<form action="/displayprof" method="get">
-                            <input class="searchButton overwriteButton" type="submit" name="button" id="overwriteProf" value="Save" onclick="overwriteProf()">
+                    """<form method="get" id="saveForm">
+                            <input class="searchButton overwriteButton" type="submit" name="button" id="overwriteProf" value="Save">
                         </form>
                         <form action="/admin"><input class="searchButton cancelOverwriteButton" type="submit" id="button" name="button" value="Cancel"></form>"""
     else:
@@ -330,8 +330,6 @@ def profinfo():
 
 def newProf(netid):
     prof = Professor(netid)
-    areas = request.args.get('areas')
-    print(areas)
     prof.setTitle(request.args.get('title'))
     prof.setFirstName(request.args.get('firstname'))
     prof.setLastName(request.args.get('lastname'))
@@ -340,7 +338,7 @@ def newProf(netid):
     prof.setWebsite(request.args.get('website'))
     prof.setRooms(request.args.get('rooms'))
     prof.setDepartment(request.args.get('department'))
-    prof.setResearchAreas(areas)
+    prof.setResearchAreas(request.args.get('areas'))
     prof.setBio(request.args.get('bio'))
     imagePath = "static\profImages\\" + netid + ".jpg"
     prof.setImagePath(imagePath)
@@ -365,11 +363,62 @@ def displayprof():
         print(error_statement)
 
     prof_, error_statement = getProfs('netid ILIKE %s', [netID])
-    print(prof_[0])
+    prof  = prof_[0]
     if error_statement == '':
-        name = prof.getFirstName() + " " + prof.getLastName()
-        html = \
-            render_template('displayprof_tara.html', prof=prof_[0], name=name)
+        html = "<h2 class='heading'>This the updated infomation for " + prof[1] + " " + prof[2] + ":</h2><hr>"
+        html += "<table style='text-align: left;' class='profInfoTable'> " + \
+                    '<tr>' + \
+                        "<td align='right' class='label'>NetID:</td>" + \
+                        "<td>" + prof[0] + "</td>" + \
+                    "</tr>" + \
+                    "<tr>" + \
+                        "<td align='right' class='label'></title>First Name:</td>" + \
+                        "<td>" + prof[1] + "</td>" + \
+                    "</tr>" + \
+                    "<tr>" + \
+                        "<td align='right' class='label'></title>Last Name:</td>" + \
+                        "<td>" + prof[2] + "</td>" + \
+                    "</tr>" + \
+                    "<tr>" + \
+                        "<td align='right' class='label'>Phone:</td>" + \
+                        "<td>" + prof[5] + "</td>" + \
+                    "</tr>" + \
+                    "<tr>" + \
+                        "<td align='right' class='label'>Email:</td>" + \
+                        "<td>" + prof[4] + "</td>" + \
+                    "</tr>" + \
+                    "<tr>" + \
+                        "<td align='right' class='label'>Title:</td>" + \
+                        "<td>" + prof[3] + "</td>" + \
+                    "</tr>" + \
+                    "<tr>" + \
+                        "<td align='right' class='label'>Website:</td>" + \
+                        "<td>" + prof[6] + "</td>" + \
+                    "</tr>" + \
+                    "<tr>" + \
+                        "<td align='right' class='label'>Rooms:</td>" + \
+                        "<td>" + prof[7] + "</td>" + \
+                    "</tr>" + \
+                    "<tr>" + \
+                        "<td align='right' class='label'>Department:</td>" + \
+                        "<td>" + prof[8] + "</td>" + \
+                    "</tr>" + \
+                    "<tr>" + \
+                        "<td align='right class='label'>Areas:</td>" + \
+                        "<td>" + prof[9]+   "</td>" + \
+                    "</tr>" + \
+                    "<tr>" + \
+                        "<td align='right' class='label'>Bio:</td>" + \
+                        "<td>" + prof[10] + "</td>" + \
+                    "</tr>" + \
+                    "<tr>" + \
+                        "<td align='right' class='label'>Image File:</td>" + \
+                        "<td>" + prof[11] + "</td>" + \
+                    "</tr>" + \
+                    "<tr>" + \
+                        "<td></td>" + \
+                    "</tr>"  + \
+            "</table>"
     else:
         html = render_template('displayprof_tara.html', error_statement=error_statement)
         print(error_statement, file=stderr)

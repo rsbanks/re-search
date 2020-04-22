@@ -27,19 +27,6 @@
         <strong>Holy guacamole!</strong> You should check in on some of those fields below.
         <button id="closeAlert" class="close" type="button" data-dismiss="alert">×</button>
     </div>
-    
-    <script>
-        $(document).ready(function() {
-            $("#searchInputForm").on("submit", function() {
-                $('#netidAlert').show('fade');
-                return false;
-             });
-             $("#closeAlert").on("click", function() {
-                $('#netidAlert').hide('fade');
-                return false;
-             });
-        });
-    </script>
 
     <span id="profResult"></span>
 
