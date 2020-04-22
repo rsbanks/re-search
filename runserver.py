@@ -418,7 +418,8 @@ def displayprof():
                     "<tr>" + \
                         "<td></td>" + \
                     "</tr>"  + \
-            "</table>"
+            "</table>" + \
+            """<input style="font-size:15pt" type="submit" value="Edit another professor" class="searchButton editButton">"""
     else:
         html = render_template('displayprof_tara.html', error_statement=error_statement)
         print(error_statement, file=stderr)
