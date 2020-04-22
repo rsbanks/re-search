@@ -225,11 +225,102 @@ def admin():
 @app.route('/profinfo', methods=["GET"])
 def profinfo():
     netID = request.args.get('netid')
-    profs, error_statement = getProfs('netid ILIKE %s', ['%'+netID+'%'])
+    prof, error_statement = getProfs('netid ILIKE %s', [netID])
+    prof = prof[0]
+    print(prof[1])
 
     if error_statement == '':
-        html = \
-            render_template('profinfo_tara.html', profs=profs, netid=netID)
+        if len(prof) == 0:
+            html = \
+                render_template('profinfo_tara.html', error_statement="No professor with netid '"
+                 + netID + "' exists. Please try a different input")
+        else:
+            html = "<div class='profForm'>" + \
+                        "<form>" + \
+                            "<div class='form-group row'>" + \
+                                "<label for='colFormLabel' class='col-sm-2 col-form-label'>NetID</label>" + \
+                                "<div class='col-sm-10'>" + \
+                                "<input type='text' class='form-control' id='colFormLabel' value='" + prof[0] + "'>" + \
+                                "</div>" + \
+                            "</div>" + \
+                            "<div class='form-group row'>" + \
+                                "<label for='colFormLabel' class='col-sm-2 col-form-label'>First Name</label>" + \
+                                "<div class='col-sm-10'>" + \
+                                "<input type='text' class='form-control' id='colFormLabel' value='" + prof[1] + "'>" + \
+                                "</div>" + \
+                            "</div>" + \
+                            "<div class='form-group row'>" + \
+                                "<label for='colFormLabel' class='col-sm-2 col-form-label'>Lat Name</label>" + \
+                                "<div class='col-sm-10'>" + \
+                                "<input type='text' class='form-control' id='colFormLabel' value='" + prof[2] + "'>" + \
+                                "</div>" + \
+                            "</div>" + \
+                            "<div class='form-group row'>" + \
+                                "<label for='colFormLabel' class='col-sm-2 col-form-label'>Title</label>" + \
+                                "<div class='col-sm-10'>" + \
+                                "<input type='text' class='form-control' id='colFormLabel' value='" + prof[3] + "'>" + \
+                                "</div>" + \
+                            "</div>" + \
+                            "<div class='form-group row'>" + \
+                                "<label for='colFormLabel' class='col-sm-2 col-form-label'>Email</label>" + \
+                                "<div class='col-sm-10'>" + \
+                                "<input type='text' class='form-control' id='colFormLabel' value='" + prof[4] + "'>" + \
+                                "</div>" + \
+                            "</div>" + \
+                            "<div class='form-group row'>" + \
+                                "<label for='colFormLabel' class='col-sm-2 col-form-label'>Phone Number</label>" + \
+                                "<div class='col-sm-10'>" + \
+                                "<input type='text' class='form-control' id='colFormLabel' value='" + prof[5] + "'>" + \
+                                "</div>" + \
+                            "</div>" + \
+                            "<div class='form-group row'>" + \
+                                "<label for='colFormLabel' class='col-sm-2 col-form-label'>Website</label>" + \
+                                "<div class='col-sm-10'>" + \
+                                "<input type='text' class='form-control' id='colFormLabel' value='" + prof[6] + "'>" + \
+                                "</div>" + \
+                            "</div>" + \
+                            "<div class='form-group row'>" + \
+                                "<label for='colFormLabel' class='col-sm-2 col-form-label'>Office</label>" + \
+                                "<div class='col-sm-10'>" + \
+                                "<input type='text' class='form-control' id='colFormLabel' value='" + prof[7] + "'>" + \
+                                "</div>" + \
+                            "</div>" + \
+                            "<div class='form-group row'>" + \
+                                "<label for='colFormLabel' class='col-sm-2 col-form-label'>Department</label>" + \
+                                "<div class='col-sm-10'>" + \
+                                "<input type='text' class='form-control' id='colFormLabel' value='" + prof[8] + "'>" + \
+                                "</div>" + \
+                            "</div>" + \
+                            "<div class='form-group row'>" + \
+                                "<label for='colFormLabel' class='col-sm-2 col-form-label'>Research Interests</label>" + \
+                                "<div class='col-sm-10'>" + \
+                                "<input type='text' class='form-control' id='colFormLabel' value='" + prof[9] + "'>" + \
+                                "</div>" + \
+                            "</div>" + \
+                            "<div class='form-group row'>" + \
+                                "<label for='colFormLabel' class='col-sm-2 col-form-label'>Bio</label>" + \
+                                "<div class='col-sm-10'>" + \
+                                "<textarea class='form-control' id='exampleFormControlTextarea1' rows='10'>" + prof[10] + "</textarea>" + \
+                                "</div>" + \
+                            "</div>" + \
+                            "<div class='input-group mb-3'>" + \
+                                "<label for='colFormLabel' class='col-sm-2 col-form-label'>Image</label>" + \
+                                "<div class='custom-file'>" + \
+                                    "<input type='file' class='custom-file-input' id='inputGroupFile02'>" + \
+                                    "<label class='custom-file-label' for='inputGroupFile02' aria-describedby='inputGroupFileAddon02'>" + \
+                                    prof[11] +\
+                                    "</label>" + \
+                                "</div>" + \
+                                "<div class='input-group-append'>" + \
+                                    "<span class='input-group-text' id='inputGroupFileAddon02'>Upload</span>" + \
+                                "</div>" + \
+                            "</div>" + \
+                       "</form>" + \
+                    "</div>" + \
+                    """<form action="/displayprof" method="get">
+                            <input class="searchButton overwriteButton" type="submit" name="button" id="overwriteProf" value="Save" onclick="overwriteProf()">
+                        </form>
+                        <form action="/admin"><input class="searchButton cancelOverwriteButton" type="submit" id="button" name="button" value="Cancel"></form>"""
     else:
         html = render_template('profinfo_tara.html', error_statement=error_statement)
         print(error_statement, file=stderr)
@@ -273,11 +364,12 @@ def displayprof():
     if error_statement != '':
         print(error_statement)
 
-    profs, error_statement = getProfs('netid ILIKE %s', ['%'+netID+'%'])
+    prof_, error_statement = getProfs('netid ILIKE %s', [netID])
+    print(prof_[0])
     if error_statement == '':
         name = prof.getFirstName() + " " + prof.getLastName()
         html = \
-            render_template('displayprof_tara.html', profs=profs, name=name)
+            render_template('displayprof_tara.html', prof=prof_[0], name=name)
     else:
         html = render_template('displayprof_tara.html', error_statement=error_statement)
         print(error_statement, file=stderr)

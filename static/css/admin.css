@@ -1,4 +1,4 @@
-  .background {
+  body {
     background-color: #C9C9C9;
   }
   
@@ -110,7 +110,19 @@
     margin-left: 1%;
   }
 
+  .profForm {
+
+    width: 75%;
+    margin-left: 1%;
+  }
+
   .label {
     font-size: 1.3vw;
     text-align: left;
+  }
+
+  .alert {
+    width: 75%;
+    margin-top: 1%;
+    margin-left:1%;
   }
