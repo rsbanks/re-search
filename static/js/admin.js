@@ -19,12 +19,16 @@ function handleResponse(response)
    $("#saveForm").on("submit", function() {
     displayProf();
     return false;
-});
+    });
 }
 
 function handleResponseDisplay(response)
 { 
     document.getElementById('profResult').innerHTML = response;
+
+    $("#editAnotherBtn").on("submit", function() {
+        window.location.href("index_tara.html");
+    });
 }
 
 let request = null;

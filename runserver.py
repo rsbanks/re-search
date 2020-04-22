@@ -320,7 +320,7 @@ def profinfo():
                     """<form method="get" id="saveForm">
                             <input class="searchButton overwriteButton" type="submit" name="button" id="overwriteProf" value="Save">
                         </form>
-                        <form action="/admin"><input class="searchButton cancelOverwriteButton" type="submit" id="button" name="button" value="Cancel"></form>"""
+                        <form action="/admin"><input class="searchButton cancelOverwriteButton" type="submit" value="Cancel"></form>"""
     else:
         html = render_template('profinfo_tara.html', error_statement=error_statement)
         print(error_statement, file=stderr)
@@ -419,7 +419,7 @@ def displayprof():
                         "<td></td>" + \
                     "</tr>"  + \
             "</table>" + \
-            """<input style="font-size:15pt" type="submit" value="Edit another professor" class="searchButton editButton">"""
+            """<form action="/admin"><input class="searchButton cancelOverwriteButton" type="submit" value="Edit Another Professor"></form>"""
     else:
         html = render_template('displayprof_tara.html', error_statement=error_statement)
         print(error_statement, file=stderr)
