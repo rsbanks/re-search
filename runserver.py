@@ -226,15 +226,12 @@ def admin():
 def profinfo():
     netID = request.args.get('netid')
     prof, error_statement = getProfs('netid ILIKE %s', [netID])
-    prof = prof[0]
-    print(prof[1])
 
     if error_statement == '':
         if len(prof) == 0:
-            html = \
-                render_template('profinfo_tara.html', error_statement="No professor with netid '"
-                 + netID + "' exists. Please try a different input")
+            html = ''
         else:
+            prof = prof[0]
             html = "<div class='profForm'>" + \
                         "<form>" + \
                             "<div class='form-group row'>" + \

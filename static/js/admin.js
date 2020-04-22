@@ -1,6 +1,5 @@
 function setup() {
     $("#searchInputForm").on("submit", function() {
-        $('#netidAlert').show('fade');
         getProf();
         return false;
     });
@@ -14,12 +13,17 @@ function setup() {
 
 function handleResponse(response)
 { 
-   document.getElementById('profResult').innerHTML = response;
+    if (response == '') {
+        $('#netidAlert').show('fade');
+    }
+    else {
+        document.getElementById('profResult').innerHTML = response;
 
-   $("#saveForm").on("submit", function() {
-        displayProf();
-        return false;
-    });
+        $("#saveForm").on("submit", function() {
+             displayProf();
+             return false;
+         });
+    }
 }
 
 function handleResponseDisplay(response)

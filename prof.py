@@ -22,7 +22,6 @@ class Professor(object):
         self.website = website
     
     def setRooms(self, rooms):
-        print('helloroom', rooms)
         rooms = rooms.split(',')
         self.rooms = rooms
 
