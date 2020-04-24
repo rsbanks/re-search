@@ -102,11 +102,12 @@ def searchResults():
 
         i = 0
         for prof in profs:
-            try:
-                image = open(prof[11])
-                src = prof[11]
-            except:
-                src = 'static/images/default.png'
+            # try:
+            #     image = open(prof[11])
+            src = prof[11]
+            # except Exception as e:
+            #     print()
+            #     src = 'static/images/default.png'
             
             website = ''
             email = ''
