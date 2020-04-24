@@ -6,6 +6,8 @@ from profsDB import profsDB
 from CASClient import CASClient
 from updateDB import updateDB, createProf, deleteProf
 import psycopg2
+from pathlib import Path
+
 
 app = Flask(__name__, template_folder='.')
 
@@ -104,11 +106,19 @@ def searchResults():
         for prof in profs:
             # try:
             #     image = open(prof[11])
-            src = prof[11]
+            # src = prof[11]
             # except Exception as e:
             #     print()
             #     src = 'static/images/default.png'
             
+
+
+            prof_image = Path(prof[11])
+            if prof_image.is_file():
+                src = prof[11]
+            else:
+                src = 'static/images/default.png'
+
             website = ''
             email = ''
             if prof[4] != '':
