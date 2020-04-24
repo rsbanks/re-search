@@ -97,7 +97,7 @@ def searchResults():
 
         if len(profs) == 0:
             html += '<div class="no-search-results">' + \
-                        '<h2>No search results. Please try use different keywords.</h2>' + \
+                        "<h2>No search results. Please try use different keywords.</h2>" + \
                     '</div>'
 
         i = 0
@@ -229,7 +229,7 @@ def profinfo():
 
     if error_statement == '':
         if len(prof) == 0:            
-            html = "<h2 class='heading'>No such professor found. Create a new professor below.</h2>" + \
+            html = "<h2 class='heading' style='color: #CB2200; font-size:large'>No such professor found. Create a new professor below.</h2>" + \
                     "<div class='profForm'>" + \
                                 "<form>" + \
                                     "<div class='form-group row'>" + \
