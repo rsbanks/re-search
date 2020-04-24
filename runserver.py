@@ -102,9 +102,22 @@ def searchResults():
 
         i = 0
         for prof in profs:
+            try:
+                image = open(prof[11])
+                src = prof[11]
+            except:
+                src = 'static/images/default.png'
+            
+            website = ''
+            email = ''
+            if prof[4] != '':
+                email = '<a href="mailto:' + prof[4] + '"><img class="icon" src="static/images/email-icon.png"></a>'
+            if prof[6] != '':
+                website = '<a href="' + prof[6] + '"><img class="icon" src="static/images/website-icon.png"></a>'
+
             html += '<div class="row">' + \
                         '<div class="prof-image">' + \
-                            '<img src="' + prof[11] + '"/>' + \
+                            '<img src="' + src + '"/>' + \
                         '</div>' + \
                         '<div class="prof-info" onclick=' + '"collapse(' + str(i) + ')">' + \
                             '<p class="prof-name">' + prof[1] + ' ' + prof[2] + '</p>' + \
@@ -112,11 +125,11 @@ def searchResults():
                             '<p class="prof-more-info">' + prof[8] + '</p>' + \
                             '<p class="prof-more-info">' + prof[5] + '</p>' + \
                             '<p class="prof-more-info">' + prof[7] + '</p>' + \
-                            '<a href="mailto:' + prof[4] + '"><img class="icon" src="static/email-icon.png"></a>' + \
-                            '<a href="' + prof[6] + '"><img class="icon" src="static/website-icon.png"></a>' + \
+                            email + \
+                            website + \
                         '</div>' + \
                         '<div class="button-div">' +\
-                            '<button type="button" class="button" onclick=' + '"collapse(' + str(i) + ')"><img class="icon-button" id= img-' + str(i) + ' src="static/plus.png"></button>' + \
+                            '<button type="button" class="button" onclick=' + '"collapse(' + str(i) + ')"><img class="icon-button" id= img-' + str(i) + ' src="static/images/plus.png"></button>' + \
                         '</div>' + \
                     '</div>'+ \
                     '<div class="panel" id =panel-' + str(i) + '>' + \
