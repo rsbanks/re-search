@@ -4,6 +4,13 @@ from prof import Professor
 
 def updateDB(conn, prof):
     error_statement = ''
+    returned = False
+    
+    # check if prof exists
+    cur = conn.cursor()
+    result = cur.execute("SELECT * FROM profs WHERE netid=%s", [prof.getNetId()])
+    if result == None:
+        return error_statement, returned
     try:
         cur = conn.cursor()
         stmt = ""
@@ -40,21 +47,23 @@ def updateDB(conn, prof):
         cur.execute(stmt, prof_listing)
         conn.commit()
         cur.close()
+        returned = True
+
     except (Exception, psycopg2.DatabaseError) as error:
         error_statement = str(error)
         print(error_statement)
     finally:
         if conn is not None:
             conn.close()
-        return error_statement
+        return error_statement, returned
 
 
 def createProf(conn, prof):
     error_statement = ''
     try:
         cur = conn.cursor()
-        stmt = "INSERT INTO profs(netid, email, last, first, title, phone, website, rooms, department, area, bio) VALUES"
-        stmt += "(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
+        stmt = "INSERT INTO profs(netid, email, last, first, title, phone, website, rooms, department, area, bio, image) VALUES"
+        stmt += "(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
         prof_listing = []
         prof_listing.append(prof.getNetId())
         prof_listing.append(prof.getEmail())
@@ -69,8 +78,9 @@ def createProf(conn, prof):
         researchAreas = ", ".join(prof.getResearchAreas())
         prof_listing.append(researchAreas)
         prof_listing.append(prof.getBio())
+        prof_listing.append(prof.getImagePath())
 
-
+        print('prof_listing:', prof_listing)
         cur.execute(stmt, prof_listing)
         conn.commit()
         cur.close()
@@ -81,6 +91,24 @@ def createProf(conn, prof):
         if conn is not None:
             conn.close()
         return error_statement
+
+def delete_prof(conn, netid):
+    error_statement = ''
+    try:
+        cur = conn.cursor()
+        stmt = "DELETE FROM profs WHERE netid=%s"
+
+        cur.execute(stmt, (netid, ))
+        conn.commit()
+        cur.close()
+    except (Exception, psycopg2.DatabaseError) as error:
+        error_statement = str(error)
+        print(error_statement)
+    finally:
+        if conn is not None:
+            conn.close()
+        return error_statement
+
       
 if __name__ == '__main__':
 
@@ -113,7 +141,6 @@ if __name__ == '__main__':
      combinatorial optimization, and applications of these tools to
      semialgebraic problems in statistics, economics, and systems theory.""")
     prof.setImagePath("static/profImages/aaa.png")
-    updateDB(conn, prof)
     conn.close()
     
     

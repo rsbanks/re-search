@@ -228,8 +228,93 @@ def profinfo():
     prof, error_statement = getProfs('netid ILIKE %s', [netID])
 
     if error_statement == '':
-        if len(prof) == 0:
-            html = ''
+        if len(prof) == 0:            
+            html = "<h2 class='heading'>No such professor found. Create a new professor below.</h2>" + \
+                    "<div class='profForm'>" + \
+                                "<form>" + \
+                                    "<div class='form-group row'>" + \
+                                        "<label for='colFormLabel' class='col-sm-2 col-form-label'>NetID</label>" + \
+                                        "<div class='col-sm-10'>" + \
+                                        "<input type='text' class='form-control' id='netid' name='netid' value='""'>" + \
+                                        "</div>" + \
+                                    "</div>" + \
+                                    "<div class='form-group row'>" + \
+                                        "<label for='colFormLabel' class='col-sm-2 col-form-label'>First Name</label>" + \
+                                        "<div class='col-sm-10'>" + \
+                                        "<input type='text' class='form-control' id='firstname' name='firstname' value='""'>" + \
+                                        "</div>" + \
+                                    "</div>" + \
+                                    "<div class='form-group row'>" + \
+                                        "<label for='colFormLabel' class='col-sm-2 col-form-label'>Lat Name</label>" + \
+                                        "<div class='col-sm-10'>" + \
+                                        "<input type='text' class='form-control' id='lastname' name='lastname' value='""'>" + \
+                                        "</div>" + \
+                                    "</div>" + \
+                                    "<div class='form-group row'>" + \
+                                        "<label for='colFormLabel' class='col-sm-2 col-form-label'>Title</label>" + \
+                                        "<div class='col-sm-10'>" + \
+                                        "<input type='text' class='form-control' id='phone' name='phone' value='""'>" + \
+                                        "</div>" + \
+                                    "</div>" + \
+                                    "<div class='form-group row'>" + \
+                                        "<label for='colFormLabel' class='col-sm-2 col-form-label'>Email</label>" + \
+                                        "<div class='col-sm-10'>" + \
+                                        "<input type='text' class='form-control' id='email' value='""'>" + \
+                                        "</div>" + \
+                                    "</div>" + \
+                                    "<div class='form-group row'>" + \
+                                        "<label for='colFormLabel' class='col-sm-2 col-form-label'>Phone Number</label>" + \
+                                        "<div class='col-sm-10'>" + \
+                                        "<input type='text' class='form-control' id='title' name='title' value='""'>" + \
+                                        "</div>" + \
+                                    "</div>" + \
+                                    "<div class='form-group row'>" + \
+                                        "<label for='colFormLabel' class='col-sm-2 col-form-label'>Website</label>" + \
+                                        "<div class='col-sm-10'>" + \
+                                        "<input type='text' class='form-control' id='website' name='website' value='""'>" + \
+                                        "</div>" + \
+                                    "</div>" + \
+                                    "<div class='form-group row'>" + \
+                                        "<label for='colFormLabel' class='col-sm-2 col-form-label'>Office</label>" + \
+                                        "<div class='col-sm-10'>" + \
+                                        "<input type='text' class='form-control' id='rooms' name='rooms' value='""'>" + \
+                                        "</div>" + \
+                                    "</div>" + \
+                                    "<div class='form-group row'>" + \
+                                        "<label for='colFormLabel' class='col-sm-2 col-form-label'>Department</label>" + \
+                                        "<div class='col-sm-10'>" + \
+                                        "<input type='text' class='form-control' id='department' name='department' value='""'>" + \
+                                        "</div>" + \
+                                    "</div>" + \
+                                    "<div class='form-group row'>" + \
+                                        "<label for='colFormLabel' class='col-sm-2 col-form-label'>Research Interests</label>" + \
+                                        "<div class='col-sm-10'>" + \
+                                        "<input type='text' class='form-control' id='areas' name='areas' value='""'>" + \
+                                        "</div>" + \
+                                    "</div>" + \
+                                    "<div class='form-group row'>" + \
+                                        "<label for='colFormLabel' class='col-sm-2 col-form-label'>Bio</label>" + \
+                                        "<div class='col-sm-10'>" + \
+                                        "<textarea class='form-control' id='bio' name='bio' rows='10'>""</textarea>" + \
+                                        "</div>" + \
+                                    "</div>" + \
+                                    "<div class='input-group mb-3'>" + \
+                                        "<label for='colFormLabel' class='col-sm-2 col-form-label'>Image</label>" + \
+                                        "<div class='custom-file'>" + \
+                                            "<input type='file' class='custom-file-input' id='myfile' name='myfile'>" + \
+                                            "<label class='custom-file-label' for='inputGroupFile02' aria-describedby='inputGroupFileAddon02'>" + \
+                                            "</label>" + \
+                                        "</div>" + \
+                                        "<div class='input-group-append'>" + \
+                                            "<span class='input-group-text' id='inputGroupFileAddon02'>Upload</span>" + \
+                                        "</div>" + \
+                                    "</div>" + \
+                            "</form>" + \
+                            "</div>" + \
+                            """<form method="get" id="saveForm">
+                                    <input class="searchButton overwriteButton" type="submit" id="Save" value="Save">
+                                    <input class="searchButton cancelOverwriteButton" type="submit" id ="Cancel" value="Cancel">
+                                </form>"""        
         else:
             prof = prof[0]
             html = "<div class='profForm'>" + \
@@ -349,17 +434,17 @@ def displayprof():
     password = 'c51235a04a7593a9ec0c13821f495f259a68d2e1ab66a93df947ab2f31970009'
     database = 'd99tniu8rpcj0o'
 
-    conn = psycopg2.connect( host=hostname, user=username, password=password, dbname=database)
+    conn = psycopg2.connect(host=hostname, user=username, password=password, dbname=database)
     prof = newProf(netID)
-    error_statement = updateDB(conn, prof)
-    if error_statement != '':
+    error_statement, returned = updateDB(conn, prof)
+    if returned == False:
         error_statement = createProf(conn, prof)
     conn.close()
     if error_statement != '':
         print(error_statement)
 
     prof_, error_statement = getProfs('netid ILIKE %s', [netID])
-    prof  = prof_[0]
+    prof = prof_[0]
     if error_statement == '':
         html = "<h2 class='heading'>This the updated infomation for " + prof[1] + " " + prof[2] + ":</h2><hr>"
         html += "<table style='text-align: left;' class='profInfoTable'> " + \
@@ -409,7 +494,7 @@ def displayprof():
                     "</tr>" + \
                     "<tr>" + \
                         "<td align='right' class='label'>Image File:</td>" + \
-                        "<td>" + prof[11] + "</td>" + \
+                        "<td>""</td>" + \
                     "</tr>" + \
                     "<tr>" + \
                         "<td></td>" + \
