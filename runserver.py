@@ -113,7 +113,7 @@ def searchResults():
             
 
 
-            prof_image = Path(prof[11])
+            prof_image = Path("/"+prof[11])
             if prof_image.is_file():
                 src = prof[11]
             else:
