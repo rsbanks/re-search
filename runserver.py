@@ -308,7 +308,7 @@ def profinfo():
                                     "<div class='form-group row'>" + \
                                         "<label for='colFormLabel' class='col-sm-2 col-form-label'>Bio</label>" + \
                                         "<div class='col-sm-10'>" + \
-                                        "<textarea class='form-control' id='bio' name='bio' rows='10'>""</textarea>" + \
+                                        "<textarea class='form-control' id='bio' name='bio' rows='5'>""</textarea>" + \
                                         "</div>" + \
                                     "</div>" + \
                                     "<div class='input-group mb-3'>" + \
@@ -396,7 +396,7 @@ def profinfo():
                             "<div class='form-group row'>" + \
                                 "<label for='colFormLabel' class='col-sm-2 col-form-label'>Bio</label>" + \
                                 "<div class='col-sm-10'>" + \
-                                "<textarea class='form-control' id='bio' name='bio' rows='10'>" + prof[10] + "</textarea>" + \
+                                "<textarea class='form-control' id='bio' name='bio' rows='5'>" + prof[10] + "</textarea>" + \
                                 "</div>" + \
                             "</div>" + \
                             "<div class='input-group mb-3'>" + \
