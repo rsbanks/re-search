@@ -388,7 +388,7 @@ def profinfo():
                             "<div class='input-group mb-3'>" + \
                                 "<label for='colFormLabel' class='col-sm-2 col-form-label'>Image</label>" + \
                                 "<div class='custom-file'>" + \
-                                    "<input type='file' class='custom-file-input' id='myfile' name='myfile'>" + \
+                                    "<input type='file' accept='image/*' class='custom-file-input' id='myfile' name='myfile'>" + \
                                     "<label class='custom-file-label' for='inputGroupFile02' aria-describedby='inputGroupFileAddon02'>" + \
                                     prof[11] +\
                                     "</label>" + \
