@@ -4,7 +4,7 @@ from flask import render_template
 from prof import Professor
 from profsDB import profsDB
 from CASClient import CASClient
-from updateDB import updateDB, createProf
+from updateDB import updateDB, createProf, deleteProf
 import psycopg2
 
 app = Flask(__name__, template_folder='.')
@@ -235,7 +235,7 @@ def profinfo():
                                     "<div class='form-group row'>" + \
                                         "<label for='colFormLabel' class='col-sm-2 col-form-label'>NetID</label>" + \
                                         "<div class='col-sm-10'>" + \
-                                        "<input type='text' class='form-control' id='netid' name='netid' value='""'>" + \
+                                        "<input type='text' class='form-control' id='netid' name='netid' value='" + netID + "' readonly>" + \
                                         "</div>" + \
                                     "</div>" + \
                                     "<div class='form-group row'>" + \
@@ -314,6 +314,7 @@ def profinfo():
                             """<form method="get" id="saveForm">
                                     <input class="searchButton overwriteButton" type="submit" id="Save" value="Save">
                                     <input class="searchButton cancelOverwriteButton" type="submit" id ="Cancel" value="Cancel">
+                                    <input class="searchButton deleteButton" type="submit" id ="Delete" value="Delete">
                                 </form>"""        
         else:
             prof = prof[0]
@@ -332,7 +333,7 @@ def profinfo():
                                 "</div>" + \
                             "</div>" + \
                             "<div class='form-group row'>" + \
-                                "<label for='colFormLabel' class='col-sm-2 col-form-label'>Lat Name</label>" + \
+                                "<label for='colFormLabel' class='col-sm-2 col-form-label'>Last Name</label>" + \
                                 "<div class='col-sm-10'>" + \
                                 "<input type='text' class='form-control' id='lastname' name='lastname' value='" + prof[2] + "'>" + \
                                 "</div>" + \
@@ -388,7 +389,7 @@ def profinfo():
                             "<div class='input-group mb-3'>" + \
                                 "<label for='colFormLabel' class='col-sm-2 col-form-label'>Image</label>" + \
                                 "<div class='custom-file'>" + \
-                                    "<input type='file' accept='image/*' class='custom-file-input' id='myfile' name='myfile'>" + \
+                                    "<input type='file' class='custom-file-input' id='myfile' name='myfile'>" + \
                                     "<label class='custom-file-label' for='inputGroupFile02' aria-describedby='inputGroupFileAddon02'>" + \
                                     prof[11] +\
                                     "</label>" + \
@@ -402,6 +403,8 @@ def profinfo():
                     """<form method="get" id="saveForm">
                             <input class="searchButton overwriteButton" type="submit" id="Save" value="Save">
                             <input class="searchButton cancelOverwriteButton" type="submit" id ="Cancel" value="Cancel">
+                            <input class="searchButton deleteButton" type="submit" id ="Delete" value="Delete">
+
                         </form>"""
     else:
         html = render_template('profinfo_tara.html', error_statement=error_statement)
@@ -505,6 +508,25 @@ def displayprof():
         html = render_template('displayprof_tara.html', error_statement=error_statement)
         print(error_statement, file=stderr)
 
+    response = make_response(html)
+    return response
+
+@app.route('/deleteprof', methods=["GET"])
+def deleteprof():
+    netID = request.cookies.get('netid')
+
+    hostname = 'ec2-52-200-119-0.compute-1.amazonaws.com'
+    username = 'hmqcdnegecbdgo'
+    password = 'c51235a04a7593a9ec0c13821f495f259a68d2e1ab66a93df947ab2f31970009'
+    database = 'd99tniu8rpcj0o'
+
+    conn = psycopg2.connect(host=hostname, user=username, password=password, dbname=database)
+    error_statement = deleteProf(conn, netID)
+    conn.close()
+    if error_statement != '':
+        print(error_statement)
+
+    html = render_template('index_tara.html')
     response = make_response(html)
     return response
 

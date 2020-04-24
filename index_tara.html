@@ -18,7 +18,7 @@
     <h2 class="heading">Enter the NetID of the professor's infomation you want to change:</h2>
 
     <form method="get" class="searchInputForm" id="searchInputForm">
-        <input type="text" id="netid" name="netid" placeHolder="NetID" class="netidInput">
+        <input type="text" id="netidSearch" name="netidSearch" placeHolder="NetID" class="netidInput">
         <input type="submit" value="Search" class="searchButton">
     </form>
     {% endif %}
@@ -31,6 +31,11 @@
     <div id="netidAlertSuccess" class="alert alert-success alert-dismissible collapse" role="alert">
         Professor's information successfully updated!
         <button id="closeSuccessAlert" class="close" type="button" data-dismiss="alert">×</button>
+    </div>
+
+    <div id="netidAlertDeleteSuccess" class="alert alert-success alert-dismissible collapse" role="alert">
+        Professor's information successfully deleted!
+        <button id="closeSuccessDeleteAlert" class="close" type="button" data-dismiss="alert">×</button>
     </div>
 
     <div id="profResult" class="profResult"></div>

@@ -80,7 +80,6 @@ def createProf(conn, prof):
         prof_listing.append(prof.getBio())
         prof_listing.append(prof.getImagePath())
 
-        print('prof_listing:', prof_listing)
         cur.execute(stmt, prof_listing)
         conn.commit()
         cur.close()
@@ -92,7 +91,7 @@ def createProf(conn, prof):
             conn.close()
         return error_statement
 
-def delete_prof(conn, netid):
+def deleteProf(conn, netid):
     error_statement = ''
     try:
         cur = conn.cursor()

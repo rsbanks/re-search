@@ -85,20 +85,32 @@
   }
 
   .editButton {
-      width: 20%;
-      margin: 1%;
+    width: 20%;
+    margin: 1%;
+    height: 6vh;
   }
 
   .overwriteButton {
-    width: 16%;
+    width: 23%;
     margin: 1%;
+    margin-left: 2%;
     font-size: medium;
+    height: 6vh;
+
   }
 
+  .deleteButton {
+    width: 23%;
+    margin: 1%;
+    font-size: bold;
+    background-color: #CD2400;
+    height: 6vh;
+  }
   .cancelOverwriteButton {
-    width: 16%;
+    width: 23%;
     margin: 1%;
     font-size: medium;
+    height: 6vh;
   }
 
   .profInfoTable {
