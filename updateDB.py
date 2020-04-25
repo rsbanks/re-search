@@ -8,7 +8,8 @@ def updateDB(conn, prof):
     
     # check if prof exists
     cur = conn.cursor()
-    result = cur.execute("SELECT * FROM profs WHERE netid=%s", [prof.getNetId()])
+    cur.execute("SELECT * FROM profs WHERE netid=%s", [prof.getNetId()])
+    result = cur.fetchone()
     if result == None:
         return error_statement, returned
     try:
@@ -47,15 +48,16 @@ def updateDB(conn, prof):
         cur.execute(stmt, prof_listing)
         conn.commit()
         cur.close()
+
+        if conn is not None:
+            conn.close()
+
         returned = True
+        return error_statement, returned
 
     except (Exception, psycopg2.DatabaseError) as error:
         error_statement = str(error)
         print(error_statement)
-    finally:
-        if conn is not None:
-            conn.close()
-        return error_statement, returned
 
 
 def createProf(conn, prof):

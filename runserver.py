@@ -450,6 +450,7 @@ def displayprof():
     conn = psycopg2.connect(host=hostname, user=username, password=password, dbname=database)
     prof = newProf(netID)
     error_statement, returned = updateDB(conn, prof)
+    print(returned)
     if returned == False:
         error_statement = createProf(conn, prof)
     conn.close()
