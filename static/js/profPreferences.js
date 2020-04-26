@@ -35,6 +35,6 @@ function reset_profs() {
     reset_profs();
     prof_preference_list.slice().reverse().forEach(function(profname) {
        const input = createProfPreference(profname);
-       $('#profPreferencesDiv').prepend(input);
+       $('#profPreferencesDiv').append(input);
     })
  }
