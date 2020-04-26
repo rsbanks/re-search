@@ -1,19 +1,23 @@
 @import url('https://fonts.googleapis.com/icon?family=Material+Icons');
 
-.background{
+body{
   background-color: #C9C9C9;
 }
 
 .header {
+  position: fixed;
+  background-color: #959595;
+  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.25);
+  top: 0;  
   width: 100%;
-  height: 10vh;
+  height: 8vh;
 }
 
 .header .title {
   font-family: Montserrat;
   font-style: normal;
   font-weight: normal;
-  font-size: 50px;
+  font-size: 45px;
 
   margin-left: 1%;
 
@@ -36,7 +40,6 @@
 .heading-div {
   width: 100%;
   height: 5%;
-  margin-top: 0;
   text-align: left;
 }
 
@@ -47,6 +50,10 @@
   font-size: 1.5vw;
 
   margin-left: 1%;
+  margin-top: 10vh;
+
+  width: 80%;
+  float: right;
 
   color: #000000;
 }
@@ -64,7 +71,7 @@
   width: 98%;
   margin-left: 1%;
   margin-right: 1%;
-  height: 20vh;
+  height: 21vh;
   margin-bottom: 2vh;
 
   background: #AEAEAE;
@@ -125,12 +132,14 @@ img{
   float: right;
   margin-top: 1%;
   margin-right: 1%;
+  margin-left: 1%;
 }
 
 .prof-info {
-  width: 60%;
+  width: 76%;
   height: 100%;
   margin-top: 0.3%;
+  margin-left: 1%;
   float: left;
 }
 
@@ -218,6 +227,9 @@ img{
 
 .searchForm {
   height: 7.5vh;
+
+  width: 80%;
+  float: right;
 }
 
 .form-input-div {
@@ -250,24 +262,32 @@ img{
 }
 
 .tagForm {
-  height: 6vh;
-  width: 98%;
+  /* height: 6vh;
+  width: 98%; */
   margin-left: 1%;
   margin-right: 1%;
+  margin-bottom: 1%;
   height: 6vh;
   display: inline-flex;
+
+  width: 78.5%;
+  float: right;
 }
 
 .tag-input-div {
   margin-left: 1%;
   margin-right: 1%;
-  margin-top: 0.5%;
-  margin-bottom: 1%;
+  margin-bottom: 0.5%;
+
+  width: 78.5%;
+  float: right;
   align-items: center;
 }
 
 .tag {
-  height: 3vh;
+  height: 4.5vh;
+
+  /* height: 3vh; */
   align-self: center;
   margin-top: 0.5%;
   margin-right: 0.3%;
@@ -326,11 +346,37 @@ img{
 }
 
 .add-prof-selection {
-  float: right;
+  margin: 1%;
   width: 5%;
   cursor: pointer;
 }
 
 .add-prof-selection:hover {
   text-decoration: underline;
+}
+
+.results {
+  float: right;
+  width: 80%;
+  height: 100%;
+}
+
+.profPreferencesDiv {
+  float: left;
+  width: 19%;
+  height: 89%;
+
+  background: #FAFAFA;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 6px;
+  position: fixed;
+  top: 10%;
+  left: 0;
+  right: 0;
+
+  margin-left: 0.5%;
+
+  /* max-height: 0; */
+  /* overflow: hidden; */
+  /* transition: max-height 0.3s ease-out; */
 }
