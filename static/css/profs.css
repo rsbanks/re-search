@@ -408,3 +408,7 @@ img{
 
   cursor: default;
 }
+
+#closeIconProf {
+  float: right;
+}

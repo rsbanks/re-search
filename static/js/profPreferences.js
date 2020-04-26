@@ -12,8 +12,14 @@ function createProfPreference(name) {
     div.setAttribute('class', 'prof_preference');
     const span = document.createElement('span');
     span.innerHTML = name;
+    const closeIcon = document.createElement('i');
+    closeIcon.setAttribute('class', 'material-icons');
+    closeIcon.setAttribute('id', 'closeIconProf')
+    closeIcon.setAttribute('data-item', name)
+    closeIcon.innerHTML = 'close';
 
     div.appendChild(span);
+    div.appendChild(closeIcon);
     
     return div;
  }
