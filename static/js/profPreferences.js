@@ -13,6 +13,13 @@ function setup() {
          addProfs();
       }
    })
+
+   $("#submit_preferences_form").on("click", function() {
+      const draggables = document.querySelectorAll('.prof_preference')
+      updatePreferenceList(draggables)
+      console.log(prof_preference_list)
+      return false
+   });
 }
 
 function addProfPreference(name){
@@ -87,7 +94,6 @@ function reset_profs() {
       prof_preference_list.push(draggable.getAttribute('data-item'))
    })
 
-   console.log(prof_preference_list)
  }
 
  function getDragAfterElement(container, y) {
