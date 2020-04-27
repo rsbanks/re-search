@@ -43,7 +43,7 @@ function setup()
 
   // on close icon clicked (tag)
   document.addEventListener('click', function(e) {
-   if (e.target.tagName === 'I') {
+   if (e.target.id === 'closeIconProf') {
       const value = e.target.getAttribute('data-item');
       const index = tags.indexOf(value);
       tags = [...tags.slice(0, index), ...tags.slice(index+1)];

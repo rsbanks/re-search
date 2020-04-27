@@ -2,6 +2,19 @@
 
 var prof_preference_list = []
 
+function setup() {
+   // on close icon clicked (prof_preference)
+   document.addEventListener('click', function(e) {
+      if (e.target.id === 'closeIconProfPrefence') {
+         const value = e.target.getAttribute('data-item');
+         const index = prof_preference_list.indexOf(value);
+         prof_preference_list = 
+            [...prof_preference_list.slice(0, index), ...prof_preference_list.slice(index+1)];
+         addProfs();
+      }
+   })
+}
+
 function addProfPreference(name){
     if (!prof_preference_list.includes(name)) {
         prof_preference_list.push(name);
@@ -17,7 +30,7 @@ function createProfPreference(name) {
     span.innerHTML = name;
     const closeIcon = document.createElement('i');
     closeIcon.setAttribute('class', 'material-icons');
-    closeIcon.setAttribute('id', 'closeIconProf')
+    closeIcon.setAttribute('id', 'closeIconProfPrefence')
     closeIcon.setAttribute('data-item', name)
     closeIcon.innerHTML = 'close';
 
@@ -80,3 +93,5 @@ function reset_profs() {
        }
     }, {offset: Number.NEGATIVE_INFINITY}).element
  }
+
+ $('document').ready(setup);

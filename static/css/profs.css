@@ -412,14 +412,15 @@ img{
 }
 
 .prof_preference.dragging{
-  opacity: 0.5;
+  transform: scale(1.1);
+  opacity: 50%;
 }
 
-#closeIconProf {
+#closeIconProfPrefence {
   float: right;
   opacity: 50%;
 }
 
-#closeIconProf:hover {
+#closeIconProfPrefence:hover {
   opacity: 100%;
 }
