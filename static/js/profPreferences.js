@@ -23,13 +23,14 @@ function addProfPreference(name){
 }
 
 function createProfPreference(name) {
-    const div = document.createElement('div');
-    div.setAttribute('class', 'prof_preference');
+    const div = document.createElement('div')
+    div.setAttribute('class', 'prof_preference')
     div.setAttribute('draggable', 'true')
-    const span = document.createElement('span');
+    div.setAttribute('data-item', name)
+    const span = document.createElement('span')
     span.innerHTML = name;
-    const closeIcon = document.createElement('i');
-    closeIcon.setAttribute('class', 'material-icons');
+    const closeIcon = document.createElement('i')
+    closeIcon.setAttribute('class', 'material-icons')
     closeIcon.setAttribute('id', 'closeIconProfPrefence')
     closeIcon.setAttribute('data-item', name)
     closeIcon.innerHTML = 'close';
@@ -49,7 +50,7 @@ function reset_profs() {
 
  function addProfs() {
     reset_profs();
-    prof_preference_list.slice().reverse().forEach(function(profname) {
+    prof_preference_list.forEach(function(profname) {
        const input = createProfPreference(profname);
        $('#profPreferencesDiv').append(input)
     })
@@ -77,6 +78,16 @@ function reset_profs() {
        }
     })
 
+ }
+
+ function updatePreferenceList(draggables) {
+   prof_preference_list = []
+
+   draggables.forEach(draggable =>{
+      prof_preference_list.push(draggable.getAttribute('data-item'))
+   })
+
+   console.log(prof_preference_list)
  }
 
  function getDragAfterElement(container, y) {
