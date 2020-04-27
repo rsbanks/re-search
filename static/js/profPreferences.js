@@ -38,4 +38,13 @@ function reset_profs() {
        const input = createProfPreference(profname);
        $('#profPreferencesDiv').append(input);
     })
+
+    const draggables = document.querySelectorAll('.prof_preference')
+    const container = document.querySelector('.profPreferencesDiv')
+
+    draggables.forEach(draggable =>{
+      draggable.addEventListener('dragstart', () => {
+         console.log('helloooo')
+      }) 
+   })
  }
