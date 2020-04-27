@@ -19,20 +19,12 @@ function setup() {
       updatePreferenceList(draggables)
       console.log(prof_preference_list)
 
-
-      url = '/profPreferences'
+      url = '/profPreferences?'
+      url += 'first=' + prof_preference_list[0]
+      url += '&second=' + prof_preference_list[1]
+      url += '&third=' + prof_preference_list[2]
+      url += '&fourth=' + prof_preference_list[3]
       window.open(url)
-      // if (request != null)
-      //     request.abort();
-      // request = $.ajax(
-      //     {
-      //         type: "GET",
-      //         url: url,
-      //         success: handleSubmit
-      //     }
-      // );
-
-      // return false
    });
 }
 
@@ -102,10 +94,15 @@ function reset_profs() {
  }
 
  function updatePreferenceList(draggables) {
-   prof_preference_list = []
+   prof_preference_list = ['', '', '', '']
 
+   var i = 0
    draggables.forEach(draggable =>{
-      prof_preference_list.push(draggable.getAttribute('data-item'))
+      if (i==4) {
+         return
+      }
+      prof_preference_list[i] = String(draggable.getAttribute('data-item'))
+      i++
    })
 
  }

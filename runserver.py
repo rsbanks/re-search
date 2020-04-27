@@ -544,7 +544,13 @@ def deleteprof():
 
 @app.route('/profPreferences', methods=["GET"])
 def profPreferences():
-    html = render_template('templates/profPreferences.html')
+    first = request.args.get('first')
+    second = request.args.get('second')
+    third = request.args.get('third')
+    fourth = request.args.get('fourth')
+
+    html = render_template('templates/profPreferences.html', 
+        first=first, second=second, third=third, fourth=fourth)
     response = make_response(html)
     return response
 
