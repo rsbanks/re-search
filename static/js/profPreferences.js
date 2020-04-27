@@ -10,6 +10,7 @@ function addProfPreference(name){
 function createProfPreference(name) {
     const div = document.createElement('div');
     div.setAttribute('class', 'prof_preference');
+    div.setAttribute('draggable', 'true')
     const span = document.createElement('span');
     span.innerHTML = name;
     const closeIcon = document.createElement('i');
