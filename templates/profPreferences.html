@@ -7,43 +7,64 @@
 </head>
 <body>
 
-    <nav class="header">
+    <nav class="header" style="position: sticky;">
         <span class="title" style="text-decoration:none">Re-Search</span>
         <a href="logout" class="logout" style="text-decoration:none">Log Out</a>
     </nav>
 
-    <div class="container" style="padding: 5%;">
+
+    
+
+    <div class="container" style="padding: 2%;">
+    <h1 class="display-4">Senior Thesis Advisor Preference Form</h1>
+    <p class="lead">Please list your top four choices for senior thesis advisor.
+        Next to each potential advisor, list a topic and any other
+        comments that you wish to include.  Advisors from outside 
+        of the ORFE department require permission from the selected
+        faculty member.
+    </p>
     <form>
-        <div class="form-group">
-          <label for="firstAdvisorChoice">First Advisor Choice</label>
-          <input type="email" class="form-control" id="firstAdvisorChoice" value="{{ first }}">
+        <div class="custom-control custom-radio" require>
+            <input type="radio" class="custom-control-input" id="customControlValidation2" name="radio-stacked" required>
+            <label class="custom-control-label" for="customControlValidation2">Senior Thesis ORF478</label>
         </div>
-        <div class="form-group">
-          <label for="exampleFormControlTextarea1">Example textarea</label>
-          <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+        <div class="custom-control custom-radio mb-3">
+            <input type="radio" class="custom-control-input" id="customControlValidation3" name="radio-stacked" required>
+            <label class="custom-control-label" for="customControlValidation3">One Semester Project ORF479</label>
+        </div>
+
+        <div class="form-group was-validated">
+          <label for="firstAdvisorChoice">First Advisor Choice</label>
+          <input type="text" class="form-control" id="firstAdvisorChoice" value="{{ first }}" required>
+        </div>
+        <div class="form-group was-validated">
+          <label for="exampleFormControlTextarea1">Topic or Comments</label>
+          <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"required></textarea>
         </div>
         <div class="form-group">
             <label for="secondAdvisorChoice">Second Advisor Choice</label>
-            <input type="email" class="form-control" id="secondAdvisorChoice" value="{{ second }}">
+            <input type="text" class="form-control" id="secondAdvisorChoice" value="{{ second }}">
           </div>
           <div class="form-group">
             <label for="exampleFormControlTextarea1">Topic or Comments</label>
             <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
           </div>        <div class="form-group">
             <label for="thirdAdvisorChoice">Third Advisor Choice</label>
-            <input type="email" class="form-control" id="thirdAdvisorChoice" value="{{ third }}">
+            <input type="text" class="form-control" id="thirdAdvisorChoice" value="{{ third }}">
           </div>
           <div class="form-group">
             <label for="exampleFormControlTextarea1">Topic or Comments</label>
             <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
           </div>        <div class="form-group">
             <label for="fourthAdvisorChoice">Fourth Advisor Choice</label>
-            <input type="email" class="form-control" id="fourthAdvisorChoice" value="{{ fourth }}"">
+            <input type="text" class="form-control" id="fourthAdvisorChoice" value="{{ fourth }}"">
           </div>
           <div class="form-group">
             <label for="exampleFormControlTextarea1">Topic or Comments</label>
             <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
           </div>
+          <button class="btn btn-dark" type="submit">Submit</button>
+          <button class="btn btn-dark" type="submit">Cancel</button>
       </form>
     </div>
 

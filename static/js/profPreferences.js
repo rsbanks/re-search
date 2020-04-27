@@ -27,13 +27,22 @@ function setup() {
       window.open(url)
       return false
    });
+
+   $("#closeProfLimitAlert").on("click", function() {
+      $('#profLimitAlert').hide('fade');
+      return false;
+  });
 }
 
 function addProfPreference(name){
-    if (!prof_preference_list.includes(name)) {
-        prof_preference_list.push(name);
-    }
-    addProfs();
+   if (prof_preference_list.length == 4) {
+      $('#profLimitAlert').show('fade');
+   }
+   if (!prof_preference_list.includes(name)) {
+      prof_preference_list.unshift(name);
+   }
+   prof_preference_list = prof_preference_list.slice(0, 4)
+   addProfs();
 }
 
 function createProfPreference(name) {
