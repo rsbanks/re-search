@@ -411,6 +411,10 @@ img{
   cursor: move;
 }
 
+.prof_preference.dragging{
+  opacity: 0.5;
+}
+
 #closeIconProf {
   float: right;
   opacity: 50%;

@@ -28,7 +28,7 @@ function createProfPreference(name) {
 // clear profs
 function reset_profs() {
     document.querySelectorAll('.prof_preference').forEach(function(prof) {
-       prof.parentElement.removeChild(prof);
+       prof.parentElement.removeChild(prof)
     })
  }
 
@@ -36,7 +36,7 @@ function reset_profs() {
     reset_profs();
     prof_preference_list.slice().reverse().forEach(function(profname) {
        const input = createProfPreference(profname);
-       $('#profPreferencesDiv').append(input);
+       $('#profPreferencesDiv').append(input)
     })
 
     const draggables = document.querySelectorAll('.prof_preference')
@@ -44,7 +44,16 @@ function reset_profs() {
 
     draggables.forEach(draggable =>{
       draggable.addEventListener('dragstart', () => {
-         console.log('helloooo')
-      }) 
-   })
+         draggable.classList.add('dragging')
+      })
+      draggable.addEventListener('dragend', () => {
+         draggable.classList.remove('dragging');
+      })
+    })
+
+    container.addEventListener('dragover', () => {
+       const draggable = document.querySelector('.dragging')
+       container.appendChild(draggable)
+    })
+
  }
