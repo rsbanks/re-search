@@ -25,6 +25,7 @@ function setup() {
       url += '&third=' + prof_preference_list[2]
       url += '&fourth=' + prof_preference_list[3]
       window.open(url)
+      return false
    });
 }
 
