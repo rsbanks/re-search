@@ -229,7 +229,7 @@ def getProfs(search_criteria, input_arguments):
 
 @app.route('/admin', methods=["GET"])
 def admin():
-    html = render_template('index_tara.html')
+    html = render_template('templates/admin.html')
     response = make_response(html)
     return response
 
@@ -418,7 +418,6 @@ def profinfo():
 
                         </form>"""
     else:
-        html = render_template('profinfo_tara.html', error_statement=error_statement)
         print(error_statement, file=stderr)
     response = make_response(html)
     response.set_cookie('netid', netID)
@@ -517,7 +516,6 @@ def displayprof():
             "</table>" + \
             """<form method="get" id="editOtherForm"><input class="searchButton cancelOverwriteButton" type="submit" value="Edit Another Professor"></form>"""
     else:
-        html = render_template('displayprof_tara.html', error_statement=error_statement)
         print(error_statement, file=stderr)
 
     response = make_response(html)
