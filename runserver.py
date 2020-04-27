@@ -542,6 +542,12 @@ def deleteprof():
     response = make_response(html)
     return response
 
+@app.route('/profPreferences', methods=["GET"])
+def profPreferences():
+    html = render_template('templates/profPreferences.html')
+    response = make_response(html)
+    return response
+
 if __name__ == '__main__':
     
     if (len(argv) != 2):

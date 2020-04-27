@@ -18,7 +18,21 @@ function setup() {
       const draggables = document.querySelectorAll('.prof_preference')
       updatePreferenceList(draggables)
       console.log(prof_preference_list)
-      return false
+
+
+      url = '/profPreferences'
+      window.open(url)
+      // if (request != null)
+      //     request.abort();
+      // request = $.ajax(
+      //     {
+      //         type: "GET",
+      //         url: url,
+      //         success: handleSubmit
+      //     }
+      // );
+
+      // return false
    });
 }
 
@@ -109,6 +123,10 @@ function reset_profs() {
           return closest
        }
     }, {offset: Number.NEGATIVE_INFINITY}).element
+ }
+
+ function handleSubmit() {
+    con
  }
 
  $('document').ready(setup);
