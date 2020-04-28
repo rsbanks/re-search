@@ -144,4 +144,3 @@ if __name__ == '__main__':
     prof.setImagePath("static/profImages/aaa.png")
     conn.close()
     
-    

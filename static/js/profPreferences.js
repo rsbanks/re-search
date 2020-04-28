@@ -17,6 +17,7 @@ function setup() {
    $("#preference-form").on("submit", function() {
       if (document.activeElement.id === 'profSubmit') {
          $('#submissionSuccessAlert').show('fade');
+         submitPreferences()
          return false;
       }
    });
@@ -142,8 +143,47 @@ function reset_profs() {
     }, {offset: Number.NEGATIVE_INFINITY}).element
  }
 
- function handleSubmit() {
-    con
+ function submitPreferences() {
+
+    Advisor1 = $('#firstAdvisorChoice').val()
+    Advisor2 = $('#secondAdvisorChoice').val()
+    Advisor3 = $('#thirdAdvisorChoice').val()
+    Advisor4 = $('#fourthAdvisorChoice').val()
+
+    Advisor1Comments = $('#firstAdvisorChoiceComments').val()
+    Advisor2Comments = $('#secondAdvisorChoiceComments').val()
+    Advisor3Comments = $('#thirdAdvisorChoiceComments').val()
+    Advisor4Comments = $('#fourthAdvisorChoiceComments').val()
+
+    courseSelection = $('#preference-form input:radio:checked').val()
+
+    url = '/submitPreferences?'
+    url += 'Advisor1=' + Advisor1
+    url += '&Advisor2=' + Advisor2
+    url += '&Advisor3=' + Advisor3
+    url += '&Advisor4=' + Advisor4
+
+    url += '&Advisor1Comments' + Advisor1Comments
+    url += '&Advisor2Comments' + Advisor2Comments
+    url += '&Advisor3Comments' + Advisor3Comments
+    url += '&Advisor4Comments' + Advisor4Comments
+
+    url += '&courseSelection' + courseSelection
+
+    request = null
+
+    if (request != null)
+         request.abort();
+         request = $.ajax(
+      {
+         type: "GET",
+         url: url
+      }
+   );
+
+    console.log(Advisor1, Advisor2, Advisor3, Advisor4)
+    console.log(Advisor1Comments, Advisor2Comments, Advisor3Comments, Advisor4Comments)
+    console.log(courseSelection)
  }
 
  $('document').ready(setup);

@@ -467,5 +467,6 @@ img{
 #submissionSuccessAlert {
   position: fixed;
   z-index: 999;
-  width: 72%;
+  width: 74%;
+  align-self: center;
 }

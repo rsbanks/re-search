@@ -5,8 +5,11 @@ from prof import Professor
 from profsDB import profsDB
 from CASClient import CASClient
 from updateDB import updateDB, createProf, deleteProf
+from profPreferencesDB import profPreferencesDB
 import psycopg2
 from pathlib import Path
+from datetime import datetime
+from pytz import timezone
 
 
 app = Flask(__name__, template_folder='.')
@@ -228,6 +231,7 @@ def admin():
 def profinfo():
     netID = request.args.get('netid')
     prof, error_statement = getProfs('netid ILIKE %s', [netID])
+    html = ''
 
     if error_statement == '':
         if len(prof) == 0:            
@@ -534,14 +538,81 @@ def deleteprof():
 @app.route('/profPreferences', methods=["GET"])
 def profPreferences():
     first = request.args.get('first')
+    if first == "":
+        first = ""
     second = request.args.get('second')
+    if first == "":
+        first = ""
     third = request.args.get('third')
+    if first == "":
+        first = ""
     fourth = request.args.get('fourth')
+    if first == "":
+        first = ""
 
     html = render_template('templates/profPreferences.html', 
         first=first, second=second, third=third, fourth=fourth)
     response = make_response(html)
     return response
+
+@app.route('/submitPreferences', methods=["GET"])
+def submitPreferences():
+
+    username = CASClient().authenticate().rstrip('\n')
+
+    advisor1 = request.args.get('Advisor1')
+    if advisor1 == None:
+        advisor1 = ''
+    advisor2 = request.args.get('Advisor2')
+    if advisor2 == None:
+        advisor2 = ''
+    advisor3 = request.args.get('Advisor3')
+    if advisor3 == None:
+        advisor3 = ''
+    advisor4 = request.args.get('Advisor4')
+    if advisor4 == None:
+        advisor4 = ''
+
+    advisor1Comments = request.args.get('Advisor1Comments')
+    if advisor1Comments == None:
+        advisor1Comments = ''
+    advisor2Comments = request.args.get('Advisor2Comments')
+    if advisor2Comments == None:
+        advisor2Comments = ''
+    advisor3Comments = request.args.get('Advisor3Comments')
+    if advisor3Comments == None:
+        advisor3Comments = ''
+    advisor4Comments = request.args.get('Advisor4Comments')
+    if advisor4Comments == None:
+        advisor4Comments = ''
+
+    courseSelection = request.args.get('courseSelection')
+    if courseSelection == None:
+        courseSelection = ''
+
+    fmt = '%Y-%m-%d %H:%M:%S %Z%z'
+    eastern = timezone('America/New_York')
+    loc_dt = datetime.now(eastern)
+    submittedTime = loc_dt.strftime(fmt)
+    if submittedTime == None:
+        submittedTime = ''
+
+    completedTime = submittedTime
+
+    # insert data into 'preferences database'
+    profPrefDB = profPreferencesDB()
+    error_statement = profPrefDB.connect()
+    if error_statement == '' :
+        profPrefDB.createProfPreference([username, courseSelection,
+            advisor1, advisor1Comments, advisor2, advisor2Comments, advisor3, 
+            advisor3Comments, advisor4, advisor4Comments, submittedTime, completedTime])
+        profPrefDB.disconnect()
+    else:
+        print(error_statement, file=stderr)
+
+    response = make_response(error_statement)
+    return response
+
 
 if __name__ == '__main__':
     
@@ -556,3 +627,4 @@ if __name__ == '__main__':
         exit(1) 
 
     app.run(host='0.0.0.0', port=int(argv[1]), debug=True)
+    app.run()
