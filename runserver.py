@@ -46,7 +46,7 @@ def index():
 @app.route('/search')
 def search():
 
-    # username = CASClient().authenticate()
+    username = CASClient().authenticate()
 
     html = render_template('templates/profs.html')
     response = make_response(html)
@@ -55,9 +55,9 @@ def search():
 @app.route('/logout', methods=['GET'])
 def logout():
     
-    # casClient = CASClient()
-    # casClient.authenticate()
-    # casClient.logout()
+    casClient = CASClient()
+    casClient.authenticate()
+    casClient.logout()
 
     html = render_template('templates/index.html')
     response = make_response(html)
@@ -66,7 +66,7 @@ def logout():
 @app.route('/button')
 def button():
 
-    # username = CASClient().authenticate()
+    username = CASClient().authenticate()
 
     html = render_template('templates/search.html')
     response = make_response(html)
@@ -82,7 +82,7 @@ def about():
 @app.route('/searchResults', methods=['GET'])
 def searchResults():   
 
-    # username = CASClient().authenticate()
+    username = CASClient().authenticate()
 
     search_criteria, input_arguments = getSearchCriteria()
 
@@ -601,14 +601,14 @@ def submitPreferences():
     profPrefDB = profPreferencesDB()
     error_statement = profPrefDB.connect()
     if error_statement == '' :
-        profPrefDB.createProfPreference([username, courseSelection,
+        report = profPrefDB.createProfPreference([username, courseSelection,
             advisor1, advisor1Comments, advisor2, advisor2Comments, advisor3, 
             advisor3Comments, advisor4, advisor4Comments, submittedTime, completedTime])
         profPrefDB.disconnect()
     else:
         print(error_statement, file=stderr)
 
-    response = make_response(error_statement)
+    response = make_response(report)
     return response
 
 

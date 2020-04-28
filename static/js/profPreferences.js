@@ -16,7 +16,6 @@ function setup() {
 
    $("#preference-form").on("submit", function() {
       if (document.activeElement.id === 'profSubmit') {
-         $('#submissionSuccessAlert').show('fade');
          submitPreferences()
          return false;
       }
@@ -42,7 +41,12 @@ function setup() {
    $("#closeProfLimitAlert").on("click", function() {
       $('#profLimitAlert').hide('fade');
       return false;
-  });
+   });
+
+   $("#submissionSuccessAlertClose").on("click", function() {
+      $('#submissionSuccessAlert').hide('fade');
+      return false;
+   });
 }
 
 function addProfPreference(name){
@@ -177,13 +181,24 @@ function reset_profs() {
          request = $.ajax(
       {
          type: "GET",
-         url: url
+         url: url,
+         success: handleSubmit
       }
    );
+ }
 
-    console.log(Advisor1, Advisor2, Advisor3, Advisor4)
-    console.log(Advisor1Comments, Advisor2Comments, Advisor3Comments, Advisor4Comments)
-    console.log(courseSelection)
+ function handleSubmit(response) {
+
+   if (response === "Successful Add") {
+      $('#submissionSuccessAlert').show('fade');    
+   } else if (response === "Successful Update"){
+      $('#submissionSuccessAlert').html("Professor preferences successfully updated!")
+      $('#submissionSuccessAlert').show('fade');    
+   }  else {
+      $('#submissionFailureAlert').show('fade');    
+   }
+
+    console.log(response)
  }
 
  $('document').ready(setup);

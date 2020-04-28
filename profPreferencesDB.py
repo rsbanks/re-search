@@ -29,6 +29,7 @@ class profPreferencesDB:
 
     def createProfPreference(self, data):
         error_statement = ''
+        report = "Successful Add"
 
         try:
             cur = self.conn.cursor()
@@ -37,7 +38,7 @@ class profPreferencesDB:
             cur.execute("SELECT * FROM preferences WHERE username=%s", [data[0]])
             result = cur.fetchone()
             if result != None:
-                self.updateProfPreference(data)
+                report = self.updateProfPreference(data)
             else:
                 stmt = """INSERT INTO preferences(username, courseselection, advisor1, topiccomments1, advisor2, topiccomments2, advisor3, topiccomments3, advisor4, topiccomments4, submittedtime, completedtime) VALUES"""
                 stmt += "(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
@@ -45,12 +46,19 @@ class profPreferencesDB:
                 cur.execute(stmt, data)
                 self.conn.commit()
                 cur.close()
+            return report
         except Exception as error:
             error_statement = str(error)
             print(error_statement)
+            report = "Failed Add"
+        finally:
+            return report
+
+
 
     def updateProfPreference(self, data):
         error_statement = ''
+        report = "Successful Update"
 
         try:
             cur = self.conn.cursor()
@@ -73,7 +81,12 @@ class profPreferencesDB:
                 ,data[6], data[7], data[8],data[9], data[10], data[11],data[0]])
             self.conn.commit()
             cur.close()
+            return report
         except Exception as error:
             error_statement = str(error)
             print(error_statement)
+            report = "Failed Update"
+        finally:
+            return report
+
 
