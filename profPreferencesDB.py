@@ -46,6 +46,7 @@ class profPreferencesDB:
                 cur.execute(stmt, data)
                 self.conn.commit()
                 cur.close()
+                self.conn.close()
             return report
         except Exception as error:
             error_statement = str(error)
@@ -81,6 +82,7 @@ class profPreferencesDB:
                 ,data[6], data[7], data[8],data[9], data[10], data[11],data[0]])
             self.conn.commit()
             cur.close()
+            self.conn.close()
             return report
         except Exception as error:
             error_statement = str(error)

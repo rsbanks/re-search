@@ -121,7 +121,7 @@ if __name__ == '__main__':
     password = 'c51235a04a7593a9ec0c13821f495f259a68d2e1ab66a93df947ab2f31970009'
     database = 'd99tniu8rpcj0o'
 
-    conn = psycopg2.connect( host=hostname, user=username, password=password, dbname=database)
+    conn = psycopg2.connect(host=hostname, user=username, password=password, dbname=database)
 
     prof = Professor("aaa")
     prof.setTitle("Professor")
