@@ -1,4 +1,4 @@
-import os
+from os import environ
 from os import path
 from sys import argv, stderr
 from prof import Professor
@@ -14,7 +14,7 @@ class profsDB:
         error_statement = ''
 
         try:
-            engine = create_engine(os.environ.get('DATABASE_URL'), poolclass=NullPool)
+            engine = create_engine(environ.get('DATABASE_URL'), poolclass=NullPool)
             self.conn = engine.connect()
         except Exception as e:
             error_statement = e
