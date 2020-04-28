@@ -49,15 +49,6 @@ def search():
     response = make_response(html)
     return response
 
-@app.route('/login')
-def login():
-
-    # username = CASClient().authenticate()
-    
-    html = render_template('templates/login.html')
-    response = make_response(html)
-    return response
-
 @app.route('/logout', methods=['GET'])
 def logout():
     
@@ -536,7 +527,7 @@ def deleteprof():
     if error_statement != '':
         print(error_statement)
 
-    html = render_template('index_tara.html')
+    html = render_template('admin.html')
     response = make_response(html)
     return response
 
