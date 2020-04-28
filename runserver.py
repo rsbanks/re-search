@@ -587,8 +587,6 @@ def submitPreferences():
         advisor4Comments = ''
 
     courseSelection = request.args.get('courseSelection')
-    if courseSelection == None:
-        courseSelection = ''
 
     fmt = '%Y-%m-%d %H:%M:%S %Z%z'
     eastern = timezone('America/New_York')

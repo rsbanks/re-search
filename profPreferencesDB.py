@@ -33,17 +33,44 @@ class profPreferencesDB:
         try:
             cur = self.conn.cursor()
 
-            # Check if user has already submitted their preferences
+            # if user has already submitted, doan update instead. 
+            cur.execute("SELECT * FROM preferences WHERE username=%s", [data[0]])
+            result = cur.fetchone()
+            if result != None:
+                self.updateProfPreference(data)
+            else:
+                stmt = """INSERT INTO preferences(username, courseselection, advisor1, topiccomments1, advisor2, topiccomments2, advisor3, topiccomments3, advisor4, topiccomments4, submittedtime, completedtime) VALUES"""
+                stmt += "(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
 
-            # cur.execute("SELECT * FROM profs WHERE netid=%s", [prof.getNetId()])
-            # result = cur.fetchone()
-            # if result == None:
-            # return error_statement, returned
+                cur.execute(stmt, data)
+                self.conn.commit()
+                cur.close()
+        except Exception as error:
+            error_statement = str(error)
+            print(error_statement)
 
-            stmt = """INSERT INTO preferences(username, courseselection, advisor1, topiccomments1, advisor2, topiccomments2, advisor3, topiccomments3, advisor4, topiccomments4, submittedtime, completedtime) VALUES"""
-            stmt += "(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
+    def updateProfPreference(self, data):
+        error_statement = ''
 
-            cur.execute(stmt, data)
+        try:
+            cur = self.conn.cursor()
+
+            stmt = "UPDATE preferences "
+            stmt += " SET courseselection=%s,"
+            stmt += " advisor1=%s,"
+            stmt += " topiccomments1=%s,"
+            stmt += " advisor2=%s,"
+            stmt += " topiccomments2=%s,"
+            stmt += " advisor3=%s,"
+            stmt += " topiccomments3=%s,"
+            stmt += " advisor4=%s,"
+            stmt += " topiccomments4=%s,"
+            stmt += " submittedtime=%s,"
+            stmt += " completedtime=%s"
+            stmt += " WHERE username=%s"
+
+            cur.execute(stmt, [data[1], data[2],data[3], data[4], data[5]
+                ,data[6], data[7], data[8],data[9], data[10], data[11],data[0]])
             self.conn.commit()
             cur.close()
         except Exception as error:

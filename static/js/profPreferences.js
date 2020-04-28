@@ -163,12 +163,12 @@ function reset_profs() {
     url += '&Advisor3=' + Advisor3
     url += '&Advisor4=' + Advisor4
 
-    url += '&Advisor1Comments' + Advisor1Comments
-    url += '&Advisor2Comments' + Advisor2Comments
-    url += '&Advisor3Comments' + Advisor3Comments
-    url += '&Advisor4Comments' + Advisor4Comments
+    url += '&Advisor1Comments=' + Advisor1Comments
+    url += '&Advisor2Comments=' + Advisor2Comments
+    url += '&Advisor3Comments=' + Advisor3Comments
+    url += '&Advisor4Comments=' + Advisor4Comments
 
-    url += '&courseSelection' + courseSelection
+    url += '&courseSelection=' + courseSelection
 
     request = null
 
