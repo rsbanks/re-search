@@ -458,8 +458,14 @@ img{
   outline: none;
 }
 
-.alert {
+#profLimitAlert {
   position: fixed;
   width: 17%;
   bottom: 10%;
+}
+
+#submissionSuccessAlert {
+  position: fixed;
+  z-index: 999;
+  width: 72%;
 }

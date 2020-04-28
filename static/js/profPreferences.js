@@ -14,10 +14,20 @@ function setup() {
       }
    })
 
+   $("#preference-form").on("submit", function() {
+      if (document.activeElement.id === 'profSubmit') {
+         $('#submissionSuccessAlert').show('fade');
+         return false;
+      }
+   });
+
+   $("#cancelProfSubmit").on("click", function() {
+         window.close()
+   });
+
    $("#submit_preferences_form").on("click", function() {
       const draggables = document.querySelectorAll('.prof_preference')
       updatePreferenceList(draggables)
-      console.log(prof_preference_list)
 
       url = '/profPreferences?'
       url += 'first=' + prof_preference_list[0]
