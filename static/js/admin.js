@@ -80,6 +80,25 @@ function handleDelete(response)
     document.getElementById('profResult').innerHTML = null;
 }
 
+function handleGetPreferences(response) 
+{
+   console.log("Download request recieved");
+   download("preferences.csv", response);
+}
+
+function download(filename, text) {
+    var element = document.createElement('a');
+    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+    element.setAttribute('download', filename);
+  
+    element.style.display = 'none';
+    document.body.appendChild(element);
+  
+    element.click();
+  
+    document.body.removeChild(element);
+  }
+
 let request = null;
 
 function getProf()
@@ -138,5 +157,18 @@ function deleteProf()
     );
 }
 
+function getPreferences() 
+{
+    url = '/getPreferences';
+    if (request != null)
+        request.abort();
+    request = $.ajax(
+        {
+            type: "GET",
+            url: url,
+            success: handleGetPreferences
+        }
+    );
+}
 
 $(document).ready(setup)
