@@ -251,7 +251,7 @@ def profinfo():
                                         "</div>" + \
                                     "</div>" + \
                                     "<div class='form-group row'>" + \
-                                        "<label for='colFormLabel' class='col-sm-2 col-form-label'>Lat Name</label>" + \
+                                        "<label for='colFormLabel' class='col-sm-2 col-form-label'>Last Name</label>" + \
                                         "<div class='col-sm-10'>" + \
                                         "<input type='text' class='form-control' id='lastname' name='lastname' value='""'>" + \
                                         "</div>" + \
@@ -455,7 +455,7 @@ def displayprof():
     prof_, error_statement = getProfs('netid ILIKE %s', [netID])
     prof = prof_[0]
     if error_statement == '':
-        html = "<h2 class='heading'>This the updated infomation for " + prof[1] + " " + prof[2] + ":</h2><hr>"
+        html = "<h2 class='heading'>This the updated information for " + prof[1] + " " + prof[2] + ":</h2><hr>"
         html += "<table style='text-align: left;' class='profInfoTable'> " + \
                     '<tr>' + \
                         "<td align='right' class='label'>NetID:</td>" + \
