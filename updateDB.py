@@ -99,7 +99,7 @@ def deleteProf(conn, netid):
         cur = conn.cursor()
         stmt = "DELETE FROM profs WHERE netid=%s"
 
-        cur.execute(stmt, (netid, ))
+        cur.execute(stmt, [netid])
         conn.commit()
         cur.close()
     except (Exception, psycopg2.DatabaseError) as error:

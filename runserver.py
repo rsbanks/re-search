@@ -518,7 +518,7 @@ def displayprof():
 
 @app.route('/deleteprof', methods=["GET"])
 def deleteprof():
-    netID = request.cookies.get('netid')
+    netID = request.args.get('netid')
 
     hostname = 'ec2-52-200-119-0.compute-1.amazonaws.com'
     username = 'hmqcdnegecbdgo'
@@ -531,7 +531,7 @@ def deleteprof():
     if error_statement != '':
         print(error_statement)
 
-    html = render_template('admin.html')
+    html = ''
     response = make_response(html)
     return response
 
