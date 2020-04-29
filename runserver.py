@@ -625,6 +625,37 @@ def submitPreferences():
     response = make_response(report)
     return response
 
+@app.route('/getPreferences', methods=["GET"])
+def getPreferences():
+
+    username = CASClient().authenticate().rstrip('\n')
+
+    profPrefDB = profPreferencesDB()
+    error_statement = profPrefDB.connect()
+
+    report_preferences = []
+    if error_statement == '' :
+        report_preferences = profPrefDB.getProfPreference()
+        report = report_preferences[0]
+        preferences = report_preferences[1:]
+        profPrefDB.disconnect()
+
+        if report == "Failed Download":
+            print(report, file=stderr)
+        else:
+            print(report)
+    else:
+        print(error_statement, file=stderr)
+    
+    html = ''
+
+    for i in range(len(preferences)):
+        for j in range(len(preferences[i])-1):
+            html += str(preferences[i][j]) + ', '
+        html += str(preferences[i][len(preferences[i])-1]) + '\n'
+
+    response = make_response(html)
+    return response
 
 if __name__ == '__main__':
     
