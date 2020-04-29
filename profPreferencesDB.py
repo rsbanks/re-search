@@ -91,4 +91,31 @@ class profPreferencesDB:
         finally:
             return report
 
+    def getProfPreference(self):
+        error_statement = ''
+        report = 'Successful Download'
+
+        try:
+            cur = self.conn.cursor()
+
+            stmt = "SELECT * FROM preferences"
+            cur.execute(stmt)
+
+            preferences = []
+            preferences.append(report)
+            row = cur.fetchone()
+            while row is not None:
+                preferences.append(row)
+                row = cur.fetchone()
+
+            self.conn.commit()
+            cur.close()
+            self.conn.close()
+
+            return preferences
+        except Exception as error:
+            error_statement = str(error)
+            print(error_statement)
+            report = "Failed Download"
+            return [report]
 
