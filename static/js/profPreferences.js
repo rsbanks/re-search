@@ -149,19 +149,19 @@ function reset_profs() {
 
  function submitPreferences() {
 
-    Advisor1 = $('#firstAdvisorChoice').val()
-    Advisor2 = $('#secondAdvisorChoice').val()
-    Advisor3 = $('#thirdAdvisorChoice').val()
-    Advisor4 = $('#fourthAdvisorChoice').val()
+    var Advisor1 = $('#firstAdvisorChoice').val();
+    var Advisor2 = $('#secondAdvisorChoice').val()
+    var Advisor3 = $('#thirdAdvisorChoice').val()
+    var Advisor4 = $('#fourthAdvisorChoice').val()
 
-    Advisor1Comments = $('#firstAdvisorChoiceComments').val()
-    Advisor2Comments = $('#secondAdvisorChoiceComments').val()
-    Advisor3Comments = $('#thirdAdvisorChoiceComments').val()
-    Advisor4Comments = $('#fourthAdvisorChoiceComments').val()
+    var Advisor1Comments = $('#firstAdvisorChoiceComments').val()
+    var Advisor2Comments = $('#secondAdvisorChoiceComments').val()
+    var Advisor3Comments = $('#thirdAdvisorChoiceComments').val()
+    var Advisor4Comments = $('#fourthAdvisorChoiceComments').val()
 
-    courseSelection = $('#preference-form input:radio:checked').val()
+    var courseSelection = $('#preference-form input:radio:checked').val()
 
-    url = '/submitPreferences?'
+    var url = '/submitPreferences?'
     url += 'Advisor1=' + Advisor1
     url += '&Advisor2=' + Advisor2
     url += '&Advisor3=' + Advisor3
@@ -174,7 +174,7 @@ function reset_profs() {
 
     url += '&courseSelection=' + courseSelection
 
-    request = null
+    var request = null
 
     if (request != null)
          request.abort();
