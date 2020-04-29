@@ -52,21 +52,9 @@
         <div class="form-group was-validated">
           <label for="firstAdvisorChoice">First Advisor Choice</label>
           <select class="form-control" id="firstAdvisorChoice">
-            <option>Amir Ali Ahmadi</option>
-            <option>Rene Carmona</option>
-            <option>Matias Cattaneo</option>
-            <option>Jianqing Fan</option>
-            <option>Alain Kornhauser</option>
-            <option>William Massey</option>
-            <option>John Mulvey</option>
-            <option>Warren Powell</option>
-            <option>Miklos Racz</option>
-            <option>Mykhaylo Shkolnikov</option>
-            <option>Ronnie Sircar</option>
-            <option>Mete Soner</option>
-            <option>Ludovic Tangpi</option>
-            <option>Robert Vanderbei</option>
-            <option>Ramon van Handel</option>
+            {% for prof in profs %}
+            <option>{{prof[1]}} {{prof[2]}}</option>
+            {% endfor %}
           </select>
         </div>
         <div class="form-group was-validated">
@@ -77,21 +65,9 @@
         <div class="form-group">
             <label for="secondAdvisorChoice">Second Advisor Choice</label>
             <select class="form-control" id="secondAdvisorChoice">
-              <option>Amir Ali Ahmadi</option>
-              <option>Rene Carmona</option>
-              <option>Matias Cattaneo</option>
-              <option>Jianqing Fan</option>
-              <option>Alain Kornhauser</option>
-              <option>William Massey</option>
-              <option>John Mulvey</option>
-              <option>Warren Powell</option>
-              <option>Miklos Racz</option>
-              <option>Mykhaylo Shkolnikov</option>
-              <option>Ronnie Sircar</option>
-              <option>Mete Soner</option>
-              <option>Ludovic Tangpi</option>
-              <option>Robert Vanderbei</option>
-              <option>Ramon van Handel</option>
+              {% for prof in profs %}
+              <option>{{prof[1]}} {{prof[2]}}</option>
+              {% endfor %}
             </select>
           </div>
           <div class="form-group">
@@ -102,21 +78,9 @@
           <div class="form-group">
             <label for="thirdAdvisorChoice">Third Advisor Choice</label>
             <select class="form-control" id="thirdAdvisorChoice">
-              <option>Amir Ali Ahmadi</option>
-              <option>Rene Carmona</option>
-              <option>Matias Cattaneo</option>
-              <option>Jianqing Fan</option>
-              <option>Alain Kornhauser</option>
-              <option>William Massey</option>
-              <option>John Mulvey</option>
-              <option>Warren Powell</option>
-              <option>Miklos Racz</option>
-              <option>Mykhaylo Shkolnikov</option>
-              <option>Ronnie Sircar</option>
-              <option>Mete Soner</option>
-              <option>Ludovic Tangpi</option>
-              <option>Robert Vanderbei</option>
-              <option>Ramon van Handel</option>
+              {% for prof in profs %}
+              <option>{{prof[1]}} {{prof[2]}}</option>
+              {% endfor %}
             </select>
           </div>
           <div class="form-group">
@@ -127,21 +91,9 @@
           <div class="form-group">
             <label for="fourthAdvisorChoice">Fourth Advisor Choice</label>
             <select class="form-control" id="fourthAdvisorChoice">
-              <option>Amir Ali Ahmadi</option>
-              <option>Rene Carmona</option>
-              <option>Matias Cattaneo</option>
-              <option>Jianqing Fan</option>
-              <option>Alain Kornhauser</option>
-              <option>William Massey</option>
-              <option>John Mulvey</option>
-              <option>Warren Powell</option>
-              <option>Miklos Racz</option>
-              <option>Mykhaylo Shkolnikov</option>
-              <option>Ronnie Sircar</option>
-              <option>Mete Soner</option>
-              <option>Ludovic Tangpi</option>
-              <option>Robert Vanderbei</option>
-              <option>Ramon van Handel</option>
+              {% for prof in profs %}
+              <option>{{prof[1]}} {{prof[2]}}</option>
+              {% endfor %}
             </select>
           </div>
           <div class="form-group">

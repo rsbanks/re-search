@@ -550,8 +550,22 @@ def profPreferences():
     if first == "":
         first = ""
 
+
+    profsDB_ = profsDB()
+    error_statement = profsDB_.connect()
+    profs = []
+    if error_statement == '':
+        connection = profsDB_.conn
+        try:
+            profs = profsDB_.displayAllProfessors(connection)
+            profs = profsDB_.return_profs_list(profs)
+        except Exception as e:
+            error_statement = str(e)
+            print(error_statement)
+
     html = render_template('templates/profPreferences.html', 
-        first=first, second=second, third=third, fourth=fourth)
+        first=first, second=second, third=third, fourth=fourth,
+        profs=profs)
     response = make_response(html)
     return response
 
