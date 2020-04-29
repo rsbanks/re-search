@@ -114,7 +114,7 @@ def deleteProf(conn, netid):
 if __name__ == '__main__':
 
     ## testing 
-    ## Warning: Calling this main method alters an entry in the 'profs' Database
+    ## Warning: Calling this main method alters an entry in the 'profs' table
     
     hostname = 'ec2-52-200-119-0.compute-1.amazonaws.com'
     username = 'hmqcdnegecbdgo'
@@ -142,5 +142,7 @@ if __name__ == '__main__':
      combinatorial optimization, and applications of these tools to
      semialgebraic problems in statistics, economics, and systems theory.""")
     prof.setImagePath("static/profImages/aaa.png")
+    updateDB(conn, prof)
+
     conn.close()
     
