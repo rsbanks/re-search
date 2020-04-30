@@ -91,6 +91,7 @@ class profPreferencesDB:
         finally:
             return report
 
+    # Returns a list of all the rows in the preferences table
     def getProfPreference(self):
         error_statement = ''
         report = 'Successful Download'
@@ -119,3 +120,44 @@ class profPreferencesDB:
             report = "Failed Download"
             return [report]
 
+    # Returns a list of just each student and thier advisors in the preferences table
+    def getAdvisors(self):
+        error_statement = ''
+        report = 'Successful Download'
+
+        try:
+            cur = self.conn.cursor()
+
+            stmt = "SELECT username, advisor1, advisor2, advisor3, advisor4 FROM preferences"
+            cur.execute(stmt)
+
+            advisors = []
+            advisors.append(report)
+            row = cur.fetchone()
+            while row is not None:
+                advisor = []
+                for col in row:
+                    if str(col) != "null":
+                        advisor.append(str(col))
+
+                advisors.append(advisor)
+                row = cur.fetchone()
+
+            self.conn.commit()
+            cur.close()
+            self.conn.close()
+
+            return advisors
+        except Exception as error:
+            error_statement = str(error)
+            print(error_statement)
+            report = "Failed Download"
+            return [report]
+
+
+if __name__ == '__main__':
+
+    pPDB = profPreferencesDB()
+    pPDB.connect()
+    print(pPDB.getAdvisors()[1:])
+    pPDB.disconnect()
