@@ -640,7 +640,6 @@ def getPreferences():
         report_preferences = profPrefDB.getProfPreference()
         report = report_preferences[0]
         preferences = report_preferences[1:]
-        profPrefDB.disconnect()
 
         if report == "Failed Download":
             print(report, file=stderr)
@@ -649,6 +648,8 @@ def getPreferences():
     else:
         print(error_statement, file=stderr)
     
+    profPrefDB.disconnect()
+
     html = ''
 
     header = ["Serial","SID","Submitted Time","Completed Time","Modified Time","Draft","UID","Username","Course Selection","First Advisor Choice","Topic or Comments","Second Advisor Choice","Topic or Comments","Third Advisor Choice","Topic or Comments","Fourth Advisor Choice","Topic or Comments"]
