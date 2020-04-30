@@ -35,6 +35,8 @@ def getProfs(search_criteria, input_arguments):
             error_statement = str(e)
     else:
         print(error_statement)
+
+    profsDB_.disconnect()
     return profs, error_statement
 
 @app.route('/')
@@ -197,25 +199,6 @@ def getSearchCriteria():
     if search_criteria != '' and search_criteria != None:
         search_criteria = search_criteria[:-5]
     return search_criteria, input_arguments
-
-
-def getProfs(search_criteria, input_arguments):
-    profsDB_ = profsDB()
-    error_statement = profsDB_.connect()
-    profs = []
-    if error_statement == '':
-        connection = profsDB_.conn
-        try:
-            if len(input_arguments) != 0:
-                profs = profsDB_.displayProfessorsByFilter(connection, search_criteria, input_arguments)
-            else:
-                profs = profsDB_.displayAllProfessors(connection)
-            profs = profsDB_.return_profs_list(profs)
-        except Exception as e:
-            error_statement = str(e)
-    else:
-        print(error_statement)
-    return profs, error_statement
 
 
 #----------------------------------------------------------------------------------------------------#
@@ -565,6 +548,8 @@ def profPreferences():
             error_statement = str(e)
             print(error_statement)
 
+    profsDB_.disconnect()
+
     html = render_template('templates/profPreferences.html', 
         first=first, second=second, third=third, fourth=fourth,
         profs=profs)
@@ -620,9 +605,10 @@ def submitPreferences():
         report = profPrefDB.createProfPreference([username, courseSelection,
             advisor1, advisor1Comments, advisor2, advisor2Comments, advisor3, 
             advisor3Comments, advisor4, advisor4Comments, submittedTime, completedTime])
-        profPrefDB.disconnect()
     else:
         print(error_statement, file=stderr)
+
+    profPrefDB.disconnect()
 
     response = make_response(report)
     return response
