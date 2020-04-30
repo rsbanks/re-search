@@ -10,6 +10,8 @@ import psycopg2
 from pathlib import Path
 from datetime import datetime
 from pytz import timezone
+from os import remove
+import csv
 
 
 app = Flask(__name__, template_folder='.')
@@ -628,7 +630,7 @@ def submitPreferences():
 @app.route('/getPreferences', methods=["GET"])
 def getPreferences():
 
-    username = CASClient().authenticate().rstrip('\n')
+    # username = CASClient().authenticate().rstrip('\n')
 
     profPrefDB = profPreferencesDB()
     error_statement = profPrefDB.connect()
@@ -649,10 +651,20 @@ def getPreferences():
     
     html = ''
 
-    for i in range(len(preferences)):
-        for j in range(len(preferences[i])-1):
-            html += str(preferences[i][j]) + ', '
-        html += str(preferences[i][len(preferences[i])-1]) + '\n'
+    header = ["Serial","SID","Submitted Time","Completed Time","Modified Time","Draft","UID","Username","Course Selection","First Advisor Choice","Topic or Comments","Second Advisor Choice","Topic or Comments","Third Advisor Choice","Topic or Comments","Fourth Advisor Choice","Topic or Comments"]
+    spacing = [""] * 17
+    with open('preferences.csv', 'w', newline='') as csv_file:
+        csv_writer = csv.writer(csv_file, delimiter=',')
+        csv_writer.writerow(header)
+        csv_writer.writerow(spacing)
+        for row in preferences:
+            csv_writer.writerow(list(row))
+
+    with open('preferences.csv', 'r', newline='') as csv_file:
+        for row in csv_file:
+            html += row
+
+    remove('preferences.csv')
 
     response = make_response(html)
     return response
