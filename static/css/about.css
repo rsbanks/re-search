@@ -14,7 +14,7 @@
     font-family: Montserrat;
     font-style: normal;
     font-weight: normal;
-    font-size: 4vw;
+    font-size: calc(18px + 4vw);
 
     margin-left: 1vw;
 
@@ -30,7 +30,7 @@
     font-family: Montserrat;
     font-style: normal;
     font-weight: bold;
-    font-size: 2vw;
+    font-size: calc(11px + 2vw);
     
     color: #000000;  
 }
@@ -46,7 +46,7 @@
     font-family: Montserrat;
     font-style: normal;
     font-weight: bold;
-    font-size: 4vw;
+    font-size: calc(14px + 4vw);
     
     color: #000000;  
 }
@@ -60,7 +60,7 @@
     font-family: Montserrat;
     font-style: normal;
     font-weight: 600;
-    font-size: 2vw;
+    font-size: calc(11px + 1vw);
 
     color: #000000;  
   
@@ -82,7 +82,7 @@
     font-family: Montserrat;
     font-style: normal;
     font-weight: bold;
-    font-size: 2vw;
+    font-size: calc(11px + 1vw);
 
     color: #219177;  
   }
