@@ -57,17 +57,6 @@ def search():
     response = make_response(html)
     return response
 
-@app.route('/logout', methods=['GET'])
-def logout():
-    
-    casClient = CASClient()
-    casClient.authenticate()
-    casClient.logout()
-
-    html = render_template('templates/index.html')
-    response = make_response(html)
-    return response
-
 @app.route('/button')
 def button():
 
