@@ -614,7 +614,7 @@ def submitPreferences():
     response = make_response(report)
     return response
 
-# @app.route('/getPreferences', methods=["GET"])
+@app.route('/getPreferences', methods=["GET"])
 def getPreferences():
 
     # username = CASClient().authenticate().rstrip('\n')
@@ -640,11 +640,11 @@ def getPreferences():
     html = ''
 
     header = ["Serial","SID","Submitted Time","Completed Time","Modified Time","Draft","UID","Username","Course Selection","First Advisor Choice","Topic or Comments","Second Advisor Choice","Topic or Comments","Third Advisor Choice","Topic or Comments","Fourth Advisor Choice","Topic or Comments"]
-    spacing = [""] * 17
+    # spacing = [""] * 17
     with open('preferences.csv', 'w', newline='') as csv_file:
         csv_writer = csv.writer(csv_file, delimiter=',')
         csv_writer.writerow(header)
-        csv_writer.writerow(spacing)
+        # csv_writer.writerow(spacing)
         for row in preferences:
             csv_writer.writerow(list(row))
 
@@ -657,8 +657,8 @@ def getPreferences():
     response = make_response(html)
     return response
 
-@app.route('/getPreferences', methods=["GET"])
-def getPreferencesOptimal():
+@app.route('/getMatches', methods=["GET"])
+def getMatches():
 
     # username = CASClient().authenticate().rstrip('\n')
 
@@ -666,23 +666,23 @@ def getPreferencesOptimal():
 
     html = ''
 
-    header = ["Professor","Student"]
-    spacing = [""] * 2
-    with open('preferencesOptimal.csv', 'w', newline='') as csv_file:
+    header = ["Professor","Students"]
+    # spacing = [""] * 2
+    with open('matches.csv', 'w', newline='') as csv_file:
         csv_writer = csv.writer(csv_file, delimiter=',')
         csv_writer.writerow(header)
-        csv_writer.writerow(spacing)
+        # csv_writer.writerow(spacing)
         for prof in prof_student_list:
             prof_students = [prof]
             for student in prof_student_list[prof]:
                 prof_students.append(student)
             csv_writer.writerow(prof_students)
 
-    with open('preferencesOptimal.csv', 'r', newline='') as csv_file:
+    with open('matches.csv', 'r', newline='') as csv_file:
         for row in csv_file:
             html += row
 
-    remove('preferencesOptimal.csv')
+    remove('matches.csv')
 
     response = make_response(html)
     return response
