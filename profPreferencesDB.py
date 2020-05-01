@@ -74,7 +74,7 @@ class profPreferencesDB:
             stmt += " topiccomments3=%s,"
             stmt += " advisor4=%s,"
             stmt += " topiccomments4=%s,"
-            stmt += " submittedtime=%s,"
+            stmt += " modifiedtime=%s,"
             stmt += " completedtime=%s"
             stmt += " WHERE username=%s"
 

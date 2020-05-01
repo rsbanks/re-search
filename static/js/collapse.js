@@ -4,10 +4,10 @@ function collapse(id) {
     if (panel.style.maxHeight){
         panel.style.maxHeight = null;
         panel.style.marginBottom = null;
-        img.src = "static/images/plus.png"
+        img.src = "static/images/arrow_down.png"
     } else {
         panel.style.maxHeight = panel.scrollHeight + "px";
         panel.style.marginBottom = "1%";
-        img.src = "static/images/minus.png"
+        img.src = "static/images/arrow_up.png"
     }
 }

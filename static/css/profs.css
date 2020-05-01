@@ -132,13 +132,15 @@ img{
 
 .button-div {
   float: right;
+  position: relative;
+  right: 1%;
   margin-top: 1%;
   margin-right: 1%;
   margin-left: 1%;
 }
 
 .prof-info {
-  width: 76%;
+  width: 73.5%;
   height: 100%;
   margin-top: 0.3%;
   margin-left: 1%;
@@ -348,8 +350,9 @@ img{
 }
 
 .add-prof-selection {
-  margin: 1%;
-  width: 5%;
+  margin-top: 8%;
+  width: 10%;
+  float: bottom;
   cursor: pointer;
 }
 

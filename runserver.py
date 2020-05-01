@@ -123,9 +123,9 @@ def searchResults():
                             email + \
                             website + \
                         '</div>' + \
-                        '<div class="add-prof-selection" onclick="addProfPreference(\'' + prof[1] + " " + prof[2] + '\')"><p>Add professor</p></div>' + \
+                        '<div class="add-prof-selection" onclick="addProfPreference(\'' + prof[1] + " " + prof[2] + '\')"><p>Add to advisor preferences</p></div>' + \
                         '<div class="button-div">' +\
-                            '<button type="button" class="button" onclick=' + '"collapse(' + str(i) + ')"><img class="icon-button" id= img-' + str(i) + ' src="static/images/plus.png"></button>' + \
+                            '<button type="button" class="button" onclick=' + '"collapse(' + str(i) + ')"><img class="icon-button" id= img-' + str(i) + ' src="static/images/arrow_down.png"></button>' + \
                         '</div>' + \
                     '</div>' + \
                     '<div class="panel" id =panel-' + str(i) + '>' + \
