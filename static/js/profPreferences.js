@@ -155,9 +155,21 @@ function reset_profs() {
  function submitPreferences() {
 
     var Advisor1 = $('#firstAdvisorChoice').val();
+    if (Advisor1 === null) {
+       Advisor1 = ''
+    }
     var Advisor2 = $('#secondAdvisorChoice').val()
+    if (Advisor2 === null) {
+      Advisor2 = ''
+    } 
     var Advisor3 = $('#thirdAdvisorChoice').val()
+    if (Advisor3 === null) {
+      Advisor3 = ''
+    }
     var Advisor4 = $('#fourthAdvisorChoice').val()
+    if (Advisor4 === null) {
+      Advisor4 = ''
+    }
 
     var Advisor1Comments = $('#firstAdvisorChoiceComments').val()
     var Advisor2Comments = $('#secondAdvisorChoiceComments').val()
