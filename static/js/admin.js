@@ -19,6 +19,10 @@ function setup() {
         return false;
     });
 
+    $("#confirmDelete").on("click", function() {
+        deleteProf();
+        $('#deleteProfModal').modal('hide')
+     });
 
 }
 
@@ -37,8 +41,9 @@ function handleResponse(response)
             $('#netidAlertDeleteSuccess').hide('fade');
             $('#netidAlertDeleteFailure').hide('fade');
         } else if(document.activeElement.id == 'Delete') {
-            $('#netidSearch').focus();
-            deleteProf();
+            $('#deleteProfModalBody').html('Are you sure you want to delete'  +
+            ' the professor with netid \'' + $('#netidSearch').val() + '\' ?')
+            $('#deleteProfModal').modal()
         }
             return false;
         });
