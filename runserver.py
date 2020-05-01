@@ -295,7 +295,6 @@ def profinfo():
                             """<form method="get" id="saveForm">
                                     <input class="searchButton overwriteButton" type="submit" id="Save" value="Save">
                                     <input class="searchButton cancelOverwriteButton" type="submit" id ="Cancel" value="Cancel">
-                                    <input class="searchButton deleteButton" type="submit" id ="Delete" value="Delete">
                                 </form>"""        
         else:
             prof = prof[0]
