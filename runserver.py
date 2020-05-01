@@ -662,11 +662,15 @@ def getMatches():
 
     # username = CASClient().authenticate().rstrip('\n')
 
-    report, prof_student_list, student_prof_list = optimizePreferences(5,4)
+    student_cap = 5
+    pref_limit = 4
+    report, prof_student_list, student_prof_list = optimizePreferences(student_cap, pref_limit)
 
     html = ''
 
-    header = ["Professor","Students"]
+    header = ["Professor"]
+    for i in range(1, student_cap + 1):
+        header.append("Student" + str(i))
     # spacing = [""] * 2
     with open('matches.csv', 'w', newline='') as csv_file:
         csv_writer = csv.writer(csv_file, delimiter=',')
