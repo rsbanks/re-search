@@ -25,6 +25,10 @@ function setup() {
          window.close()
    });
 
+   $("#closeModal").on("click", function() {
+      window.close()
+   });
+
    $("#submit_preferences_form").on("click", function() {
       const draggables = document.querySelectorAll('.prof_preference')
       updatePreferenceList(draggables)
@@ -191,15 +195,14 @@ function reset_profs() {
  function handleSubmit(response) {
 
    if (response === "Successful Add") {
-      $('#submissionSuccessAlert').show('fade');    
+      $('#modal-body').html('Professor preferences successfully submitted!')
+      $('#successModal').modal()
    } else if (response === "Successful Update"){
-      $('#submissionSuccessAlert').html("Professor preferences successfully updated!")
-      $('#submissionSuccessAlert').show('fade');    
+      $('#modal-body').html('Professor preferences successfully updated!')
+      $('#successModal').modal()  
    }  else {
       $('#submissionFailureAlert').show('fade');    
    }
-
-    console.log(response)
  }
 
  $('document').ready(setup);
