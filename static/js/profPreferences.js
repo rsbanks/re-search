@@ -88,6 +88,7 @@ function reset_profs() {
 
  function addProfs() {
     reset_profs();
+    console.log(prof_preference_list)
     prof_preference_list.forEach(function(profname) {
        const input = createProfPreference(profname);
        $('#profPreferencesDiv').append(input)
