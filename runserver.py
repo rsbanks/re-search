@@ -12,6 +12,7 @@ from datetime import datetime
 from pytz import timezone
 from os import remove
 import csv
+from match import optimizePreferences
 
 
 app = Flask(__name__, template_folder='.')
@@ -639,11 +640,11 @@ def getPreferences():
     html = ''
 
     header = ["Serial","SID","Submitted Time","Completed Time","Modified Time","Draft","UID","Username","Course Selection","First Advisor Choice","Topic or Comments","Second Advisor Choice","Topic or Comments","Third Advisor Choice","Topic or Comments","Fourth Advisor Choice","Topic or Comments"]
-    spacing = [""] * 17
+    # spacing = [""] * 17
     with open('preferences.csv', 'w', newline='') as csv_file:
         csv_writer = csv.writer(csv_file, delimiter=',')
         csv_writer.writerow(header)
-        csv_writer.writerow(spacing)
+        # csv_writer.writerow(spacing)
         for row in preferences:
             csv_writer.writerow(list(row))
 
@@ -652,6 +653,40 @@ def getPreferences():
             html += row
 
     remove('preferences.csv')
+
+    response = make_response(html)
+    return response
+
+@app.route('/getMatches', methods=["GET"])
+def getMatches():
+
+    # username = CASClient().authenticate().rstrip('\n')
+
+    student_cap = 5
+    pref_limit = 4
+    report, prof_student_list, student_prof_list = optimizePreferences(student_cap, pref_limit)
+
+    html = ''
+
+    header = ["Professor"]
+    for i in range(1, student_cap + 1):
+        header.append("Student" + str(i))
+    # spacing = [""] * 2
+    with open('matches.csv', 'w', newline='') as csv_file:
+        csv_writer = csv.writer(csv_file, delimiter=',')
+        csv_writer.writerow(header)
+        # csv_writer.writerow(spacing)
+        for prof in prof_student_list:
+            prof_students = [prof]
+            for student in prof_student_list[prof]:
+                prof_students.append(student)
+            csv_writer.writerow(prof_students)
+
+    with open('matches.csv', 'r', newline='') as csv_file:
+        for row in csv_file:
+            html += row
+
+    remove('matches.csv')
 
     response = make_response(html)
     return response

@@ -86,6 +86,12 @@ function handleGetPreferences(response)
    download("preferences.csv", response);
 }
 
+function handleGetMatches(response) 
+{
+   console.log("Download request recieved");
+   download("matches.csv", response);
+}
+
 function download(filename, text) {
     var element = document.createElement('a');
     element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
@@ -167,6 +173,20 @@ function getPreferences()
             type: "GET",
             url: url,
             success: handleGetPreferences
+        }
+    );
+}
+
+function getMatches() 
+{
+    url = '/getMatches';
+    if (request != null)
+        request.abort();
+    request = $.ajax(
+        {
+            type: "GET",
+            url: url,
+            success: handleGetMatches
         }
     );
 }
