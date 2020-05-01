@@ -12,6 +12,7 @@ from datetime import datetime
 from pytz import timezone
 from os import remove
 import csv
+from match import optimizePreferences
 
 
 app = Flask(__name__, template_folder='.')
@@ -613,7 +614,7 @@ def submitPreferences():
     response = make_response(report)
     return response
 
-@app.route('/getPreferences', methods=["GET"])
+# @app.route('/getPreferences', methods=["GET"])
 def getPreferences():
 
     # username = CASClient().authenticate().rstrip('\n')
@@ -652,6 +653,36 @@ def getPreferences():
             html += row
 
     remove('preferences.csv')
+
+    response = make_response(html)
+    return response
+
+@app.route('/getPreferences', methods=["GET"])
+def getPreferencesOptimal():
+
+    # username = CASClient().authenticate().rstrip('\n')
+
+    report, prof_student_list, student_prof_list = optimizePreferences(5,4)
+
+    html = ''
+
+    header = ["Professor","Student"]
+    spacing = [""] * 2
+    with open('preferencesOptimal.csv', 'w', newline='') as csv_file:
+        csv_writer = csv.writer(csv_file, delimiter=',')
+        csv_writer.writerow(header)
+        csv_writer.writerow(spacing)
+        for prof in prof_student_list:
+            prof_students = [prof]
+            for student in prof_student_list[prof]:
+                prof_students.append(student)
+            csv_writer.writerow(prof_students)
+
+    with open('preferencesOptimal.csv', 'r', newline='') as csv_file:
+        for row in csv_file:
+            html += row
+
+    remove('preferencesOptimal.csv')
 
     response = make_response(html)
     return response
