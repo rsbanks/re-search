@@ -86,8 +86,8 @@ def searchResults():
     if error_statement == '':
 
         if len(profs) == 0:
-            html += '<div class="no-search-results">' + \
-                        "<h2>No search results. Please try use different keywords.</h2>" + \
+            html += '<div class="h6 no-search-results">' + \
+                        "No search results. Please try use different keywords." + \
                     '</div>'
 
         i = 0
