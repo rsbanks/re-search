@@ -16,11 +16,9 @@
         </div>
 
         <form class = "searchForm" id="searchInput">
-          <div class="form-row">
             <div class="form-input-div">
               <input type="text" class="form-input" placeholder="Professor's Name, netid" id="nameNetid" name="nameNetid">
             </div>
-          </div>
         </form>
 
         <form class = "tagForm" id="tagInput" onsubmit="return false">
@@ -49,8 +47,8 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
         <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100&display=swap" rel="stylesheet">
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons"rel="stylesheet">
-        <link rel="stylesheet" href="{{url_for('static', filename='css/profs.css')}}">
-
+        <link rel="stylesheet"  media="screen and (min-device-width: 800px)" href="{{url_for('static', filename='css/profs.css')}}">
+        <link rel="stylesheet"  media="screen and (max-device-width: 800px)" href="{{url_for('static', filename='css/profsMobile.css')}}">
         <script src="static/js/collapse.js"></script>
         <script src="static/js/profPreferences.js"></script>
         <script src="static/js/profs.js"></script>
