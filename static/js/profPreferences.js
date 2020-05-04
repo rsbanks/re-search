@@ -6,10 +6,15 @@ function setup() {
    // on close icon clicked (prof_preference)
    document.addEventListener('click', function(e) {
       if (e.target.id === 'closeIconProfPrefence') {
+         console.log(prof_preference_list.length)
          const value = e.target.getAttribute('data-item');
          const index = prof_preference_list.indexOf(value);
-         prof_preference_list = 
-            [...prof_preference_list.slice(0, index), ...prof_preference_list.slice(index+1)];
+         for (i = 0; i < prof_preference_list.length; i++) {
+            console.log(String(i), prof_preference_list[i])
+         }
+         prof_preference_list =
+          [...prof_preference_list.slice(0, index), ...prof_preference_list.slice(index+1)];
+         console.log(prof_preference_list)
          addProfs();
       }
    })
@@ -31,13 +36,13 @@ function setup() {
 
    $("#submit_preferences_form").on("click", function() {
       const draggables = document.querySelectorAll('.prof_preference')
-      updatePreferenceList(draggables)
+      prefList = getPreferenceList(draggables)
 
       url = '/profPreferences?'
-      url += 'first=' + prof_preference_list[0]
-      url += '&second=' + prof_preference_list[1]
-      url += '&third=' + prof_preference_list[2]
-      url += '&fourth=' + prof_preference_list[3]
+      url += 'first=' + prefList[0]
+      url += '&second=' + prefList[1]
+      url += '&third=' + prefList[2]
+      url += '&fourth=' + prefList[3]
       window.open(url)
       return false
    });
@@ -54,13 +59,14 @@ function setup() {
 }
 
 function addProfPreference(name){
-   if (prof_preference_list.length == 4) {
-      $('#profLimitAlert').show('fade');
-   }
    if (!prof_preference_list.includes(name)) {
       prof_preference_list.unshift(name);
    }
-   prof_preference_list = prof_preference_list.slice(0, 4)
+   if (prof_preference_list.length >= 4) {
+      $('#profLimitAlert').show('fade');
+      prof_preference_list = prof_preference_list.slice(0, 4)
+   }
+   console.log(prof_preference_list)
    addProfs();
 }
 
@@ -92,7 +98,6 @@ function reset_profs() {
 
  function addProfs() {
     reset_profs();
-    console.log(prof_preference_list)
     prof_preference_list.forEach(function(profname) {
        const input = createProfPreference(profname);
        $('#profPreferencesDiv').append(input)
@@ -120,20 +125,21 @@ function reset_profs() {
           container.insertBefore(draggable, afterElement)
        }
     })
-
  }
 
- function updatePreferenceList(draggables) {
-   prof_preference_list = ['', '', '', '']
+ function getPreferenceList(draggables) {
+   var prefList = ['', '', '', '']
 
    var i = 0
    draggables.forEach(draggable =>{
       if (i==4) {
-         return
+         return prefList
       }
-      prof_preference_list[i] = String(draggable.getAttribute('data-item'))
+      prefList[i] = String(draggable.getAttribute('data-item'))
       i++
    })
+
+   return prefList
 
  }
 
