@@ -86,7 +86,7 @@ def searchResults():
     if error_statement == '':
 
         if len(profs) == 0:
-            html += '<div class="h6 no-search-results">' + \
+            html += '<div class="h5 no-search-results">' + \
                         "No search results. Please try use different keywords." + \
                     '</div>'
 
@@ -513,17 +513,11 @@ def deleteprof():
 def profPreferences():
     first = request.args.get('first')
     if first == "":
-        first = ""
+        first = None
+        print('hello', first)
     second = request.args.get('second')
-    if first == "":
-        first = ""
     third = request.args.get('third')
-    if first == "":
-        first = ""
     fourth = request.args.get('fourth')
-    if first == "":
-        first = ""
-
 
     profsDB_ = profsDB()
     error_statement = profsDB_.connect()
@@ -551,6 +545,7 @@ def submitPreferences():
     username = CASClient().authenticate().rstrip('\n')
 
     advisor1 = request.args.get('Advisor1')
+    print('hello', advisor1)
     if advisor1 == None:
         advisor1 = ''
     advisor2 = request.args.get('Advisor2')

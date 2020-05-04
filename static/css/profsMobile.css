@@ -223,8 +223,10 @@ img{
 }
 
 .form-input {
-    width: 100%;
-    height: 100%;
+    width: 96vw;
+    height: 6%;
+    z-index: 990;
+    position: fixed;
     outline: none;
     border: none;
     border-radius: 6px;
@@ -234,7 +236,7 @@ img{
 }
 
 .form-input-div {
-    width: 100%;
+    width: 96vw;
     height: 100%;
   
     background: #FFFFFF;
@@ -245,7 +247,6 @@ img{
 
 .searchForm {
     position: absolute;
-    width: 96%;
     margin-left: 2%;
     margin-right: 2%;
     margin-top: 6%;
@@ -290,7 +291,7 @@ img{
 
 .results {
   margin: 1%;
-  margin-top: 15%;
+  margin-top: 24%;
 }
 
 .profPreferencesDiv {
