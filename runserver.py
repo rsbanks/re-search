@@ -105,7 +105,7 @@ def searchResults():
                             '<img src="' + src + '"/>' + \
                         '</div>' + \
                         '<div class="prof-info" onclick=' + '"collapse(' + str(i) + ')">' + \
-                            '<p class="prof-name">' + prof[1] + ' ' + prof[2] + '</p>' + \
+                            '<p class="prof-name h5">' + prof[1] + ' ' + prof[2] + '</p>' + \
                             '<p class="prof-more-info">' + prof[3] + '</p>' + \
                             '<p class="prof-more-info">' + prof[8] + '</p>' + \
                             '<p class="prof-more-info">' + prof[5] + '</p>' + \
