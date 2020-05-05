@@ -55,7 +55,7 @@ def search():
 
     username = CASClient().authenticate()
 
-    html = render_template('templates/profs.html')
+    html = render_template('templates/profs.html', username=username)
     response = make_response(html)
     return response
 
@@ -200,7 +200,10 @@ def getSearchCriteria():
 
 @app.route('/admin', methods=["GET"])
 def admin():
-    html = render_template('templates/admin.html')
+
+    username = CASClient().authenticate().rstrip('\n')
+
+    html = render_template('templates/admin.html', username=username)
     response = make_response(html)
     return response
 

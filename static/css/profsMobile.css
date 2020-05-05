@@ -52,11 +52,11 @@ body{
 }
 
 .heading-div {
-  visibility: hidden;
+  visibility: collapse;
 }
 
 .heading {
-    visibility: hidden;
+    visibility: collapse;
 }
 
 .no-search-results {
@@ -249,7 +249,7 @@ img{
     position: absolute;
     margin-left: 2%;
     margin-right: 2%;
-    margin-top: 8%;
+    margin-top: 2%;
     height: 7%;
     
     background: #FFFFFF;
@@ -291,7 +291,7 @@ img{
 
 .results {
   margin: 1%;
-  margin-top: 25%;
+  margin-top: 20%;
 }
 
 .profPreferencesDiv {
