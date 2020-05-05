@@ -8,13 +8,20 @@
         <a href="{{url_for('search')}}" class="title"  style="text-decoration:none">Re-Search</a>
         <a href="/" class="logout" style="text-decoration:none">Log Out</a>
     </nav>
-    <div class="heading-div">
-        <h2 class="heading">Welcome {{ username }}!</h2>
-    </div>
 </head>
 
 <body>
-    {% if error_statement|length: %} {{error_statement}} {% else: %}
+    {% if deniedAccess|length: %}
+      <div class="alert alert-danger" role="alert">
+        <strong>Access Denied</strong> <br>
+        Hi {{ username }}! Looks like you're not an admin :(
+      </div>
+    {% else: %}
+
+    <div class="heading-div">
+        <h2 class="heading">Welcome {{ username }}!</h2>
+    </div>
+
     <h2 class="heading">Enter the NetID of the professor's information you want to change:</h2>
 
     <form method="get" class="searchInputForm" id="searchInputForm">
@@ -26,8 +33,6 @@
 
     <h2 class="heading">Click <button type="button" class="downloadButton" onclick="getMatches()">here</button> to download suggested matches (based only on student rankings).</h2>
     
-    {% endif %}
-
     <div id="netidAlertFailure" class="alert alert-danger alert-dismissible collapse" role="alert">
         No professor with the given NetID found. Please check your spelling and try again.
         <button id="closeFailureAlert" class="close" type="button" data-dismiss="alert">×</button>
@@ -62,6 +67,7 @@
 
     <div id="profResult" class="col profResult"></div>
 
+    {% endif %}
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>

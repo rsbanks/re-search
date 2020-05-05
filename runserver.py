@@ -201,9 +201,23 @@ def getSearchCriteria():
 @app.route('/admin', methods=["GET"])
 def admin():
 
-    username = CASClient().authenticate().rstrip('\n')
+    netID = CASClient().authenticate().rstrip('\n')
 
-    html = render_template('templates/admin.html', username=username)
+    hostname = 'ec2-52-200-119-0.compute-1.amazonaws.com'
+    username = 'hmqcdnegecbdgo'
+    password = 'c51235a04a7593a9ec0c13821f495f259a68d2e1ab66a93df947ab2f31970009'
+    database = 'd99tniu8rpcj0o'
+
+    deniedAccess = ''
+
+    conn = psycopg2.connect(host=hostname, user=username, password=password, dbname=database)
+    cur = conn.cursor()
+    cur.execute("SELECT * FROM admins WHERE netid=%s", [netID])
+    result = cur.fetchone()
+    if result == None:
+        deniedAccess = 'deniedAccess'
+
+    html = render_template('templates/admin.html', username=netID, deniedAccess=deniedAccess)
     response = make_response(html)
     return response
 
