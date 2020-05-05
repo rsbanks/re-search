@@ -201,6 +201,7 @@ def getSearchCriteria():
 @app.route('/admin', methods=["GET"])
 def admin():
 
+    # check if user is an admin
     netID = CASClient().authenticate().rstrip('\n')
 
     hostname = 'ec2-52-200-119-0.compute-1.amazonaws.com'
@@ -214,6 +215,9 @@ def admin():
     cur = conn.cursor()
     cur.execute("SELECT * FROM admins WHERE netid=%s", [netID])
     result = cur.fetchone()
+    cur.close()
+    conn.close()
+
     if result == None:
         deniedAccess = 'deniedAccess'
 
