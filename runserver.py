@@ -1,7 +1,6 @@
 from sys import argv, stderr
 from flask import Flask, request, redirect, make_response, url_for
 from flask import render_template
-from flask_wtf import FlaskForm
 from prof import Professor
 from profsDB import profsDB
 from CASClient import CASClient
