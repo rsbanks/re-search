@@ -101,7 +101,7 @@ def searchResults():
             if prof[4] != '':
                 email = '<a href="mailto:' + prof[4] + '"><img class="icon" src="static/images/email-icon.png"></a>'
             if prof[6] != '':
-                website = '<a href="' + prof[6] + '"><img class="icon" src="static/images/website-icon.png"></a>'
+                website = '<a href="' + prof[6] + '" target="_blank"><img class="icon" src="static/images/website-icon.png"></a>'
 
             html += '<div class="row">' + \
                         '<div class="prof-image">' + \
