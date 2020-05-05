@@ -6,6 +6,16 @@
     </head>
     <body>
 
+      <div class="mobileAlertDiv">
+        <div class="alert alert-info alert-dismissible fade show" id="mobileAlert" role="alert">
+          Re-Search is opimized for desktops/ laptops. Please log in on a
+          desktop or laptop to get the full experience.
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+      </div>
+
         <nav class="header navbar navbar-expand-lg navbar-light">
           <a class="navbar-brand h1 title" href="{{url_for('search')}}" style="text-decoration:none">Re-Search</a>
             <ul class="navbar-nav mr-auto">

@@ -61,7 +61,7 @@ body{
   font-weight: bold;
 
   margin-left: 2%;
-  margin-top: 10vh;
+  margin-top: 1%;
 
   width: 80%;
   float: right;
@@ -474,4 +474,8 @@ img{
   z-index: 999;
   width: 74%;
   align-self: center;
+}
+
+.mobileAlertDiv {
+  visibility: collapse
 }

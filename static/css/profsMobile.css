@@ -249,7 +249,7 @@ img{
     position: absolute;
     margin-left: 2%;
     margin-right: 2%;
-    margin-top: 6%;
+    margin-top: 8%;
     height: 6%;
     
     background: #FFFFFF;
@@ -305,6 +305,15 @@ img{
 
 .tagForm {
     visibility: hidden;
+}
+
+.mobileAlertDiv {
+  width: 96%;
+  margin-left: 2%;
+  margin-right: 2%;
+  z-index: 1000;
+  position: fixed;
+  bottom: 0;
 }
 
 
