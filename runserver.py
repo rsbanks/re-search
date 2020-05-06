@@ -12,7 +12,7 @@ from datetime import datetime
 from pytz import timezone
 from os import remove, path
 import io
-from PIL  import Image
+from PIL import Image
 import csv
 from match import optimizePreferences
 
