@@ -24,6 +24,22 @@ function setup() {
         $('#deleteProfModal').modal('hide')
      });
 
+
+     document.addEventListener('click', function(e) {
+        if (e.target.id === 'removeIcon') {
+           const netid = e.target.getAttribute('data-item');
+           document.getElementById("deleteAdminModal").setAttribute("data-item", netid)
+           $("#deleteAdminModalBody").html("Are you sure you want to delete the admin with netid '"
+               + e.target.getAttribute("data-item") + "' ?")
+            $("#deleteAdminModal").modal()
+        }
+     })
+
+     $("#confirmDeleteAdmin").on("click", function() {
+        const netid = document.getElementById("deleteAdminModal").getAttribute('data-item');
+        removeAdmin(netid)
+     });
+
 }
 
 function handleResponse(response)
@@ -181,6 +197,105 @@ function getMatches()
             success: handleGetMatches
         }
     );
+}
+
+function handleGetAdmins(response) {
+    const admins = response.split(",")
+
+    // clear existing list first
+    document.querySelectorAll(".list-group-item").forEach(function(li) {
+        li.parentElement.removeChild(li)
+     })
+
+    const ul = document.getElementById("adminsList")
+    // one admin has to be uneditable
+    const li = document.createElement('li')
+    li.setAttribute("class", "list-group-item disabled")
+    li.setAttribute("aria-disabled", "true")
+    li.innerHTML = admins[0]
+    ul.appendChild(li)
+
+    for (i = 1; i < admins.length; i++) {
+        const li = document.createElement('li')
+        li.setAttribute("class", "list-group-item")
+        li.innerHTML = admins[i]
+
+        const removeIcon = document.createElement('span')
+        removeIcon.setAttribute('class', 'material-icons')
+        removeIcon.setAttribute('id', 'removeIcon')
+        removeIcon.setAttribute('data-item', admins[i])
+        removeIcon.innerHTML = 'remove_circle';
+
+        li.appendChild(removeIcon)
+        ul.appendChild(li)
+    }
+
+    addButton = document.createElement('button')
+    addButton.setAttribute("type", "button")
+    addButton.setAttribute("class", "list-group-item list-group-item-action active btn-secondary")
+    addButton.setAttribute("data-toggle", "modal")
+    addButton.setAttribute("data-target", "#addAdminModal")
+    addButton.innerHTML = "Add Admin"
+    ul.appendChild(addButton)
+}
+
+function viewAdmins ()
+{
+    url = '/getAdmins'
+    if (request != null)
+    request.abort();
+    request = $.ajax(
+    {
+        type: "GET",
+        url: url,
+        success: handleGetAdmins
+    });
+
+}
+
+function handleAddNewAdmin(response) {
+    error_statement = response
+
+    if (error_statement === '') {
+        $(addAdminSuccessModal).modal()
+        viewAdmins()
+    }
+}
+
+function addNewAdmin() {
+    $(addAdminModal).modal('hide')
+    url = '/addNewAdmin?netid=' + $("#newNetidInput").val()
+    if (request != null)
+    request.abort();
+    request = $.ajax(
+    {
+        type: "GET",
+        url: url,
+        success: handleAddNewAdmin
+    });
+}
+
+function removeAdmin (netid)
+{
+    url = '/removeAdmin?netid=' + netid 
+    if (request != null)
+    request.abort();
+    request = $.ajax(
+    {
+        type: "GET",
+        url: url,
+        success: handleRemoveAdmin
+    });
+}
+
+function handleRemoveAdmin(response) {
+    error_statement = response
+    $("#deleteAdminModal").modal('hide')
+
+    if (error_statement === '') {
+        $("#deleteAdminSuccessModal").modal()
+    }
+    viewAdmins() 
 }
 
 $(document).ready(setup)

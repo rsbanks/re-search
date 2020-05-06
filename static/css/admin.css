@@ -35,21 +35,14 @@
   
   color: #000000;  
 }
-  
-  .heading-div {
-    width: 100%;
-    height: 5%;
-    margin-top: 2%;
-    text-align: left;
-  }
+
   
   .heading {
     font-family: Montserrat;
     font-style: normal;
     font-weight: bold;
-    font-size: 2vw;
   
-    margin-left: 1%;
+    padding: 2%;
   
     color: #000000;
   }
@@ -162,4 +155,17 @@
 
   .profResult {
     margin-top: 2%;
+  }
+
+  .right-panel {
+    padding: 2%
+  }
+
+  #removeIcon {
+    float: right;
+    position: absolute;
+    color: #CC0C0C;
+    right: 10px;
+    top:10px;
+    cursor: pointer;
   }

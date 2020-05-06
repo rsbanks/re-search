@@ -694,6 +694,82 @@ def upload():
     file.save(destination)
     return ('', 204)
 
+@app.route('/getAdmins', methods=["GET"])
+def getAdmins():
+    hostname = 'ec2-52-200-119-0.compute-1.amazonaws.com'
+    username = 'hmqcdnegecbdgo'
+    password = 'c51235a04a7593a9ec0c13821f495f259a68d2e1ab66a93df947ab2f31970009'
+    database = 'd99tniu8rpcj0o'
+
+    deniedAccess = ''
+
+    conn = psycopg2.connect(host=hostname, user=username, password=password, dbname=database)
+    cur = conn.cursor()
+    cur.execute("SELECT netid FROM admins")
+    row = cur.fetchone()
+    admins = ""
+    while row is not None:
+        admins += str(row[0]) + ","
+        row = cur.fetchone()
+    admins = admins[:-1]
+    cur.close()
+    conn.close()
+    return admins
+
+@app.route('/addNewAdmin', methods=["GET"])
+def addNewAdmin():
+    netid = request.args.get('netid')
+
+    hostname = 'ec2-52-200-119-0.compute-1.amazonaws.com'
+    username = 'hmqcdnegecbdgo'
+    password = 'c51235a04a7593a9ec0c13821f495f259a68d2e1ab66a93df947ab2f31970009'
+    database = 'd99tniu8rpcj0o'
+
+    error_statement = ''
+
+    try:
+        conn = psycopg2.connect(host=hostname, user=username, password=password, dbname=database)
+        cur = conn.cursor()
+        stmt = "INSERT INTO admins(netid) VALUES(%s)"
+        cur.execute(stmt, [netid])
+        conn.commit()
+        cur.close()
+        conn.close()
+    except (Exception, psycopg2.DatabaseError) as error:
+        error_statement = str(error)
+        print(error_statement)
+    finally:
+        if conn is not None:
+            conn.close()
+        return error_statement
+
+
+@app.route('/removeAdmin', methods=["GET"])
+def removeAdmin():
+    netid = request.args.get('netid')
+
+    hostname = 'ec2-52-200-119-0.compute-1.amazonaws.com'
+    username = 'hmqcdnegecbdgo'
+    password = 'c51235a04a7593a9ec0c13821f495f259a68d2e1ab66a93df947ab2f31970009'
+    database = 'd99tniu8rpcj0o'
+
+    error_statement = ''
+    try:
+        conn = psycopg2.connect(host=hostname, user=username, password=password, dbname=database)
+        cur = conn.cursor()
+        stmt = "DELETE FROM admins WHERE netid=%s"
+
+        cur.execute(stmt, [netid])
+        conn.commit()
+        cur.close()
+    except (Exception, psycopg2.DatabaseError) as error:
+        error_statement = str(error)
+        print(error_statement)
+    finally:
+        if conn is not None:
+            conn.close()
+        return error_statement
+
 
 
 if __name__ == '__main__':
