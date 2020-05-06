@@ -137,7 +137,7 @@ class profPreferencesDB:
             while row is not None:
                 advisor = []
                 for col in row:
-                    if str(col) != "null":
+                    if str(col) != "null" and str(col) != "":
                         advisor.append(str(col))
 
                 advisors.append(advisor)
