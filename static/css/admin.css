@@ -42,7 +42,7 @@
     font-style: normal;
     font-weight: bold;
   
-    padding: 2%;
+    padding: 1%;
   
     color: #000000;
   }
@@ -88,27 +88,6 @@
     height: 6vh;
   }
 
-  .overwriteButton {
-    width: 23%;
-    margin: 1%;
-    font-size: medium;
-    height: 6vh;
-  }
-
-  .deleteButton {
-    width: 23%;
-    margin: 1%;
-    font-size: bold;
-    background-color: #CD2400;
-    height: 6vh;
-  }
-  .cancelOverwriteButton {
-    width: 23%;
-    margin: 1%;
-    font-size: medium;
-    height: 6vh;
-  }
-
   .downloadButton {
     border: none;
     background-color: inherit;
@@ -135,13 +114,6 @@
     margin-left: 1%;
   }
 
-  .profForm {
-
-    width: 75%;
-    margin-left: 1%;
-    margin-top: 2%;
-  }
-
   .label {
     font-size: 1.3vw;
     text-align: left;
@@ -154,7 +126,7 @@
   }
 
   .profResult {
-    margin-top: 2%;
+    margin-top: 1%;
   }
 
   .right-panel {
@@ -168,4 +140,14 @@
     right: 10px;
     top:10px;
     cursor: pointer;
+  }
+
+  #saveForm {
+    padding-top: 1%;
+    padding-bottom: 1%;
+  }
+
+  #editOtherForm {
+    padding-top: 2%;
+    padding-bottom: 2%;
   }

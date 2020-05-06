@@ -310,9 +310,9 @@ def profinfo():
                             "</form>" + \
                     "</div>" + \
                     """<form method="get" id="saveForm">
-                            <input class="searchButton overwriteButton" type="submit" id="Save" value="Save">
-                            <input class="searchButton cancelOverwriteButton" type="submit" id ="Cancel" value="Cancel">
-                        </form>"""        
+                        <button type="submit" class="btn btn-primary btn btn-block" id="Save">Save</button>
+                        <button type="submit" class="btn btn-secondary btn btn-block" id="Cancel">Cancel</button>
+                    </form>"""        
         else:
             prof = prof[0]
             html = "<div class='profForm'>" + \
@@ -390,9 +390,9 @@ def profinfo():
                         "</form>" + \
                     "</div>" + \
                     """<form method="get" id="saveForm">
-                            <input class="searchButton overwriteButton" type="submit" id="Save" value="Save">
-                            <input class="searchButton cancelOverwriteButton" type="submit" id ="Cancel" value="Cancel">
-                            <input class="searchButton deleteButton" type="submit" id ="Delete" value="Delete">
+                            <button type="submit" class="btn btn-secondary btn btn-block" id="Save">Save</button>
+                            <button type="submit" class="btn btn-secondary btn btn-block" id="Cancel">Cancel</button>
+                            <button type="submit" class="btn btn-danger btn btn-block" id="Delete">Delete</button>
                         </form>"""
     else:
         print(error_statement, file=stderr)
@@ -491,7 +491,9 @@ def displayprof():
                         "<td></td>" + \
                     "</tr>"  + \
             "</table>" + \
-            """<form method="get" id="editOtherForm"><input class="searchButton cancelOverwriteButton" type="submit" value="Edit Another Professor"></form>"""
+            """<form method="get" id="editOtherForm">
+                <button type="submit" class="btn btn-secondary btn-lg">Edit Another Professor</button>
+            </form>"""
     else:
         print(error_statement, file=stderr)
 

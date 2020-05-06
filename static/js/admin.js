@@ -24,7 +24,6 @@ function setup() {
         $('#deleteProfModal').modal('hide')
      });
 
-
      document.addEventListener('click', function(e) {
         if (e.target.id === 'removeIcon') {
            const netid = e.target.getAttribute('data-item');
@@ -203,11 +202,15 @@ function handleGetAdmins(response) {
     const admins = response.split(",")
 
     // clear existing list first
-    document.querySelectorAll(".list-group-item").forEach(function(li) {
-        li.parentElement.removeChild(li)
-     })
+    document.getElementById("manageAdminsDiv").innerHTML = null
 
-    const ul = document.getElementById("adminsList")
+    heading = document.createElement('h4')
+    heading.innerHTML = "Current Admins"
+
+    const ul = document.createElement('ul')
+    ul.setAttribute("class", "list-group")
+    ul.setAttribute("id", "adminsList")
+
     // one admin has to be uneditable
     const li = document.createElement('li')
     li.setAttribute("class", "list-group-item disabled")
@@ -237,10 +240,13 @@ function handleGetAdmins(response) {
     addButton.setAttribute("data-target", "#addAdminModal")
     addButton.innerHTML = "Add Admin"
     ul.appendChild(addButton)
+
+    document.getElementById("manageAdminsDiv").appendChild(heading)
+    document.getElementById("manageAdminsDiv").appendChild(ul)
 }
 
 function viewAdmins ()
-{
+{      
     url = '/getAdmins'
     if (request != null)
     request.abort();

@@ -24,12 +24,20 @@
 
   <div class="col-8">
 
-    <p class="heading h2">Welcome {{ username }}! <br> Enter the NetID of the professor's information you want to change:</p>
+    <p class="heading h2">Welcome {{ username }}! <br><br> Enter the NetID of the professor's information you want to change</p>
 
-    <form method="get" class="searchInputForm" id="searchInputForm">
-        <input type="text" id="netidSearch" name="netidSearch" placeHolder="NetID" class="netidInput">
-        <input type="submit" value="Search" class="searchButton">
+    <form class="searchInputForm" id="searchInputForm">
+      <div class="form-row">
+        <div class="col-6">
+          <input type="text" class="form-control inputNetid" id="netidSearch" name="netidSearch" placeholder="NetID">
+        </div>
+        <div class="col-6">
+          <button type="button" class="btn btn-secondary" onclick="getProf()">Search</button>
+        </div>
+      </div>
     </form>
+
+</form>
     <br>
   
     <div id="netidAlertFailure" class="alert alert-danger alert-dismissible collapse" role="alert">
@@ -83,15 +91,6 @@
       </div>
     </div>
   </div>
-
-  <div class="col-4 right-panel">
-    <button type="button" class="btn btn-primary btn-lg btn-block" onclick="getPreferences()">Download current student preferences</button>
-    <button type="button" class="btn btn-secondary btn-lg btn-block" onclick="getMatches()">Download suggested matches <br> (based only on student rankings)</button>
-    <button type="button" class="btn btn-secondary btn-lg btn-block" onclick="viewAdmins()">Manage Admins</button>
-
-    <br>
-    <hr>
-    <br>
 
     <!-- Modal -->
     <div class="modal fade" id="addAdminModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -155,11 +154,14 @@
     </div>
 
 
-    <div class="manageAdmins">
-      <h4> Current Admins</h4>
-      <ul class="list-group" id="adminsList">
-      </ul>
-    </div>
+  <div class="col-4 right-panel">
+    <button type="button" class="btn btn-primary btn-lg btn-block" onclick="getPreferences()">Download current student preferences</button>
+    <button type="button" class="btn btn-secondary btn-lg btn-block" onclick="getMatches()">Download suggested matches <br> (based only on student rankings)</button>
+    <button type="button" class="btn btn-secondary btn-lg btn-block" onclick="viewAdmins()">Manage Admins</button>
+
+    <hr>
+
+    <div class="manageAdmins" id="manageAdminsDiv"></div>
 
   </div>
 
