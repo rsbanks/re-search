@@ -39,6 +39,10 @@ function setup() {
         removeAdmin(netid)
      });
 
+     $('body').on('shown.bs.modal', '#addAdminModal', function () {
+        $('input:visible:enabled:first', this).focus();
+    })
+
 }
 
 function handleResponse(response)
