@@ -38,6 +38,12 @@ class Professor(object):
     def setImagePath(self, imagePath):
         self.imagePath = imagePath
 
+    def setActualImage(self, image):
+        self.actualImage = image
+
+    def setImageExtension(self, imageExtension):
+        self.imageExtension = imageExtension
+
     def getNetId(self):
         return self.netId
 
@@ -73,3 +79,9 @@ class Professor(object):
 
     def getImagePath(self):
         return self.imagePath
+
+    def getActualImage(self):
+        return self.actualImage
+
+    def getImageExtension(self):
+        return self.imageExtension

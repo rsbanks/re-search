@@ -1,5 +1,5 @@
 from os import environ
-from os import path
+from os import path, stat
 from sys import argv, stderr
 from prof import Professor
 from sqlalchemy import create_engine
@@ -29,7 +29,7 @@ class profsDB:
     def displayAllProfessors(self, connection):
         stmtStr = 'SELECT profs.netid, profs.title, profs.first, profs.last, profs.email,' + \
                 ' profs.phone, profs.website, profs.rooms, profs.department, profs.area,' + \
-                ' profs.bio, profs.image' + \
+                ' profs.bio, profs.image, profs.image_actual, profs.image_extension' + \
                 ' FROM profs ' + \
                 ' ORDER BY profs.last ASC'
         result = connection.execute(stmtStr)
@@ -38,7 +38,7 @@ class profsDB:
     def displayProfessorsByFilter(self, connection, search_criteria, input_arguments):
         stmtStr = 'SELECT profs.netid, profs.title, profs.first, profs.last, profs.email,' \
                 ' profs.phone, profs.website, profs.rooms, profs.department, profs.area,' \
-                ' profs.bio, profs.image' + \
+                ' profs.bio, profs.image, profs.image_actual, profs.image_extension' + \
                 ' FROM profs' + \
                 ' WHERE ' + search_criteria + \
                 ' ORDER BY profs.last ASC'
@@ -59,8 +59,9 @@ class profsDB:
             prof.setDepartment(row[8])
             prof.setResearchAreas(row[9])
             prof.setBio(row[10])
-            print(row[11])
             prof.setImagePath(row[11])
+            prof.setActualImage(row[12])
+            prof.setImageExtension(row[13])
             profs.append(prof)
         result.close()
         return profs
@@ -83,6 +84,8 @@ class profsDB:
             prof_listing.append(researchAreas)
             prof_listing.append(prof.getBio())
             prof_listing.append(prof.getImagePath())
+            prof_listing.append(prof.getActualImage())
+            prof_listing.append(prof.getImageExtension())
             profs_list.append(prof_listing)
         return profs_list
 

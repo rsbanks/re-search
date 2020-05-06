@@ -11,6 +11,8 @@ from pathlib import Path
 from datetime import datetime
 from pytz import timezone
 from os import remove, path
+import io
+from PIL  import Image
 import csv
 from match import optimizePreferences
 
@@ -95,6 +97,20 @@ def searchResults():
         i = 0
         for prof in profs:
             src = prof[11]
+
+            # display image if in database
+            if prof[12] != None:
+                imageBytes = bytes(prof[12])
+                image = Image.open(io.BytesIO(imageBytes))
+
+                imageExtension = prof[13]
+
+                netID = prof[0]
+                filename = netID + '.' + imageExtension
+                destination = "/".join(["static/profImages/", filename])
+                image.save(destination)
+                src = destination
+
             website = ''
             email = ''
             if prof[4] != '':
@@ -388,6 +404,7 @@ def profinfo():
                             "<input type='file' id='file' name='file' accept='image/*'>" + \
                             "<input type='submit' value='Upload'>" + \
                         "</form>" + \
+                        "<img class='profImageDisplay' id='profImageDisplay'></img>" + \
                     "</div>" + \
                     """<form method="get" id="saveForm">
                             <button type="submit" class="btn btn-secondary btn btn-block" id="Save">Save</button>
@@ -691,10 +708,40 @@ def upload():
     
     file = request.files.getlist("file")[0]
     fileExtension = file.filename.split('.')[-1]
-    filename = netID + '.' + fileExtension
-    destination = "/".join([target, filename])
-    file.save(destination)
+    file_data = file.read()
+    id_item = 254
+    SaveImageToDatabase(netID, id_item, file_data, fileExtension)
     return ('', 204)
+
+def SaveImageToDatabase(netID, id_item, FileImage, fileExtension):
+
+    hostname = 'ec2-52-200-119-0.compute-1.amazonaws.com'
+    username = 'hmqcdnegecbdgo'
+    password = 'c51235a04a7593a9ec0c13821f495f259a68d2e1ab66a93df947ab2f31970009'
+    database = 'd99tniu8rpcj0o'
+
+    error_statement = ''
+
+    stmt = ""
+    stmt += "UPDATE profs"
+    stmt += " set image_actual=%s,"
+    stmt += " image_extension=%s"
+    stmt += " WHERE netid=%s"
+
+    try:
+        conn = psycopg2.connect(host=hostname, user=username, password=password, dbname=database)
+        cur = conn.cursor()
+        cur.execute(stmt, [FileImage, fileExtension, netID])
+        conn.commit()
+        cur.close()
+        conn.close()
+    except (Exception, psycopg2.DatabaseError) as error:
+        error_statement = str(error)
+        print(error_statement)
+    finally:
+        if conn is not None:
+            conn.close()
+        return error_statement
 
 @app.route('/getAdmins', methods=["GET"])
 def getAdmins():

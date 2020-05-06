@@ -151,3 +151,8 @@
     padding-top: 2%;
     padding-bottom: 2%;
   }
+
+  .profImageDisplay {
+    width: 20px;
+    height: 20px;
+  }
