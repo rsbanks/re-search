@@ -68,13 +68,19 @@ def optimizePreferences(student_cap, pref_limit):
     print(studentprefs)
     for prefs in studentprefs:
         student_id = prefs.pop(0)
-        studentids.append(student_id)
         cost = pref_limit - 1
+        pref_duplicates = []
         for pref in reversed(prefs):
-            if pref not in profids:
-                profids.append(pref)
-            costs[pref, student_id] = cost
-            cost -= 1
+            if pref not in pref_duplicates:
+                if pref not in profids:
+                    if pref != "Non ORFE professor":
+                        profids.append(pref)
+                    else:
+                        student_id += "*"
+                costs[pref, student_id] = cost
+                cost -= 1
+                pref_duplicates.append(pref)
+        studentids.append(student_id)
 
     for prof in profids:
         for student in studentids:
