@@ -345,6 +345,7 @@ def profinfo():
                         "<form id='upload-form' action='/upload' method='POST' enctype='multipart/form-data'>" + \
                             "<input type='file' id='file' name='file' accept='image/*'>" + \
                         "</form>" + \
+                        "<p>*Small images (< 1MB) of dimensions 300x400 px work best.<p>" + \
                         "<img class='profImageDisplay' id='profImageDisplay' src='" + src + "'></img>" + \
                     "</div>" + \
                     """<form method="get" id="saveForm">
@@ -573,6 +574,7 @@ def displayNewProf():
                 "<form id='upload-form' action='/upload' method='POST' enctype='multipart/form-data'>" + \
                     "<input type='file' id='file' name='file' accept='image/*'>" + \
                 "</form>" + \
+                "<p>*Small images (< 1MB) of dimensions 300x400 px work best.<p>" + \
                 "<img class='profImageDisplay' id='profImageDisplay'></img>" + \
             "</div>" + \
             """<form method="get" id="saveForm">
@@ -612,7 +614,6 @@ def profPreferences():
     first = request.args.get('first')
     if first == "":
         first = None
-        print('hello', first)
     second = request.args.get('second')
     third = request.args.get('third')
     fourth = request.args.get('fourth')
@@ -643,7 +644,6 @@ def submitPreferences():
     username = CASClient().authenticate().rstrip('\n')
 
     advisor1 = request.args.get('Advisor1')
-    print('hello', advisor1)
     if advisor1 == None:
         advisor1 = ''
     advisor2 = request.args.get('Advisor2')
@@ -775,7 +775,6 @@ def getMatches():
 
 @app.route('/upload', methods=["POST"])
 def upload():
-    print("hello submitted")
     target = path.join(APP_ROUTE, 'static/profImages')
     netID = request.cookies.get('netid')
     
