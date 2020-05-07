@@ -113,10 +113,14 @@ def searchResults():
 
             website = ''
             email = ''
+            past_papers = ''
             if prof[4] != '':
                 email = '<a href="mailto:' + prof[4] + '"><img class="icon" src="static/images/email-icon.png"></a>'
             if prof[6] != '':
                 website = '<a href="' + prof[6] + '" target="_blank"><img class="icon" src="static/images/website-icon.png"></a>'
+            if str(prof[14]) != '':
+                past_papers = '<a href=' + str(prof[14]) + ' target="_blank">Previous Papers Advised</a>'    
+
 
             html += '<div class="row">' + \
                         '<div class="prof-image">' + \
@@ -144,6 +148,7 @@ def searchResults():
                         '<div class="info-right">' + \
                             '<p class="sub-title"> Academic Interests: </p>' + \
                             '<p class ="sub-info">' + prof[9] + '</p>' + \
+                            past_papers + \
                         '</div>' + \
                     '</div>'
             i+=1
