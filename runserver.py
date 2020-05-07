@@ -119,7 +119,7 @@ def searchResults():
             if prof[6] != '':
                 website = '<a href="' + prof[6] + '" target="_blank"><img class="icon" src="static/images/website-icon.png"></a>'
             if str(prof[14]) != '':
-                past_papers = '<a href=' + str(prof[14]) + ' target="_blank" class="previous-papers">Previous Papers Advised</a>'    
+                past_papers = '<br><a href=' + str(prof[14]) + ' target="_blank" class="previous-papers">Previous Papers Advised</a>'    
 
 
             html += '<div class="row">' + \
