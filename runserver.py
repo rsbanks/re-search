@@ -720,9 +720,9 @@ def getMatches():
     # spacing = [""] * 2
     with open('matches.csv', 'w', newline='') as csv_file:
         csv_writer = csv.writer(csv_file, delimiter=',')
+        csv_writer.writerow(["Student netids with an * indicate a non-ORFE advisor preference (see preferences.csv)"])
         csv_writer.writerow(header)
         # csv_writer.writerow(spacing)
-        csv_writer.writerow("Student netids with an * indicate a non-ORFE advisor preference (see preferences.csv)")
         for prof in prof_student_list:
             prof_students = [prof]
             for student in prof_student_list[prof]:
