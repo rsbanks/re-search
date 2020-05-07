@@ -153,6 +153,7 @@
   }
 
   .profImageDisplay {
-    width: 20px;
-    height: 20px;
+    padding: 1%;
+    width: 200px;
+    height: 250px;
   }

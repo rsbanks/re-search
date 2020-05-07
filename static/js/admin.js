@@ -50,6 +50,19 @@ function handleResponse(response)
     $('#netidAlertFailure').hide();
 
     document.getElementById('profResult').innerHTML = response;
+    
+    $("#file").change(function(){
+        if (this.files && this.files[0]) {
+            var reader = new FileReader();
+            
+            reader.onload = function (e) {
+                $('#profImageDisplay').attr('src', e.target.result);
+            }
+            
+            reader.readAsDataURL(this.files[0]);
+        }
+    });
+
     $("#saveForm").on("submit", function() {
         if (document.activeElement.id == 'Save') {
             displayProf();

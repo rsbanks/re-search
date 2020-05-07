@@ -328,9 +328,24 @@ def profinfo():
                     """<form method="get" id="saveForm">
                         <button type="submit" class="btn btn-primary btn btn-block" id="Save">Save</button>
                         <button type="submit" class="btn btn-secondary btn btn-block" id="Cancel">Cancel</button>
-                    </form>"""        
+                    </form>"""      
         else:
             prof = prof[0]
+
+            src = prof[11]
+            # display image if in database
+            if prof[12] != None:
+                imageBytes = bytes(prof[12])
+                image = Image.open(io.BytesIO(imageBytes))
+
+                imageExtension = prof[13]
+
+                netID = prof[0]
+                filename = netID + '.' + imageExtension
+                destination = "/".join(["static/profImages/", filename])
+                image.save(destination)
+                src = destination
+
             html = "<div class='profForm'>" + \
                         "<form>" + \
                             "<div class='form-group row'>" + \
@@ -404,7 +419,7 @@ def profinfo():
                             "<input type='file' id='file' name='file' accept='image/*'>" + \
                             "<input type='submit' value='Upload'>" + \
                         "</form>" + \
-                        "<img class='profImageDisplay' id='profImageDisplay'></img>" + \
+                        "<img class='profImageDisplay' id='profImageDisplay' src='" + src + "'></img>" + \
                     "</div>" + \
                     """<form method="get" id="saveForm">
                             <button type="submit" class="btn btn-secondary btn btn-block" id="Save">Save</button>
@@ -454,6 +469,22 @@ def displayprof():
     prof_, error_statement = getProfs('netid ILIKE %s', [netID])
     prof = prof_[0]
     if error_statement == '':
+
+        src = prof[11]
+
+        # display image if in database
+        if prof[12] != None:
+            imageBytes = bytes(prof[12])
+            image = Image.open(io.BytesIO(imageBytes))
+
+            imageExtension = prof[13]
+
+            netID = prof[0]
+            filename = netID + '.' + imageExtension
+            destination = "/".join(["static/profImages/", filename])
+            image.save(destination)
+            src = destination
+
         html = "<h2 class='heading'>This the updated information for " + prof[1] + " " + prof[2] + ":</h2><hr>"
         html += "<table style='text-align: left;' class='profInfoTable'> " + \
                     '<tr>' + \
@@ -505,7 +536,7 @@ def displayprof():
                         "<td>" + prof[11] + "</td>" + \
                     "</tr>" + \
                     "<tr>" + \
-                        "<td></td>" + \
+                        "<td>" + "<img class='profImageDisplay' id='profImageDisplay' src='" + src + "'></img>" + "</td>" +\
                     "</tr>"  + \
             "</table>" + \
             """<form method="get" id="editOtherForm">
