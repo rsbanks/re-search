@@ -118,8 +118,8 @@ def searchResults():
                 email = '<a href="mailto:' + prof[4] + '"><img class="icon" src="static/images/email-icon.png"></a>'
             if prof[6] != '':
                 website = '<a href="' + prof[6] + '" target="_blank"><img class="icon" src="static/images/website-icon.png"></a>'
-            if str(prof[14]) != '':
-                past_papers = '<a href=' + str(prof[14]) + ' target="_blank">Previous Papers Advised</a>'    
+            if str(prof[14]) != '' and prof[14] is not None:
+                past_papers = '<br><a href=' + str(prof[14]) + ' target="_blank" class="previous-papers">Previous Papers Advised</a>'    
 
 
             html += '<div class="row">' + \
@@ -720,6 +720,7 @@ def getMatches():
     # spacing = [""] * 2
     with open('matches.csv', 'w', newline='') as csv_file:
         csv_writer = csv.writer(csv_file, delimiter=',')
+        csv_writer.writerow(["Student netids with an * indicate a non-ORFE advisor preference (see preferences.csv)"])
         csv_writer.writerow(header)
         # csv_writer.writerow(spacing)
         for prof in prof_student_list:
