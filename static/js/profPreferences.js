@@ -6,15 +6,10 @@ function setup() {
    // on close icon clicked (prof_preference)
    document.addEventListener('click', function(e) {
       if (e.target.id === 'closeIconProfPrefence') {
-         console.log(prof_preference_list.length)
          const value = e.target.getAttribute('data-item');
          const index = prof_preference_list.indexOf(value);
-         for (i = 0; i < prof_preference_list.length; i++) {
-            console.log(String(i), prof_preference_list[i])
-         }
          prof_preference_list =
           [...prof_preference_list.slice(0, index), ...prof_preference_list.slice(index+1)];
-         console.log(prof_preference_list)
          addProfs();
       }
    })
@@ -59,14 +54,14 @@ function setup() {
 }
 
 function addProfPreference(name){
-   if (!prof_preference_list.includes(name)) {
-      prof_preference_list.unshift(name);
+   if (!prof_preference_list.includes(name) && prof_preference_list.length < 8) {
+      if (prof_preference_list.length >= 4) {
+         prof_preference_list.unshift(name);
+         $('#profLimitAlert').show('fade');
+      } else {
+         prof_preference_list.unshift(name);
+      }
    }
-   if (prof_preference_list.length >= 4) {
-      $('#profLimitAlert').show('fade');
-      prof_preference_list = prof_preference_list.slice(0, 4)
-   }
-   console.log(prof_preference_list)
    addProfs();
 }
 
@@ -98,7 +93,7 @@ function reset_profs() {
 
  function addProfs() {
     reset_profs();
-    prof_preference_list.forEach(function(profname) {
+    prof_preference_list.slice().reverse().forEach(function(profname) {
        const input = createProfPreference(profname);
        $('#profPreferencesDiv').append(input)
     })
