@@ -20,47 +20,111 @@
       </div>
     {% else: %}
 
-<div class="container-fluid row">
+  <div class="container-fluid row">
 
-  <div class="col-8">
+    <div class="col-8">
 
-    <p class="heading h2">Welcome {{ username }}! <br><br> Enter the NetID of the professor's information you want to change</p>
+      <p class="heading h2">Welcome {{ username }}! <br><br> Enter the NetID of the professor's information you want to change</p>
 
-    <form class="searchInputForm" id="searchInputForm">
-      <div class="form-row">
-        <div class="col-6">
-          <input type="text" class="form-control inputNetid" id="netidSearch" name="netidSearch" placeholder="NetID">
+      <form class="searchInputForm" id="searchInputForm">
+        <div class="form-row">
+          <div class="col-6">
+            <input type="text" class="form-control inputNetid" id="netidSearch" name="netidSearch" placeholder="NetID">
+          </div>
+          <div class="col-6">
+            <button type="button" class="btn btn-secondary" onclick="getProf()">Search</button>
+          </div>
         </div>
-        <div class="col-6">
-          <button type="button" class="btn btn-secondary" onclick="getProf()">Search</button>
+      </form>
+
+  </form>
+
+    <!-- Modal -->
+    <div class="modal fade" id="successProfUpdateModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalCenterTitle">Success</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            Professor's information successfully updated!
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Ok</button>
+          </div>
         </div>
       </div>
-    </form>
-
-</form>
-    <br>
-  
-    <div id="netidAlertFailure" class="alert alert-danger alert-dismissible collapse" role="alert">
-        No professor with the given NetID found. Please check your spelling and try again.
-        <button id="closeFailureAlert" class="close" type="button" data-dismiss="alert">×</button>
     </div>
 
-    <div id="netidAlertSuccess" class="alert alert-success alert-dismissible collapse" role="alert">
-        Professor's information successfully updated!
-        <button id="closeSuccessAlert" class="close" type="button" data-dismiss="alert">×</button>
+
+    <div class="modal fade" id="successProfDeleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalCenterTitle">Success</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            Professor's information successfully deleted!
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Ok</button>
+          </div>
+        </div>
+      </div>
     </div>
 
-    <div id="netidAlertDeleteSuccess" class="alert alert-success alert-dismissible collapse" role="alert">
-        Professor's information successfully deleted!
-        <button id="closeSuccessDeleteAlert" class="close" type="button" data-dismiss="alert">×</button>
+    <!-- Modal -->
+    <div class="modal fade" id="addNewProfModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalCenterTitle">No such Professor</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body" id="addNewProfModalBody">
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+            <button type="button" class="btn btn-primary" id="yesCreateProf">Yes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="newProfAddedModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalCenterTitle">Success</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body" id="newProfAddedModalBody">
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Ok</button>
+          </div>
+        </div>
+      </div>
     </div>
 
     <!-- Modal -->
     <div class="modal fade" id="deleteProfModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog" role="document">
+      <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Delete Professor</h5>
+            <h5 class="modal-title" id="exampleModalCenterTitle">Delete Professor</h5>
           </div>
           <div id="deleteProfModalBody" class="modal-body">
           </div>

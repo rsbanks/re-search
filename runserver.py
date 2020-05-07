@@ -254,86 +254,8 @@ def profinfo():
     html = ''
 
     if error_statement == '':
-        if len(prof) == 0:            
-            html = "<h2 class='heading' style='color: #CB2200; font-size:large'>No such professor found. Create a new professor below.</h2>" + \
-                    "<div class='profForm'>" + \
-                                "<form>" + \
-                                    "<div class='form-group row'>" + \
-                                        "<label for='colFormLabel' class='col-sm-2 col-form-label'>NetID</label>" + \
-                                        "<div class='col-sm-10'>" + \
-                                        "<input type='text' class='form-control' id='netid' name='netid' value='" + netID + "' readonly>" + \
-                                        "</div>" + \
-                                    "</div>" + \
-                                    "<div class='form-group row'>" + \
-                                        "<label for='colFormLabel' class='col-sm-2 col-form-label'>First Name</label>" + \
-                                        "<div class='col-sm-10'>" + \
-                                        "<input type='text' class='form-control' id='firstname' name='firstname' value='""'>" + \
-                                        "</div>" + \
-                                    "</div>" + \
-                                    "<div class='form-group row'>" + \
-                                        "<label for='colFormLabel' class='col-sm-2 col-form-label'>Last Name</label>" + \
-                                        "<div class='col-sm-10'>" + \
-                                        "<input type='text' class='form-control' id='lastname' name='lastname' value='""'>" + \
-                                        "</div>" + \
-                                    "</div>" + \
-                                    "<div class='form-group row'>" + \
-                                        "<label for='colFormLabel' class='col-sm-2 col-form-label'>Title</label>" + \
-                                        "<div class='col-sm-10'>" + \
-                                        "<input type='text' class='form-control' id='phone' name='phone' value='""'>" + \
-                                        "</div>" + \
-                                    "</div>" + \
-                                    "<div class='form-group row'>" + \
-                                        "<label for='colFormLabel' class='col-sm-2 col-form-label'>Email</label>" + \
-                                        "<div class='col-sm-10'>" + \
-                                        "<input type='text' class='form-control' id='email' value='""'>" + \
-                                        "</div>" + \
-                                    "</div>" + \
-                                    "<div class='form-group row'>" + \
-                                        "<label for='colFormLabel' class='col-sm-2 col-form-label'>Phone Number</label>" + \
-                                        "<div class='col-sm-10'>" + \
-                                        "<input type='text' class='form-control' id='title' name='title' value='""'>" + \
-                                        "</div>" + \
-                                    "</div>" + \
-                                    "<div class='form-group row'>" + \
-                                        "<label for='colFormLabel' class='col-sm-2 col-form-label'>Website</label>" + \
-                                        "<div class='col-sm-10'>" + \
-                                        "<input type='text' class='form-control' id='website' name='website' value='""'>" + \
-                                        "</div>" + \
-                                    "</div>" + \
-                                    "<div class='form-group row'>" + \
-                                        "<label for='colFormLabel' class='col-sm-2 col-form-label'>Office</label>" + \
-                                        "<div class='col-sm-10'>" + \
-                                        "<input type='text' class='form-control' id='rooms' name='rooms' value='""'>" + \
-                                        "</div>" + \
-                                    "</div>" + \
-                                    "<div class='form-group row'>" + \
-                                        "<label for='colFormLabel' class='col-sm-2 col-form-label'>Department</label>" + \
-                                        "<div class='col-sm-10'>" + \
-                                        "<input type='text' class='form-control' id='department' name='department' value='""'>" + \
-                                        "</div>" + \
-                                    "</div>" + \
-                                    "<div class='form-group row'>" + \
-                                        "<label for='colFormLabel' class='col-sm-2 col-form-label'>Research Interests</label>" + \
-                                        "<div class='col-sm-10'>" + \
-                                        "<input type='text' class='form-control' id='areas' name='areas' value='""'>" + \
-                                        "</div>" + \
-                                    "</div>" + \
-                                    "<div class='form-group row'>" + \
-                                        "<label for='colFormLabel' class='col-sm-2 col-form-label'>Bio</label>" + \
-                                        "<div class='col-sm-10'>" + \
-                                        "<textarea class='form-control' id='bio' name='bio' rows='5'>""</textarea>" + \
-                                        "</div>" + \
-                                    "</div>" + \
-                            "</form>" + \
-                            "<form id='upload-form' action='/upload' method='POST' enctype='multipart/form-data'>" + \
-                                "<input type='file' id='file' name='file' accept='image/*'>" + \
-                                "<input type='submit' value='Upload'>" + \
-                            "</form>" + \
-                    "</div>" + \
-                    """<form method="get" id="saveForm">
-                        <button type="submit" class="btn btn-primary btn btn-block" id="Save">Save</button>
-                        <button type="submit" class="btn btn-secondary btn btn-block" id="Cancel">Cancel</button>
-                    </form>"""      
+        if len(prof) == 0:
+            html = ''          
         else:
             prof = prof[0]
 
@@ -374,7 +296,7 @@ def profinfo():
                             "<div class='form-group row'>" + \
                                 "<label for='colFormLabel' class='col-sm-2 col-form-label'>Title</label>" + \
                                 "<div class='col-sm-10'>" + \
-                                "<input type='text' class='form-control' id='title' name='title' value='" + prof[5] + "'>" + \
+                                "<input type='text' class='form-control' id='title' name='title' value='" + prof[3] + "'>" + \
                                 "</div>" + \
                             "</div>" + \
                             "<div class='form-group row'>" + \
@@ -386,7 +308,7 @@ def profinfo():
                             "<div class='form-group row'>" + \
                                 "<label for='colFormLabel' class='col-sm-2 col-form-label'>Phone Number</label>" + \
                                 "<div class='col-sm-10'>" + \
-                                "<input type='text' class='form-control' id='phone' name='phone' value='" + prof[3] + "'>" + \
+                                "<input type='text' class='form-control' id='phone' name='phone' value='" + prof[5] + "'>" + \
                                 "</div>" + \
                             "</div>" + \
                             "<div class='form-group row'>" + \
@@ -422,7 +344,6 @@ def profinfo():
                        "</form>" + \
                         "<form id='upload-form' action='/upload' method='POST' enctype='multipart/form-data'>" + \
                             "<input type='file' id='file' name='file' accept='image/*'>" + \
-                            "<input type='submit' value='Upload'>" + \
                         "</form>" + \
                         "<img class='profImageDisplay' id='profImageDisplay' src='" + src + "'></img>" + \
                     "</div>" + \
@@ -529,7 +450,7 @@ def displayprof():
                         "<td>" + prof[8] + "</td>" + \
                     "</tr>" + \
                     "<tr>" + \
-                        "<td align='right class='label'>Areas:</td>" + \
+                        "<td align='right' class='label'>Areas:</td>" + \
                         "<td>" + prof[9]+   "</td>" + \
                     "</tr>" + \
                     "<tr>" + \
@@ -552,6 +473,120 @@ def displayprof():
 
     response = make_response(html)
     return response
+
+
+@app.route('/displayNewProf', methods=["GET"])
+def displayNewProf():
+    netID = request.cookies.get('netid')
+    hostname = 'ec2-52-200-119-0.compute-1.amazonaws.com'
+    username = 'hmqcdnegecbdgo'
+    password = 'c51235a04a7593a9ec0c13821f495f259a68d2e1ab66a93df947ab2f31970009'
+    database = 'd99tniu8rpcj0o'
+
+    prof = newProf(netID)
+
+    try:
+        conn = psycopg2.connect(host=hostname, user=username, password=password, dbname=database)
+        error_statement, returned = updateDB(conn, prof)
+        if returned == False:
+            error_statement = createProf(conn, prof)
+    except (Exception, psycopg2.DatabaseError) as error:
+        error_statement = str(error)
+        print(error_statement)
+    finally:
+        if conn is not None:
+            conn.close()
+
+    prof_, error_statement = getProfs('netid ILIKE %s', [netID])
+    prof = prof_[0]
+    if error_statement == '':
+
+        html = "<div class='profForm'>" + \
+                "<form>" + \
+                    "<div class='form-group row'>" + \
+                        "<label for='colFormLabel' class='col-sm-2 col-form-label'>NetID</label>" + \
+                        "<div class='col-sm-10'>" + \
+                        "<input type='text' class='form-control' id='netid' name='netid' value='" + prof[0] + "' readonly>" + \
+                        "</div>" + \
+                    "</div>" + \
+                    "<div class='form-group row'>" + \
+                        "<label for='colFormLabel' class='col-sm-2 col-form-label'>First Name</label>" + \
+                        "<div class='col-sm-10'>" + \
+                        "<input type='text' class='form-control' id='firstname' name='firstname' value=''>" + \
+                        "</div>" + \
+                    "</div>" + \
+                    "<div class='form-group row'>" + \
+                        "<label for='colFormLabel' class='col-sm-2 col-form-label'>Last Name</label>" + \
+                        "<div class='col-sm-10'>" + \
+                        "<input type='text' class='form-control' id='lastname' name='lastname' value=''>" + \
+                        "</div>" + \
+                    "</div>" + \
+                    "<div class='form-group row'>" + \
+                        "<label for='colFormLabel' class='col-sm-2 col-form-label'>Title</label>" + \
+                        "<div class='col-sm-10'>" + \
+                        "<input type='text' class='form-control' id='title' name='title' value=''>" + \
+                        "</div>" + \
+                    "</div>" + \
+                    "<div class='form-group row'>" + \
+                        "<label for='colFormLabel' class='col-sm-2 col-form-label'>Email</label>" + \
+                        "<div class='col-sm-10'>" + \
+                        "<input type='text' class='form-control' id='email' value=''>" + \
+                        "</div>" + \
+                    "</div>" + \
+                    "<div class='form-group row'>" + \
+                        "<label for='colFormLabel' class='col-sm-2 col-form-label'>Phone Number</label>" + \
+                        "<div class='col-sm-10'>" + \
+                        "<input type='text' class='form-control' id='phone' name='phone' value=''>" + \
+                        "</div>" + \
+                    "</div>" + \
+                    "<div class='form-group row'>" + \
+                        "<label for='colFormLabel' class='col-sm-2 col-form-label'>Website</label>" + \
+                        "<div class='col-sm-10'>" + \
+                        "<input type='text' class='form-control' id='website' name='website' value=''>" + \
+                        "</div>" + \
+                    "</div>" + \
+                    "<div class='form-group row'>" + \
+                        "<label for='colFormLabel' class='col-sm-2 col-form-label'>Office</label>" + \
+                        "<div class='col-sm-10'>" + \
+                        "<input type='text' class='form-control' id='rooms' name='rooms' value=''>" + \
+                        "</div>" + \
+                    "</div>" + \
+                    "<div class='form-group row'>" + \
+                        "<label for='colFormLabel' class='col-sm-2 col-form-label'>Department</label>" + \
+                        "<div class='col-sm-10'>" + \
+                        "<input type='text' class='form-control' id='department' name='department' value=''>" + \
+                        "</div>" + \
+                    "</div>" + \
+                    "<div class='form-group row'>" + \
+                        "<label for='colFormLabel' class='col-sm-2 col-form-label'>Research Interests</label>" + \
+                        "<div class='col-sm-10'>" + \
+                        "<input type='text' class='form-control' id='areas' name='areas' value=''>" + \
+                        "</div>" + \
+                    "</div>" + \
+                    "<div class='form-group row'>" + \
+                        "<label for='colFormLabel' class='col-sm-2 col-form-label'>Bio</label>" + \
+                        "<div class='col-sm-10'>" + \
+                        "<textarea class='form-control' id='bio' name='bio' rows='5'></textarea>" + \
+                        "</div>" + \
+                    "</div>" + \
+                "</form>" + \
+                "<form id='upload-form' action='/upload' method='POST' enctype='multipart/form-data'>" + \
+                    "<input type='file' id='file' name='file' accept='image/*'>" + \
+                "</form>" + \
+                "<img class='profImageDisplay' id='profImageDisplay'></img>" + \
+            "</div>" + \
+            """<form method="get" id="saveForm">
+                    <button type="submit" class="btn btn-secondary btn btn-block" id="Save">Save</button>
+                    <button type="submit" class="btn btn-secondary btn btn-block" id="Cancel">Cancel</button>
+                    <button type="submit" class="btn btn-danger btn btn-block" id="Delete">Delete</button>
+                </form>"""
+ 
+    response = make_response(html)
+    response.set_cookie('netid', netID)
+    return response
+
+
+
 
 @app.route('/deleteprof', methods=["GET"])
 def deleteprof():
@@ -740,6 +775,7 @@ def getMatches():
 
 @app.route('/upload', methods=["POST"])
 def upload():
+    print("hello submitted")
     target = path.join(APP_ROUTE, 'static/profImages')
     netID = request.cookies.get('netid')
     
