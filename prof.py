@@ -44,6 +44,9 @@ class Professor(object):
     def setImageExtension(self, imageExtension):
         self.imageExtension = imageExtension
 
+    def setPastPapers(self, pastPapers):
+        self.pastPapers = pastPapers
+
     def getNetId(self):
         return self.netId
 
@@ -85,3 +88,6 @@ class Professor(object):
 
     def getImageExtension(self):
         return self.imageExtension
+
+    def getPastPapers(self):
+        return self.pastPapers
