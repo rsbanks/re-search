@@ -611,6 +611,9 @@ def deleteprof():
 
 @app.route('/profPreferences', methods=["GET"])
 def profPreferences():
+
+    username = CASClient().authenticate()
+    
     first = request.args.get('first')
     if first == "":
         first = None
