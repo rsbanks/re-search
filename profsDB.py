@@ -29,7 +29,7 @@ class profsDB:
     def displayAllProfessors(self, connection):
         stmtStr = 'SELECT profs.netid, profs.title, profs.first, profs.last, profs.email,' + \
                 ' profs.phone, profs.website, profs.rooms, profs.department, profs.area,' + \
-                ' profs.bio, profs.image, profs.image_actual, profs.image_extension, profs.past_papers' + \
+                ' profs.bio, profs.image, profs.image_actual, profs.image_extension' + \
                 ' FROM profs ' + \
                 ' ORDER BY profs.last ASC'
         result = connection.execute(stmtStr)
@@ -38,7 +38,7 @@ class profsDB:
     def displayProfessorsByFilter(self, connection, search_criteria, input_arguments):
         stmtStr = 'SELECT profs.netid, profs.title, profs.first, profs.last, profs.email,' \
                 ' profs.phone, profs.website, profs.rooms, profs.department, profs.area,' \
-                ' profs.bio, profs.image, profs.image_actual, profs.image_extension, profs.past_papers' + \
+                ' profs.bio, profs.image, profs.image_actual, profs.image_extension' + \
                 ' FROM profs' + \
                 ' WHERE ' + search_criteria + \
                 ' ORDER BY profs.last ASC'
@@ -62,7 +62,6 @@ class profsDB:
             prof.setImagePath(row[11])
             prof.setActualImage(row[12])
             prof.setImageExtension(row[13])
-            prof.setPastPapers(row[14])
             profs.append(prof)
         result.close()
         return profs
@@ -87,7 +86,6 @@ class profsDB:
             prof_listing.append(prof.getImagePath())
             prof_listing.append(prof.getActualImage())
             prof_listing.append(prof.getImageExtension())
-            prof_listing.append(prof.getPastPapers())
             profs_list.append(prof_listing)
         return profs_list
 
