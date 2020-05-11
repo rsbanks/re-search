@@ -62,6 +62,9 @@ def optimizePreferences(student_cap, pref_limit):
     # Creates a list of costs (rankings) of each pairing
     costs = {}
 
+    # Dictionary of students and preferences
+    prefs_dict = {}
+
     # This is written assuming prefs is a list with the first index being the student's netid and the rest being the preferences
     # This is also written such that students who select < pref_limit professors are at somewhat of a disadvantage
     report = studentprefs.pop(0)
@@ -70,6 +73,7 @@ def optimizePreferences(student_cap, pref_limit):
         student_id = prefs.pop(0)
         cost = pref_limit - 1
         pref_duplicates = []
+        prefs_dict[student_id] = prefs
         for pref in reversed(prefs):
             if pref not in pref_duplicates:
                 if pref not in profids:
@@ -132,6 +136,8 @@ def optimizePreferences(student_cap, pref_limit):
             prof_name += " " + prof_student[i]
         if v.varValue > 0:
             student_name = prof_student[len(prof_student)-1]
+            if prof_name not in prefs_dict[student_name]:
+                student_name += "$"
             if prof_name not in prof_student_list.keys():
                 prof_student_list[prof_name] = [student_name]
             else:

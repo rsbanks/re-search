@@ -781,7 +781,7 @@ def getMatches():
     # spacing = [""] * 2
     with open('matches.csv', 'w', newline='') as csv_file:
         csv_writer = csv.writer(csv_file, delimiter=',')
-        csv_writer.writerow(["Student netids with an * indicate a non-ORFE advisor preference (see preferences.csv)"])
+        csv_writer.writerow(["Student netids with an asterisk (*) indicate a non-ORFE advisor preference. Student netids with a dollar sign ($) indicate that a student was not paired with any of their preferences. See preferences.csv for more details."])
         csv_writer.writerow(header)
         # csv_writer.writerow(spacing)
         for prof in prof_student_list:
