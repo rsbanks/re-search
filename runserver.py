@@ -10,11 +10,12 @@ import psycopg2
 from pathlib import Path
 from datetime import datetime
 from pytz import timezone
-from os import remove, path
+from os import remove, path, environ
 import io
 from PIL import Image
 import csv
 from match import optimizePreferences
+from adminsDB import adminsDB
 
 
 app = Flask(__name__, template_folder='.')
@@ -224,19 +225,19 @@ def admin():
     # check if user is an admin
     netID = CASClient().authenticate().rstrip('\n')
 
-    hostname = 'ec2-52-200-119-0.compute-1.amazonaws.com'
-    username = 'hmqcdnegecbdgo'
-    password = 'c51235a04a7593a9ec0c13821f495f259a68d2e1ab66a93df947ab2f31970009'
-    database = 'd99tniu8rpcj0o'
-
     deniedAccess = ''
 
-    conn = psycopg2.connect(host=hostname, user=username, password=password, dbname=database)
+    adminsDB_ = adminsDB()
+    error_statement = adminsDB_.connect()
+    if error_statement != '':
+        return error_statement
+
+    conn = adminsDB_.conn   
     cur = conn.cursor()
     cur.execute("SELECT * FROM admins WHERE netid=%s", [netID])
     result = cur.fetchone()
     cur.close()
-    conn.close()
+    adminsDB_.disconnect()
 
     if result == None:
         deniedAccess = 'deniedAccess'
@@ -378,17 +379,17 @@ def newProf(netid):
 @app.route('/displayprof', methods=["GET"])
 def displayprof():
     netID = request.cookies.get('netid')
-    hostname = 'ec2-52-200-119-0.compute-1.amazonaws.com'
-    username = 'hmqcdnegecbdgo'
-    password = 'c51235a04a7593a9ec0c13821f495f259a68d2e1ab66a93df947ab2f31970009'
-    database = 'd99tniu8rpcj0o'
-
-    conn = psycopg2.connect(host=hostname, user=username, password=password, dbname=database)
     prof = newProf(netID)
+
+    profPreferencesDB_ = profPreferencesDB()
+    error_statement = profPreferencesDB_.connect()
+    if error_statement != '':
+        return error_statement
+    conn = profPreferencesDB_.conn
     error_statement, returned = updateDB(conn, prof)
     if returned == False:
         error_statement = createProf(conn, prof)
-    conn.close()
+    profPreferencesDB_.disconnect()
     if error_statement != '':
         print(error_statement)
 
@@ -478,15 +479,13 @@ def displayprof():
 @app.route('/displayNewProf', methods=["GET"])
 def displayNewProf():
     netID = request.cookies.get('netid')
-    hostname = 'ec2-52-200-119-0.compute-1.amazonaws.com'
-    username = 'hmqcdnegecbdgo'
-    password = 'c51235a04a7593a9ec0c13821f495f259a68d2e1ab66a93df947ab2f31970009'
-    database = 'd99tniu8rpcj0o'
 
     prof = newProf(netID)
 
+    profPreferencesDB_ = profPreferencesDB()
     try:
-        conn = psycopg2.connect(host=hostname, user=username, password=password, dbname=database)
+        profPreferencesDB_.connect()
+        conn = profPreferencesDB_.conn
         error_statement, returned = updateDB(conn, prof)
         if returned == False:
             error_statement = createProf(conn, prof)
@@ -494,8 +493,7 @@ def displayNewProf():
         error_statement = str(error)
         print(error_statement)
     finally:
-        if conn is not None:
-            conn.close()
+        profPreferencesDB_.disconnect()
 
     prof_, error_statement = getProfs('netid ILIKE %s', [netID])
     prof = prof_[0]
@@ -587,20 +585,18 @@ def displayNewProf():
     return response
 
 
-
-
 @app.route('/deleteprof', methods=["GET"])
 def deleteprof():
     netID = request.args.get('netid')
 
-    hostname = 'ec2-52-200-119-0.compute-1.amazonaws.com'
-    username = 'hmqcdnegecbdgo'
-    password = 'c51235a04a7593a9ec0c13821f495f259a68d2e1ab66a93df947ab2f31970009'
-    database = 'd99tniu8rpcj0o'
+    adminsDB_ = adminsDB()
+    error_statement = adminsDB_.connect()
+    if error_statement != '':
+        return error_statement
 
-    conn = psycopg2.connect(host=hostname, user=username, password=password, dbname=database)
+    conn = adminsDB_.conn
     error_statement = deleteProf(conn, netID)
-    conn.close()
+    adminsDB_.disconnect()
     if error_statement != '':
         print(error_statement)
 
@@ -789,11 +785,6 @@ def upload():
 
 def SaveImageToDatabase(netID, id_item, FileImage, fileExtension):
 
-    hostname = 'ec2-52-200-119-0.compute-1.amazonaws.com'
-    username = 'hmqcdnegecbdgo'
-    password = 'c51235a04a7593a9ec0c13821f495f259a68d2e1ab66a93df947ab2f31970009'
-    database = 'd99tniu8rpcj0o'
-
     error_statement = ''
 
     stmt = ""
@@ -803,30 +794,30 @@ def SaveImageToDatabase(netID, id_item, FileImage, fileExtension):
     stmt += " WHERE netid=%s"
 
     try:
-        conn = psycopg2.connect(host=hostname, user=username, password=password, dbname=database)
+        adminsDB_ = adminsDB()
+        adminsDB_.connect()
+        conn = adminsDB_.conn
         cur = conn.cursor()
         cur.execute(stmt, [FileImage, fileExtension, netID])
         conn.commit()
         cur.close()
-        conn.close()
     except (Exception, psycopg2.DatabaseError) as error:
         error_statement = str(error)
         print(error_statement)
     finally:
-        if conn is not None:
-            conn.close()
+        adminsDB_.disconnect()
         return error_statement
 
 @app.route('/getAdmins', methods=["GET"])
 def getAdmins():
-    hostname = 'ec2-52-200-119-0.compute-1.amazonaws.com'
-    username = 'hmqcdnegecbdgo'
-    password = 'c51235a04a7593a9ec0c13821f495f259a68d2e1ab66a93df947ab2f31970009'
-    database = 'd99tniu8rpcj0o'
 
     deniedAccess = ''
 
-    conn = psycopg2.connect(host=hostname, user=username, password=password, dbname=database)
+    adminsDB_ = adminsDB()
+    error_statement = adminsDB_.connect()
+    if error_statement != '':
+        return error_statement
+    conn = adminsDB_.conn
     cur = conn.cursor()
     cur.execute("SELECT netid FROM admins")
     row = cur.fetchone()
@@ -836,28 +827,25 @@ def getAdmins():
         row = cur.fetchone()
     admins = admins[:-1]
     cur.close()
-    conn.close()
+    adminsDB_.disconnect()
     return admins
 
 @app.route('/addNewAdmin', methods=["GET"])
 def addNewAdmin():
     netid = request.args.get('netid')
 
-    hostname = 'ec2-52-200-119-0.compute-1.amazonaws.com'
-    username = 'hmqcdnegecbdgo'
-    password = 'c51235a04a7593a9ec0c13821f495f259a68d2e1ab66a93df947ab2f31970009'
-    database = 'd99tniu8rpcj0o'
-
     error_statement = ''
 
     try:
-        conn = psycopg2.connect(host=hostname, user=username, password=password, dbname=database)
+        adminsDB_ = adminsDB()
+        error_statement = adminsDB_.connect()
+        conn = adminsDB_.conn
         cur = conn.cursor()
         stmt = "INSERT INTO admins(netid) VALUES(%s)"
         cur.execute(stmt, [netid])
         conn.commit()
         cur.close()
-        conn.close()
+        adminsDB_.disconnect()
     except (Exception, psycopg2.DatabaseError) as error:
         error_statement = str(error)
         print(error_statement)
@@ -871,20 +859,18 @@ def addNewAdmin():
 def removeAdmin():
     netid = request.args.get('netid')
 
-    hostname = 'ec2-52-200-119-0.compute-1.amazonaws.com'
-    username = 'hmqcdnegecbdgo'
-    password = 'c51235a04a7593a9ec0c13821f495f259a68d2e1ab66a93df947ab2f31970009'
-    database = 'd99tniu8rpcj0o'
-
     error_statement = ''
     try:
-        conn = psycopg2.connect(host=hostname, user=username, password=password, dbname=database)
+        adminsDB_ = adminsDB()
+        error_statement = adminsDB_.connect()
+        conn = adminsDB_.conn
         cur = conn.cursor()
         stmt = "DELETE FROM admins WHERE netid=%s"
 
         cur.execute(stmt, [netid])
         conn.commit()
         cur.close()
+        adminsDB_.disconnect()
     except (Exception, psycopg2.DatabaseError) as error:
         error_statement = str(error)
         print(error_statement)
