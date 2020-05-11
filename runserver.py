@@ -155,15 +155,15 @@ def searchResults():
                             '<img src="' + src + '"/>' + \
                         '</div>' + \
                         '<div class="prof-info" onclick=' + '"collapse(' + str(i) + ')">' + \
-                            '<p class="prof-name h5">' + strip_tags(prof[1]) + ' ' + prof[2] + '</p>' + \
-                            '<p class="prof-more-info">' + prof[3] + '</p>' + \
-                            '<p class="prof-more-info">' + prof[8] + '</p>' + \
-                            '<p class="prof-more-info">' + prof[5] + '</p>' + \
-                            '<p class="prof-more-info">' + prof[7] + '</p>' + \
+                            '<p class="prof-name h5">' + strip_tags(prof[1]) + ' ' + strip_tags(prof[2]) + '</p>' + \
+                            '<p class="prof-more-info">' + strip_tags(prof[3]) + '</p>' + \
+                            '<p class="prof-more-info">' + strip_tags(prof[8]) + '</p>' + \
+                            '<p class="prof-more-info">' + strip_tags(prof[5]) + '</p>' + \
+                            '<p class="prof-more-info">' + strip_tags(prof[7]) + '</p>' + \
                             email + \
                             website + \
                         '</div>' + \
-                        '<div class="add-prof-selection" onclick="addProfPreference(\'' + prof[1] + " " + prof[2] + '\')"><p>Add to advisor preferences</p></div>' + \
+                        '<div class="add-prof-selection" onclick="addProfPreference(\'' + strip_tags(prof[1]) + " " + strip_tags(prof[2]) + '\')"><p>Add to advisor preferences</p></div>' + \
                         '<div class="button-div">' +\
                             '<button type="button" class="button" onclick=' + '"collapse(' + str(i) + ')"><img class="icon-button" id= img-' + str(i) + ' src="static/images/arrow_down.png"></button>' + \
                         '</div>' + \
@@ -171,11 +171,11 @@ def searchResults():
                     '<div class="panel" id =panel-' + str(i) + '>' + \
                         '<div class="info-left">' + \
                             '<p class="sub-title"> Bio: </p>' + \
-                            '<p class ="sub-info">' + prof[10] + '</p>' + \
+                            '<p class ="sub-info">' + strip_tags(prof[10]) + '</p>' + \
                         '</div>' + \
                         '<div class="info-right">' + \
                             '<p class="sub-title"> Academic Interests: </p>' + \
-                            '<p class ="sub-info">' + prof[9] + '</p>' + \
+                            '<p class ="sub-info">' + strip_tags(prof[9]) + '</p>' + \
                             past_papers + \
                         '</div>' + \
                     '</div>'
@@ -233,9 +233,9 @@ def getSearchCriteria():
     else:
         for i in range(len(areas)):
             search_criteria += '(area' + ' ILIKE ' + '%s' + ' OR '
-            input_arguments.append('%'+areas[i]+'%')
+            input_arguments.append('%'+strip_tags(areas[i])+'%')
             search_criteria += 'bio' + ' ILIKE ' + '%s)' + ' AND '
-            input_arguments.append('%'+areas[i]+'%')
+            input_arguments.append('%'+strip_tags(areas[i])+'%')
 
     if search_criteria != '' and search_criteria != None:
         search_criteria = search_criteria[:-5]
