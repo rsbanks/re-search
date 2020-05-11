@@ -222,7 +222,7 @@ def getSearchCriteria():
     if area is None:
         area = ''
     area = area.strip()
-    area = area.replace('%', r'\%')
+    area = strip_tags(area.replace('%', r'\%'))
     areas = area.split(",")
 
     if len(areas) == 1:
