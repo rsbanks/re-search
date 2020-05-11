@@ -74,7 +74,8 @@ def optimizePreferences(student_cap, pref_limit):
             if pref not in pref_duplicates:
                 if pref not in profids:
                     if pref != "Non ORFE professor":
-                        profids.append(pref)
+                        if pref != "":
+                            profids.append(pref)
                     else:
                         student_id += "*"
                 costs[pref, student_id] = cost
