@@ -40,8 +40,8 @@ class profsDB:
                 ' FROM profs ' + \
                 ' ORDER BY profs.last ASC'
         cur = connection.cursor()
-        result = cur.execute(stmtStr)
-        return self.return_profs(result)
+        cur.execute(stmtStr)
+        return self.return_profs(cur)
 
     def displayProfessorsByFilter(self, connection, search_criteria, input_arguments):
         stmtStr = 'SELECT profs.netid, profs.title, profs.first, profs.last, profs.email,' \
@@ -57,7 +57,7 @@ class profsDB:
     def return_profs(self, cur): 
         profs = []
         row = cur.fetchone()
-        while row != None:
+        while row is not None:
             prof = Professor(row[0])
             prof.setTitle(row[1])
             prof.setFirstName(row[2])

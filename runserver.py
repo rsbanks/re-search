@@ -227,17 +227,17 @@ def admin():
 
     deniedAccess = ''
 
-    adminsDB = adminsDB()
-    error_statement = adminsDB.connect()
+    adminsDB_ = adminsDB()
+    error_statement = adminsDB_.connect()
     if error_statement != '':
         return error_statement
 
-    conn = adminsDB.conn   
+    conn = adminsDB_.conn   
     cur = conn.cursor()
     cur.execute("SELECT * FROM admins WHERE netid=%s", [netID])
     result = cur.fetchone()
     cur.close()
-    adminsDB.disconnect()
+    adminsDB_.disconnect()
 
     if result == None:
         deniedAccess = 'deniedAccess'
@@ -379,19 +379,17 @@ def newProf(netid):
 @app.route('/displayprof', methods=["GET"])
 def displayprof():
     netID = request.cookies.get('netid')
-
-    profPreferencesDB = profPreferencesDB()
-    error_statement = adminsDB.connect()
-    if error_statement != '':
-        return error_statement
-
     prof = newProf(netID)
 
-    conn = profPreferencesDB.connect()
+    profPreferencesDB_ = profPreferencesDB()
+    error_statement = profPreferencesDB_.connect()
+    if error_statement != '':
+        return error_statement
+    conn = profPreferencesDB_.conn
     error_statement, returned = updateDB(conn, prof)
     if returned == False:
         error_statement = createProf(conn, prof)
-    profPreferencesDB.disconnect()
+    profPreferencesDB_.disconnect()
     if error_statement != '':
         print(error_statement)
 
@@ -484,10 +482,10 @@ def displayNewProf():
 
     prof = newProf(netID)
 
+    profPreferencesDB_ = profPreferencesDB()
     try:
-        profPreferencesDB = profPreferencesDB()
-        profPreferencesDB.connect()
-        conn = profPreferencesDB.conn
+        profPreferencesDB_.connect()
+        conn = profPreferencesDB_.conn
         error_statement, returned = updateDB(conn, prof)
         if returned == False:
             error_statement = createProf(conn, prof)
@@ -495,7 +493,7 @@ def displayNewProf():
         error_statement = str(error)
         print(error_statement)
     finally:
-        profPreferencesDB.disconnect()
+        profPreferencesDB_.disconnect()
 
     prof_, error_statement = getProfs('netid ILIKE %s', [netID])
     prof = prof_[0]
@@ -591,14 +589,14 @@ def displayNewProf():
 def deleteprof():
     netID = request.args.get('netid')
 
-    adminsDB = adminsDB()
-    error_statement = adminsDB.connect()
+    adminsDB_ = adminsDB()
+    error_statement = adminsDB_.connect()
     if error_statement != '':
         return error_statement
 
-    conn = adminsDB.conn
+    conn = adminsDB_.conn
     error_statement = deleteProf(conn, netID)
-    adminsDB.disconnect()
+    adminsDB_.disconnect()
     if error_statement != '':
         print(error_statement)
 
@@ -796,9 +794,9 @@ def SaveImageToDatabase(netID, id_item, FileImage, fileExtension):
     stmt += " WHERE netid=%s"
 
     try:
-        adminsDB = adminsDB()
-        adminsDB.connect()
-        conn = adminsDB.conn
+        adminsDB_ = adminsDB()
+        adminsDB_.connect()
+        conn = adminsDB_.conn
         cur = conn.cursor()
         cur.execute(stmt, [FileImage, fileExtension, netID])
         conn.commit()
@@ -807,7 +805,7 @@ def SaveImageToDatabase(netID, id_item, FileImage, fileExtension):
         error_statement = str(error)
         print(error_statement)
     finally:
-        adminsDB.disconnect()
+        adminsDB_.disconnect()
         return error_statement
 
 @app.route('/getAdmins', methods=["GET"])
@@ -815,11 +813,11 @@ def getAdmins():
 
     deniedAccess = ''
 
-    adminsDB = adminsDB()
-    error_statement = adminsDB.connect()
+    adminsDB_ = adminsDB()
+    error_statement = adminsDB_.connect()
     if error_statement != '':
         return error_statement
-    conn = adminsDB.conn
+    conn = adminsDB_.conn
     cur = conn.cursor()
     cur.execute("SELECT netid FROM admins")
     row = cur.fetchone()
@@ -829,7 +827,7 @@ def getAdmins():
         row = cur.fetchone()
     admins = admins[:-1]
     cur.close()
-    adminsDB.disconnect()
+    adminsDB_.disconnect()
     return admins
 
 @app.route('/addNewAdmin', methods=["GET"])
@@ -839,15 +837,15 @@ def addNewAdmin():
     error_statement = ''
 
     try:
-        adminsDB = adminsDB()
-        error_statement = adminsDB.connect()
-        conn = adminsDB.conn
+        adminsDB_ = adminsDB()
+        error_statement = adminsDB_.connect()
+        conn = adminsDB_.conn
         cur = conn.cursor()
         stmt = "INSERT INTO admins(netid) VALUES(%s)"
         cur.execute(stmt, [netid])
         conn.commit()
         cur.close()
-        adminsDB.disconnect()
+        adminsDB_.disconnect()
     except (Exception, psycopg2.DatabaseError) as error:
         error_statement = str(error)
         print(error_statement)
@@ -863,16 +861,16 @@ def removeAdmin():
 
     error_statement = ''
     try:
-        adminsDB = adminsDB()
-        error_statement = adminsDB.connect()
-        conn = adminsDB.conn
+        adminsDB_ = adminsDB()
+        error_statement = adminsDB_.connect()
+        conn = adminsDB_.conn
         cur = conn.cursor()
         stmt = "DELETE FROM admins WHERE netid=%s"
 
         cur.execute(stmt, [netid])
         conn.commit()
         cur.close()
-        adminsDB.disconnect()
+        adminsDB_.disconnect()
     except (Exception, psycopg2.DatabaseError) as error:
         error_statement = str(error)
         print(error_statement)
