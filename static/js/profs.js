@@ -29,7 +29,7 @@ function setup()
    $('#tagInput').keypress(function(event){
       var keycode = (event.keyCode ? event.keyCode : event.which);
       if(keycode == '13') {
-         label = $('#newTagInput').val()
+         label = strip_html_tags($('#newTagInput').val())
          if (label.length != 0) {
             if (!tags.includes(label)) {
                tags.push(label);
@@ -102,7 +102,7 @@ function createTag(label) {
    const div = document.createElement('div');
    div.setAttribute('class', 'tag');
    const span = document.createElement('span');
-   span.innerHTML = strip_html_tags(label)
+   span.innerHTML = label
    const closeIcon = document.createElement('i');
    closeIcon.setAttribute('class', 'material-icons');
    closeIcon.setAttribute('id', 'closeIcon')
