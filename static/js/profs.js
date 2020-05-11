@@ -85,13 +85,24 @@ function getResults()
    );
 }
 
+// Stripping tags from: https://www.w3resource.com/javascript-exercises/javascript-string-exercise-35.php
+
+function strip_html_tags(str)
+{
+   if ((str===null) || (str===''))
+       return false;
+  else
+   str = str.toString();
+  return str.replace(/<[^>]*>/g, '');
+}
+
 var tags = [];
 
 function createTag(label) {
    const div = document.createElement('div');
    div.setAttribute('class', 'tag');
    const span = document.createElement('span');
-   span.innerHTML = label
+   span.innerHTML = strip_html_tags(label)
    const closeIcon = document.createElement('i');
    closeIcon.setAttribute('class', 'material-icons');
    closeIcon.setAttribute('id', 'closeIcon')
