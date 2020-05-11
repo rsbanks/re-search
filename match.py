@@ -73,19 +73,19 @@ def optimizePreferences(student_cap, pref_limit):
         student_id = prefs.pop(0)
         cost = pref_limit - 1
         pref_duplicates = []
-        prefs_dict[student_id] = prefs
         for pref in reversed(prefs):
             if pref not in pref_duplicates:
                 if pref not in profids:
                     if pref != "Non ORFE professor":
-                        # if pref != "" and pref != "None":
-                        profids.append(pref)
+                        if pref != "" and pref != "None":
+                            profids.append(pref)
                     else:
                         student_id += "*"
                 costs[pref, student_id] = cost
                 cost -= 1
                 pref_duplicates.append(pref)
         studentids.append(student_id)
+        prefs_dict[student_id] = prefs
 
     for prof in profids:
         for student in studentids:
@@ -136,8 +136,8 @@ def optimizePreferences(student_cap, pref_limit):
             prof_name += " " + prof_student[i]
         if v.varValue > 0:
             student_name = prof_student[len(prof_student)-1]
-            # if prof_name not in prefs_dict[student_name]:
-                # student_name += "$"
+            if prof_name not in prefs_dict[student_name]:
+                student_name += "$"
             if prof_name not in prof_student_list.keys():
                 prof_student_list[prof_name] = [student_name]
             else:
