@@ -894,4 +894,3 @@ if __name__ == '__main__':
         exit(1) 
 
     app.run(host='0.0.0.0', port=int(argv[1]), debug=True)
-    app.run()
