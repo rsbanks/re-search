@@ -35,7 +35,7 @@ class profPreferencesDB:
         try:
             cur = self.conn.cursor()
 
-            # if user has already submitted, doan update instead. 
+            # if user has already submitted, do an update instead. 
             cur.execute("SELECT * FROM preferences WHERE username=%s", [data[0]])
             result = cur.fetchone()
             if result != None:
