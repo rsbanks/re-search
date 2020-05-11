@@ -12,22 +12,6 @@ def optimizePreferences(student_cap, pref_limit):
     # Number of professors a student can list
     # pref_limit = 4
 
-    # Creates a list of all the supply nodes
-    # profsDB_ = profsDB()
-    # error_statement = profsDB_.connect()
-    # profs = []
-    # if error_statement == '':
-    #     connection = profsDB_.conn
-    #     try:
-    #         profs = profsDB_.displayAllProfessors(connection)
-    #         profs = profsDB_.return_profs_list(profs)
-    #     except Exception as e:
-    #         error_statement = str(e)
-    # else:
-    #     print(error_statement)
-
-    # profsDB_.disconnect()
-
     profids = []
     # for prof in profs:
         # The preferences database only contains professor names instead of netids
