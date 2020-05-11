@@ -29,7 +29,7 @@ function setup()
    $('#tagInput').keypress(function(event){
       var keycode = (event.keyCode ? event.keyCode : event.which);
       if(keycode == '13') {
-         label = $('#newTagInput').val()
+         label = strip_html_tags($('#newTagInput').val())
          if (label.length != 0) {
             if (!tags.includes(label)) {
                tags.push(label);
@@ -83,6 +83,17 @@ function getResults()
          success: handleResponse
       }
    );
+}
+
+// Stripping tags from: https://www.w3resource.com/javascript-exercises/javascript-string-exercise-35.php
+
+function strip_html_tags(str)
+{
+   if ((str===null) || (str===''))
+       return false;
+  else
+   str = str.toString();
+  return str.replace(/<[^>]*>/g, '');
 }
 
 var tags = [];
