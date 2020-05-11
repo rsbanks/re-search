@@ -2,6 +2,7 @@ import psycopg2
 from profsDB import profsDB
 from prof import Professor
 from sys import argv, stderr
+from os import environ
 
 class profPreferencesDB:
     
@@ -12,6 +13,11 @@ class profPreferencesDB:
         error_statement = ''
 
         try:
+            # hostname = environ.get('DATABASE_HOST')
+            # username = environ.get('DATABASE_USERNAME')
+            # password = environ.get('DATABASE_PASSWORD')
+            # database = environ.get('DATABASE_NAME')
+
             hostname = 'ec2-52-200-119-0.compute-1.amazonaws.com'
             username = 'hmqcdnegecbdgo'
             password = 'c51235a04a7593a9ec0c13821f495f259a68d2e1ab66a93df947ab2f31970009'
