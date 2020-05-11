@@ -119,6 +119,8 @@ def searchResults():
                 email = '<a href="mailto:' + prof[4] + '"><img class="icon" src="static/images/email-icon.png"></a>'
             if prof[6] != '':
                 website = '<a href="' + prof[6] + '" target="_blank"><img class="icon" src="static/images/website-icon.png"></a>'
+            past_papers = '<br><a href="https://dataspace.princeton.edu/jspui/handle/88435/dsp011r66j119j/browse?type=advisor&order=ASC&rpp=20&value=' + str(prof[2]) + ', ' + str(prof[1]) + '"" target="_blank" class="previous-papers">Previous Papers Advised</a>'    
+
 
             html += '<div class="row">' + \
                         '<div class="prof-image">' + \
@@ -576,7 +578,7 @@ def displayNewProf():
             "</div>" + \
             """<form method="get" id="saveForm">
                     <button type="submit" class="btn btn-secondary btn btn-block" id="Save">Save</button>
-                    <button type="submit" class="btn btn-secondary btn btn-block" id="Cancel">Cancel</button>
+
                     <button type="submit" class="btn btn-danger btn btn-block" id="Delete">Delete</button>
                 </form>"""
  
@@ -606,6 +608,9 @@ def deleteprof():
 
 @app.route('/profPreferences', methods=["GET"])
 def profPreferences():
+
+    username = CASClient().authenticate()
+
     first = request.args.get('first')
     if first == "":
         first = None
