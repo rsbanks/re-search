@@ -578,7 +578,7 @@ def displayNewProf():
             "</div>" + \
             """<form method="get" id="saveForm">
                     <button type="submit" class="btn btn-secondary btn btn-block" id="Save">Save</button>
-                    <button type="submit" class="btn btn-secondary btn btn-block" id="Cancel">Cancel</button>
+
                     <button type="submit" class="btn btn-danger btn btn-block" id="Delete">Delete</button>
                 </form>"""
  
