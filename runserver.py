@@ -190,7 +190,7 @@ def getSearchCriteria():
     input_arguments = []
 
     name = request.args.get('nameNetid')
-    area = request.args.get('area')
+    area = strip_tags(request.args.get('area'))
 
     search_criteria = ''
 
@@ -233,9 +233,9 @@ def getSearchCriteria():
     else:
         for i in range(len(areas)):
             search_criteria += '(area' + ' ILIKE ' + '%s' + ' OR '
-            input_arguments.append('%'+strip_tags(areas[i])+'%')
+            input_arguments.append('%'+areas[i]+'%')
             search_criteria += 'bio' + ' ILIKE ' + '%s)' + ' AND '
-            input_arguments.append('%'+strip_tags(areas[i])+'%')
+            input_arguments.append('%'+areas[i]+'%')
 
     if search_criteria != '' and search_criteria != None:
         search_criteria = search_criteria[:-5]
