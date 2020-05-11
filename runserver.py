@@ -190,7 +190,7 @@ def getSearchCriteria():
     input_arguments = []
 
     name = request.args.get('nameNetid')
-    area = strip_tags(request.args.get('area'))
+    area = request.args.get('area')
 
     search_criteria = ''
 
