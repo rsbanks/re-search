@@ -283,15 +283,21 @@ function handleAddNewAdmin(response) {
 
 function addNewAdmin() {
     $(addAdminModal).modal('hide')
-    url = '/addNewAdmin?netid=' + $("#newNetidInput").val()
-    if (request != null)
-    request.abort();
-    request = $.ajax(
-    {
-        type: "GET",
-        url: url,
-        success: handleAddNewAdmin
-    });
+    netid = $("#newNetidInput").val()
+    if (netid.length < 2 || netid.length > 8) {
+        $("#invalidNetidModal").modal()
+    } 
+    else {
+        url = '/addNewAdmin?netid=' + netid
+        if (request != null)
+        request.abort();
+        request = $.ajax(
+        {
+            type: "GET",
+            url: url,
+            success: handleAddNewAdmin
+        });
+    }
 }
 
 function removeAdmin (netid)
