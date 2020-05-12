@@ -20,7 +20,7 @@ class profsDB:
 
             self.conn = psycopg2.connect(host=hostname, user=username, password=password, dbname=database)
         except Exception as e:
-            error_statement = str(e)
+            error_statement = 'Unable to connect to server. Please contact owner of Application'
             print(error_statement, file=stderr)
 
         return error_statement

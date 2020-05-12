@@ -66,10 +66,10 @@ def getProfs(search_criteria, input_arguments):
             profs = profsDB_.return_profs_list(profs)
         except Exception as e:
             error_statement = str(e)
+        profsDB_.disconnect()
     else:
         print(error_statement)
 
-    profsDB_.disconnect()
     return profs, error_statement
 
 @app.route('/')
@@ -86,15 +86,6 @@ def search():
     username = CASClient().authenticate()
 
     html = render_template('templates/profs.html', username=username)
-    response = make_response(html)
-    return response
-
-@app.route('/button')
-def button():
-
-    username = CASClient().authenticate()
-
-    html = render_template('templates/search.html')
     response = make_response(html)
     return response
 
@@ -181,7 +172,7 @@ def searchResults():
                     '</div>'
             i+=1
     else:
-        html = render_template('templates/profs.html', error_statement=error_statement)
+        html = error_statement
         print(error_statement, file=stderr)
     response = make_response(html)
     return response
@@ -258,7 +249,7 @@ def admin():
     adminsDB_ = adminsDB()
     error_statement = adminsDB_.connect()
     if error_statement != '':
-        return error_statement
+        return 'Unable to connect to server. Please contact owner of the Application'
 
     conn = adminsDB_.conn   
     cur = conn.cursor()
@@ -383,6 +374,8 @@ def profinfo():
                         </form>"""
     else:
         print(error_statement, file=stderr)
+        html = error_statement
+
     response = make_response(html)
     response.set_cookie('netid', netID)
     return response
@@ -409,15 +402,15 @@ def displayprof():
     netID = request.cookies.get('netid')
     prof = newProf(netID)
 
-    profPreferencesDB_ = profPreferencesDB()
-    error_statement = profPreferencesDB_.connect()
+    profsDB_ = profsDB()
+    error_statement = profsDB_.connect()
     if error_statement != '':
         return error_statement
-    conn = profPreferencesDB_.conn
+    conn = profsDB_.conn
     error_statement, returned = updateDB(conn, prof)
     if returned == False:
         error_statement = createProf(conn, prof)
-    profPreferencesDB_.disconnect()
+    profsDB_.disconnect()
     if error_statement != '':
         print(error_statement)
 
@@ -510,10 +503,10 @@ def displayNewProf():
 
     prof = newProf(netID)
 
-    profPreferencesDB_ = profPreferencesDB()
+    profsDB_ = profsDB()
     try:
-        profPreferencesDB_.connect()
-        conn = profPreferencesDB_.conn
+        profsDB_.connect()
+        conn = profsDB_.conn
         error_statement, returned = updateDB(conn, prof)
         if returned == False:
             error_statement = createProf(conn, prof)
@@ -521,7 +514,7 @@ def displayNewProf():
         error_statement = str(error)
         print(error_statement)
     finally:
-        profPreferencesDB_.disconnect()
+        profsDB_.disconnect()
 
     prof_, error_statement = getProfs('netid ILIKE %s', [netID])
     prof = prof_[0]
@@ -617,14 +610,14 @@ def displayNewProf():
 def deleteprof():
     netID = request.args.get('netid')
 
-    adminsDB_ = adminsDB()
-    error_statement = adminsDB_.connect()
+    profsDB_ = profsDB()
+    error_statement = profsDB_.connect()
     if error_statement != '':
         return error_statement
 
-    conn = adminsDB_.conn
+    conn = profsDB_.conn
     error_statement = deleteProf(conn, netID)
-    adminsDB_.disconnect()
+    profsDB_.disconnect()
     if error_statement != '':
         print(error_statement)
 
@@ -656,11 +649,13 @@ def profPreferences():
             error_statement = str(e)
             print(error_statement)
 
-    profsDB_.disconnect()
+        profsDB_.disconnect()
 
-    html = render_template('templates/profPreferences.html', 
-        first=first, second=second, third=third, fourth=fourth,
-        profs=profs)
+        html = render_template('templates/profPreferences.html', 
+            first=first, second=second, third=third, fourth=fourth,
+            profs=profs)
+    else:
+        html = error_statement
     response = make_response(html)
     return response
 
@@ -713,10 +708,10 @@ def submitPreferences():
         report = profPrefDB.createProfPreference([username, courseSelection,
             advisor1, advisor1Comments, advisor2, advisor2Comments, advisor3, 
             advisor3Comments, advisor4, advisor4Comments, submittedTime, completedTime])
+        profPrefDB.disconnect()
     else:
         print(error_statement, file=stderr)
-
-    profPrefDB.disconnect()
+        return error_statement
 
     response = make_response(report)
     return response
@@ -739,10 +734,11 @@ def getPreferences():
             print(report, file=stderr)
         else:
             print(report)
+        profPrefDB.disconnect()
     else:
         print(error_statement, file=stderr)
+        return error_statement
     
-    profPrefDB.disconnect()
 
     html = ''
 
