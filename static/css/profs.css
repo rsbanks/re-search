@@ -59,9 +59,8 @@ body{
   font-family: Montserrat;
   font-style: normal;
   font-weight: bold;
-
   margin-left: 2%;
-  margin-top: 1%;
+  margin-top: 5%;
 
   width: 80%;
   float: right;
@@ -185,6 +184,16 @@ img{
   color: #000000;
 }
 
+.prof-email-website {
+  font-family: Montserrat;
+  font-style: normal;
+  font-weight: bold;
+  margin: 0.1%;
+
+  
+  color: #000000;
+}
+
 .panel {
   width: 98%;
   margin-left: 1%;
@@ -199,10 +208,20 @@ img{
   transition: max-height 0.3s ease-out;
 }
 
-.sub-title {
+.previous-papers {
   font-family: Montserrat;
   font-style: normal;
   font-weight: bold;
+
+  margin-bottom: 2%;
+}
+
+.sub-title {
+  font-family: Montserrat;
+  font-style: normal;
+  font-weight: bolder;
+
+  font-size: 30px;
 }
 
 .sub-info {

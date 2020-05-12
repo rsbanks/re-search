@@ -4,21 +4,6 @@ function setup() {
         return false;
     });
 
-    $("#closeFailureAlert").on("click", function() {
-        $('#netidAlertFailure').hide('fade');
-        return false;
-    });
-
-    $("#closeSuccessAlert").on("click", function() {
-        $('#netidAlertSuccess').hide('fade');
-        return false;
-    });
-
-    $("#closeSuccessDeleteAlert").on("click", function() {
-        $('#netidAlertDeleteSuccess').hide('fade');
-        return false;
-    });
-
     $("#confirmDelete").on("click", function() {
         deleteProf();
         $('#deleteProfModal').modal('hide')
@@ -47,59 +32,70 @@ function setup() {
 
 function handleResponse(response)
 { 
-    $('#netidAlertFailure').hide();
+    if (response === '') {
+        document.getElementById('profResult').innerHTML = null;
+        $('#addNewProfModalBody').html('No such professor.' +
+        ' Would you like to create a professor with netid \'' + 
+           $('#netidSearch').val() + '\' ?')
+        $('#addNewProfModal').modal()
 
-    document.getElementById('profResult').innerHTML = response;
+        $("#yesCreateProf").on("click", function() {
+            createNewProf();
+         });
+    } 
     
-    $("#file").change(function(){
-        if (this.files && this.files[0]) {
-            var reader = new FileReader();
-            
-            reader.onload = function (e) {
-                $('#profImageDisplay').attr('src', e.target.result);
-            }
-            
-            reader.readAsDataURL(this.files[0]);
-        }
-    });
+    else {
+        document.getElementById('profResult').innerHTML = response;
+        
+        $("#file").change(function(){
+            if (this.files && this.files[0]) {
+                var reader = new FileReader();
+                
+                reader.onload = function (e) {
+                    $('#profImageDisplay').attr('src', e.target.result);
+                }
+                
+                reader.readAsDataURL(this.files[0]);
 
-    $("#saveForm").on("submit", function() {
-        if (document.activeElement.id == 'Save') {
-            displayProf();
-        } else if(document.activeElement.id == 'Cancel') {
-            $('#netidSearch').focus();
-            document.getElementById('profResult').innerHTML = null;
-            $('#netidAlertSuccess').hide('fade');
-            $('#netidAlertDeleteSuccess').hide('fade');
-            $('#netidAlertDeleteFailure').hide('fade');
-        } else if(document.activeElement.id == 'Delete') {
-            $('#deleteProfModalBody').html('Are you sure you want to delete'  +
-            ' the professor with netid \'' + $('#netidSearch').val() + '\' ?')
-            $('#deleteProfModal').modal()
-        }
-            return false;
+                this.form.submit();
+
+            }
         });
 
-        $('#upload-form').on("submit", function() {});
+        $("#saveForm").on("submit", function() {
+            if (document.activeElement.id == 'Save') {
+                displayProf();
+            } else if(document.activeElement.id == 'Cancel') {
+                $('#netidSearch').focus();
+                document.getElementById('profResult').innerHTML = null;
+            } else if(document.activeElement.id == 'Delete') {
+                $('#deleteProfModalBody').html('Are you sure you want to delete'  +
+                ' the professor with netid \'' + $('#netidSearch').val() + '\' ?')
+                $('#deleteProfModal').modal()
+            }
+                return false;
+        });
+
+    }
+
 }
 
 function handleResponseDisplay(response)
 { 
-    $('#netidAlertSuccess').show('fade');
+    $('#successProfUpdateModal').modal();
     document.getElementById('profResult').innerHTML = response;
 
     $("#editOtherForm").on("submit", function() {
         document.getElementById('profResult').innerHTML = null;
-        $('#netidAlertFailure').hide('fade');
         $('#netidAlertSuccess').hide('fade');
         $('#netidSearch').focus();
         return false;
     });
 }
 
-function handleDelete(response) 
+function handleDelete() 
 {
-    $('#netidAlertDeleteSuccess').show('fade');
+    $('#successProfDeleteModal').modal();
     document.getElementById('profResult').innerHTML = null;
 }
 
@@ -287,15 +283,21 @@ function handleAddNewAdmin(response) {
 
 function addNewAdmin() {
     $(addAdminModal).modal('hide')
-    url = '/addNewAdmin?netid=' + $("#newNetidInput").val()
-    if (request != null)
-    request.abort();
-    request = $.ajax(
-    {
-        type: "GET",
-        url: url,
-        success: handleAddNewAdmin
-    });
+    netid = $("#newNetidInput").val()
+    if (netid.length < 2 || netid.length > 8) {
+        $("#invalidNetidModal").modal()
+    } 
+    else {
+        url = '/addNewAdmin?netid=' + netid
+        if (request != null)
+        request.abort();
+        request = $.ajax(
+        {
+            type: "GET",
+            url: url,
+            success: handleAddNewAdmin
+        });
+    }
 }
 
 function removeAdmin (netid)
@@ -319,6 +321,75 @@ function handleRemoveAdmin(response) {
         $("#deleteAdminSuccessModal").modal()
     }
     viewAdmins() 
+}
+
+
+function handleNewProf(response) {
+
+    document.getElementById('profResult').innerHTML = response;
+
+    $("#file").change(function(){
+        if (this.files && this.files[0]) {
+            var reader = new FileReader();
+            
+            reader.onload = function (e) {
+                $('#profImageDisplay').attr('src', e.target.result);
+            }
+            reader.readAsDataURL(this.files[0]);
+
+            this.form.submit();
+        }
+    });
+
+    $('#addNewProfModal').modal('hide')
+    $('#newProfAddedModalBody').html('Professor \'' + $('#netidSearch').val() +
+        '\' has been added. Please update their information below.'
+     )
+    $('#newProfAddedModal').modal()
+
+
+    $("#saveForm").on("submit", function() {
+        if (document.activeElement.id == 'Save') {
+            displayProf();
+        } else if(document.activeElement.id == 'Cancel') {
+            $('#netidSearch').focus();
+            document.getElementById('profResult').innerHTML = null;
+        } else if(document.activeElement.id == 'Delete') {
+            $('#deleteProfModalBody').html('Are you sure you want to delete'  +
+            ' the professor with netid \'' + $('#netidSearch').val() + '\' ?')
+            $('#deleteProfModal').modal()
+        }
+            return false;
+    });
+
+}
+
+
+function createNewProf()
+{   
+   let netid = $('#netidSearch').val();
+   let url = '/displayNewProf?netid=' + netid;
+   url += '&title=' + ''
+   url += '&firstname=' + ''
+   url += '&lastname=' + ''
+   url += '&email=' + ''
+   url += '&phone=' + ''
+   url += '&website=' + ''
+   url += '&rooms=' + ''
+   url += '&department=' + ''
+   url += '&areas=' + ''
+   url += '&bio=' + ''
+   url += '&image=' + ''
+
+   if (request != null)
+      request.abort();
+   request = $.ajax(
+      {
+         type: "GET",
+         url: url,
+        success: handleNewProf
+      }
+   );
 }
 
 $(document).ready(setup)

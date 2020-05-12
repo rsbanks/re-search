@@ -171,6 +171,16 @@ img{
   color: #000000;
 }
 
+.prof-email-website {
+  font-family: Montserrat;
+  font-style: normal;
+  font-weight: bold;
+  margin: 0.1%;
+
+  
+  color: #000000;
+}
+
 .panel {
   width: 98%;
   margin-left: 1%;

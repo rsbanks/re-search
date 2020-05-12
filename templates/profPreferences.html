@@ -48,11 +48,13 @@
 
     <div class="container" style="padding: 2%;">
     <h1 class="display-4">Senior Thesis Advisor Preference Form</h1>
-    <p class="lead">Please list your top four choices for senior thesis advisor.
+    <p class="lead">Please list your top four choices for your senior thesis advisor.
         Next to each potential advisor, list a topic and any other
         comments that you wish to include.  Advisors from outside 
         of the ORFE department require permission from the selected
-        faculty member.
+        faculty member. You must select at least one ORFE advisor.
+        You may submit this form multiple times, but only the latest
+        submission will be counted.
     </p>
 
     <form id="preference-form">
@@ -76,7 +78,7 @@
           </select>
         </div>
         <div class="form-group was-validated">
-          <label for="firstAdvisorChoiceComments">Topic or Comments</label>
+          <label for="firstAdvisorChoiceComments">Topic and Comments</label>
           <textarea class="form-control" id="firstAdvisorChoiceComments" rows="3"required></textarea>
         </div>
 
@@ -91,7 +93,7 @@
             </select>
           </div>
           <div class="form-group">
-            <label for="secondAdvisorChoiceComments">Topic or Comments</label>
+            <label for="secondAdvisorChoiceComments">Topic and Comments</label>
             <textarea class="form-control" id="secondAdvisorChoiceComments" rows="3"></textarea>
           </div> 
 
@@ -106,7 +108,7 @@
             </select>
           </div>
           <div class="form-group">
-            <label for="thirdAdvisorChoiceComments">Topic or Comments</label>
+            <label for="thirdAdvisorChoiceComments">Topic and Comments</label>
             <textarea class="form-control" id="thirdAdvisorChoiceComments" rows="3"></textarea>
           </div>     
 
@@ -121,7 +123,7 @@
             </select>
           </div>
           <div class="form-group">
-            <label for="fourthAdvisorChoiceComments">Topic or Comments</label>
+            <label for="fourthAdvisorChoiceComments">Topic and Comments</label>
             <textarea class="form-control" id="fourthAdvisorChoiceComments" rows="3"></textarea>
           </div>
           <button class="btn btn-block btn-dark" type="submit" id="profSubmit">Submit</button>
@@ -138,7 +140,6 @@
     
     <script src="static/js/profPreferences.js"></script>
 
-    <link rel="stylesheet" href="{{url_for('static', filename='css/admin.css')}}">
     <link rel="stylesheet" href="{{url_for('static', filename='css/profs.css')}}">
 
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100&display=swap" rel="stylesheet">

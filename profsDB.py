@@ -2,8 +2,7 @@ from os import environ
 from os import path, stat
 from sys import argv, stderr
 from prof import Professor
-from sqlalchemy import create_engine
-from sqlalchemy.pool import NullPool
+import psycopg2
 
 class profsDB:
 
@@ -14,11 +13,14 @@ class profsDB:
         error_statement = ''
 
         try:
-            engine = create_engine('postgresql://hmqcdnegecbdgo:c51235a04a7593a9ec0c13821f495f259a68d2e1ab66a93df947ab2f31970009@ec2-52-200-119-0.compute-1.amazonaws.com:5432/d99tniu8rpcj0o', poolclass=NullPool)
-            # engine = create_engine(environ.get('DATABASE_URL'), poolclass=NullPool)
-            self.conn = engine.connect()
+            hostname = environ.get('DATABASE_HOST')
+            username = environ.get('DATABASE_USERNAME')
+            password = environ.get('DATABASE_PASSWORD')
+            database = environ.get('DATABASE_NAME')
+
+            self.conn = psycopg2.connect(host=hostname, user=username, password=password, dbname=database)
         except Exception as e:
-            error_statement = e
+            error_statement = 'Unable to connect to server. Please contact owner of Application'
             print(error_statement, file=stderr)
 
         return error_statement
@@ -29,25 +31,28 @@ class profsDB:
     def displayAllProfessors(self, connection):
         stmtStr = 'SELECT profs.netid, profs.title, profs.first, profs.last, profs.email,' + \
                 ' profs.phone, profs.website, profs.rooms, profs.department, profs.area,' + \
-                ' profs.bio, profs.image, profs.image_actual, profs.image_extension, profs.past_papers' + \
+                ' profs.bio, profs.image, profs.image_actual, profs.image_extension' + \
                 ' FROM profs ' + \
                 ' ORDER BY profs.last ASC'
-        result = connection.execute(stmtStr)
-        return self.return_profs(result)
+        cur = connection.cursor()
+        cur.execute(stmtStr)
+        return self.return_profs(cur)
 
     def displayProfessorsByFilter(self, connection, search_criteria, input_arguments):
         stmtStr = 'SELECT profs.netid, profs.title, profs.first, profs.last, profs.email,' \
                 ' profs.phone, profs.website, profs.rooms, profs.department, profs.area,' \
-                ' profs.bio, profs.image, profs.image_actual, profs.image_extension, profs.past_papers' + \
+                ' profs.bio, profs.image, profs.image_actual, profs.image_extension' + \
                 ' FROM profs' + \
                 ' WHERE ' + search_criteria + \
                 ' ORDER BY profs.last ASC'
-        result = connection.execute(stmtStr, input_arguments)
-        return self.return_profs(result)
+        cur = connection.cursor()
+        cur.execute(stmtStr, input_arguments)
+        return self.return_profs(cur)
 
-    def return_profs(self, result): 
+    def return_profs(self, cur): 
         profs = []
-        for row in result:
+        row = cur.fetchone()
+        while row is not None:
             prof = Professor(row[0])
             prof.setTitle(row[1])
             prof.setFirstName(row[2])
@@ -62,9 +67,9 @@ class profsDB:
             prof.setImagePath(row[11])
             prof.setActualImage(row[12])
             prof.setImageExtension(row[13])
-            prof.setPastPapers(row[14])
             profs.append(prof)
-        result.close()
+            row = cur.fetchone()
+        cur.close()
         return profs
 
     def return_profs_list(self, profs):
@@ -87,7 +92,6 @@ class profsDB:
             prof_listing.append(prof.getImagePath())
             prof_listing.append(prof.getActualImage())
             prof_listing.append(prof.getImageExtension())
-            prof_listing.append(prof.getPastPapers())
             profs_list.append(prof_listing)
         return profs_list
 

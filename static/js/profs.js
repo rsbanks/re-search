@@ -29,7 +29,7 @@ function setup()
    $('#tagInput').keypress(function(event){
       var keycode = (event.keyCode ? event.keyCode : event.which);
       if(keycode == '13') {
-         label = $('#newTagInput').val()
+         label = strip_html_tags($('#newTagInput').val())
          if (label.length != 0) {
             if (!tags.includes(label)) {
                tags.push(label);
@@ -85,6 +85,17 @@ function getResults()
    );
 }
 
+// Stripping tags from: https://www.w3resource.com/javascript-exercises/javascript-string-exercise-35.php
+
+function strip_html_tags(str)
+{
+   if ((str===null) || (str===''))
+       return false;
+  else
+   str = str.toString();
+  return str.replace(/<[^>]*>/g, '');
+}
+
 var tags = [];
 
 function createTag(label) {
@@ -118,5 +129,20 @@ function addTags() {
       $('#tag-input-div').prepend(input);
    })
 }
+
+function collapse(id) {
+   let panel = document.getElementById("panel-" + id)
+   let img = document.getElementById("img-" + id)
+   if (panel.style.maxHeight){
+       panel.style.maxHeight = null;
+       panel.style.marginBottom = null;
+       img.src = "static/images/arrow_down.png"
+   } else {
+       panel.style.maxHeight = panel.scrollHeight + "px";
+       panel.style.marginBottom = "1%";
+       img.src = "static/images/arrow_up.png"
+   }
+}
+
 
 $('document').ready(setup);
