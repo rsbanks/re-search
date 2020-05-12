@@ -94,7 +94,7 @@ def optimizePreferences(student_cap, pref_limit):
     pairings = [(p,s) for p in profids for s in studentids]
 
     # A dictionary called pairing_vars is created to contain the referenced variables (the pairings)
-    pairing_vars = LpVariable.dicts("",(profids,studentids),0,None,LpInteger)
+    pairing_vars = LpVariable.dicts("",(profids,studentids),0,None,cat='Binary')
 
     # The objective function is added to prob first
     prob += lpSum([pairing_vars[p][s]*costs[p,s] for (p,s) in pairings]), "Sum of Transporting Costs"
